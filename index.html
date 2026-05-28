@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Adhar Limbu - Official Website</title>
-
 <meta name="description" content="Official website of Adhar Limbu - Comedy, Viral Shorts, Digital Creator">
-<link rel="canonical" href="https://adharlimbu.com">
-
+<link rel="canonical" href="https://adharlimbu.online">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
-
 html{
 scroll-behavior:smooth;
 }
-
 body{
 background:#0b0b0b;
 color:white;
 overflow-x:hidden;
 }
-
 /* HERO */
-
 header{
 min-height:100vh;
 background:
 linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-url('hero-bg.jpg');
+url('adhar/hero-bg.jpg');
 background-size:cover;
 background-position:center;
 display:flex;
@@ -47,11 +37,9 @@ justify-content:center;
 text-align:center;
 padding:20px;
 }
-
 .hero{
 max-width:850px;
 }
-
 .hero h1{
 font-size:75px;
 font-weight:800;
@@ -60,22 +48,18 @@ background:linear-gradient(90deg,#ff006e,#8338ec,#3a86ff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
-
 .hero p{
 font-size:22px;
 color:#e2e8f0;
 margin-bottom:35px;
 }
-
 /* BUTTONS */
-
 .btns{
 display:flex;
 justify-content:center;
 gap:15px;
 flex-wrap:wrap;
 }
-
 .btn{
 display:inline-block;
 padding:15px 30px;
@@ -85,75 +69,59 @@ font-weight:600;
 transition:0.3s;
 color:white;
 }
-
 .facebook{
 background:#1877f2;
 }
-
 .instagram{
 background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);
 }
-
 .youtube{
 background:#ff0000;
 }
-
 .whatsapp{
 background:#25D366;
 }
-
 .btn:hover{
 transform:translateY(-5px) scale(1.05);
 }
-
 /* SECTIONS */
-
 section{
 padding:90px 8%;
 }
-
 .section-title{
 text-align:center;
 font-size:45px;
 margin-bottom:50px;
 color:#3a86ff;
 }
-
 /* ABOUT */
-
 .about{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 gap:40px;
 align-items:center;
 }
-
 .about img{
 width:100%;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
-
 .about-text h2{
 font-size:42px;
 margin-bottom:20px;
 color:#ff006e;
 }
-
 .about-text p{
 font-size:17px;
 line-height:1.9;
 color:#cbd5e1;
 }
-
 /* COMEDY */
-
 .comedy{
 background:#111;
 border-top:1px solid #222;
 border-bottom:1px solid #222;
 }
-
 .poster{
 width:100%;
 max-width:450px;
@@ -162,7 +130,6 @@ margin:0 auto 30px;
 border-radius:20px;
 box-shadow:0 15px 40px rgba(255,0,110,0.4);
 }
-
 .video-wrapper{
 position:relative;
 padding-bottom:177.78%;
@@ -173,7 +140,6 @@ overflow:hidden;
 border-radius:20px;
 box-shadow:0 10px 40px rgba(131,56,236,0.5);
 }
-
 .video-wrapper iframe{
 position:absolute;
 top:0;
@@ -181,7 +147,6 @@ left:0;
 width:100%;
 height:100%;
 }
-
 .stats{
 display:flex;
 justify-content:center;
@@ -189,7 +154,6 @@ gap:25px;
 flex-wrap:wrap;
 margin-top:35px;
 }
-
 .stat-box{
 background:#1a1a1a;
 padding:20px 25px;
@@ -197,26 +161,21 @@ border-radius:15px;
 text-align:center;
 border:1px solid #333;
 }
-
 .stat-number{
 font-size:28px;
 font-weight:700;
 color:#ff006e;
 }
-
 .stat-label{
 color:#aaa;
 font-size:14px;
 }
-
 /* GALLERY */
-
 .gallery-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:25px;
 }
-
 .gallery-grid img{
 width:100%;
 height:350px;
@@ -224,13 +183,10 @@ object-fit:cover;
 border-radius:20px;
 transition:0.4s;
 }
-
 .gallery-grid img:hover{
 transform:scale(1.05);
 }
-
 /* SUPPORT */
-
 .upi-section{
 background:#151515;
 padding:40px;
@@ -240,20 +196,15 @@ border:2px solid #3a86ff;
 max-width:700px;
 margin:auto;
 }
-
 /* CONTACT */
-
 .contact{
 text-align:center;
 }
-
 .contact p{
 color:#cbd5e1;
 margin-bottom:25px;
 }
-
 /* FOOTER */
-
 footer{
 text-align:center;
 padding:40px 20px;
@@ -261,180 +212,121 @@ background:#050505;
 color:#888;
 border-top:1px solid #222;
 }
-
 /* MOBILE */
-
 @media(max-width:768px){
-
 .hero h1{
 font-size:48px;
 }
-
 .hero p{
 font-size:18px;
 }
-
 .section-title{
 font-size:34px;
 }
-
 .about-text h2{
 font-size:32px;
 }
-
 }
-
 </style>
-
 </head>
-
 <body>
 
 <!-- HERO -->
-
 <header>
-
 <div class="hero">
-
 <h1>ADHAR LIMBU</h1>
-
 <p>
 Comedy • Viral Shorts • Digital Creator • Entertainer
 </p>
-
 <div class="btns">
-
 <a href="https://www.facebook.com/nowanadofficial/" target="_blank" class="btn facebook">
 Facebook
 </a>
-
 <a href="https://www.instagram.com/adhar_limbu/" target="_blank" class="btn instagram">
 Instagram
 </a>
-
 <a href="https://www.youtube.com/@AdharLimbu" target="_blank" class="btn youtube">
 YouTube
 </a>
-
 </div>
-
 </div>
-
 </header>
 
 <!-- ABOUT -->
-
 <section>
-
 <div class="about">
-
-<img src="adhar-limbu-portrait.jpg" alt="Adhar Limbu">
-
+<img src="adhar/adhar-limbu-portrait.jpg" alt="Adhar Limbu">
 <div class="about-text">
-
 <h2>About Adhar Limbu</h2>
-
 <p>
 Hello! I'm Adhar Limbu, a passionate digital creator and entertainer who creates funny comedy videos, viral shorts, and engaging content for social media audiences.
 </p>
-
 <br>
-
 <p>
 My goal is to entertain people through comedy, creativity, storytelling, and relatable content.
 </p>
-
 </div>
-
 </div>
-
 </section>
 
 <!-- COMEDY SECTION -->
-
 <section class="comedy">
-
 <h2 class="section-title">
 🔥 Dabiyera Ni Comedy? EP 3 🔥
 </h2>
-
-<img src="dabiyera-comedy-poster.jpg" alt="Comedy Poster" class="poster">
-
+<img src="adhar/dabiyera-comedy-poster.jpg" alt="Comedy Poster" class="poster">
 <div class="video-wrapper">
-
-<iframe 
+<iframe
 src="https://www.youtube.com/embed/7Ksptog7zqI"
 frameborder="0"
 allowfullscreen>
 </iframe>
-
 </div>
-
 <div class="btns">
-
 <a href="https://youtube.com/@adharlimbu" target="_blank" class="btn youtube">
 ▶ Subscribe Now
 </a>
-
 <a href="https://youtube.com/shorts/7Ksptog7zqI?si=aVpcXhLaRoadcXoX" target="_blank" class="btn whatsapp">
 📱 Share Video
 </a>
-
 </div>
-
 <div class="stats">
-
 <div class="stat-box">
 <div class="stat-number">50K+</div>
 <div class="stat-label">Views</div>
 </div>
-
 <div class="stat-box">
 <div class="stat-number">24 Hrs</div>
 <div class="stat-label">Viral</div>
 </div>
-
 <div class="stat-box">
 <div class="stat-number">1.4K</div>
 <div class="stat-label">Daily Visitors</div>
 </div>
-
 </div>
-
 </section>
 
 <!-- GALLERY -->
-
 <section>
-
 <h2 class="section-title">
 Gallery
 </h2>
-
 <div class="gallery-grid">
-
-<img src="gallery-funny-moment-1.jpg" alt="Funny Moment 1">
-<img src="gallery-viral-shorts-2.jpg" alt="Viral Shorts 2">
-<img src="gallery-behind-scenes-3.jpg" alt="Behind The Scenes 3">
-
+<img src="adhar/gallery-funny-moment-1.jpg" alt="Funny Moment 1">
+<img src="adhar/gallery-viral-shorts-2.jpg" alt="Viral Shorts 2">
+<img src="adhar/gallery-behind-scenes-3.jpg" alt="Behind The Scenes 3">
 </div>
-
 </section>
 
 <!-- SUPPORT -->
-
 <section>
-
 <div class="upi-section">
-
 <h2 style="margin-bottom:15px;">
 💰 Support The Creator
 </h2>
-
 <p style="color:#bbb;">
 If you enjoy the content, support through UPI ❤️
 </p>
-
 <div style="
 background:#222;
 padding:20px;
@@ -442,11 +334,9 @@ border-radius:15px;
 margin:25px auto;
 max-width:350px;
 ">
-
 <h3 style="margin-bottom:10px;color:#3a86ff;">
 UPI ID
 </h3>
-
 <p style="
 font-size:22px;
 font-weight:bold;
@@ -455,60 +345,43 @@ word-break:break-all;
 ">
 limbunowan1234@oksbi
 </p>
-
 </div>
-
-<a href="upi://pay?pa=yourupi@paytm&pn=Adhar%20Limbu&cu=INR"
+<a href="upi://pay?pa=limbunowan1234@oksbi&pn=Adhar%20Limbu&cu=INR"
 class="btn instagram">
 📱 Pay with UPI
 </a>
-
 </div>
-
 </section>
 
 <!-- CONTACT -->
-
 <section class="contact">
-
 <h2 class="section-title">
 Connect With Me
 </h2>
-
 <p>
 Follow on all social media platforms for latest videos and updates.
 </p>
-
 <div class="btns">
-
 <a href="https://www.instagram.com/adhar_limbu/" class="btn instagram">
 Instagram
 </a>
-
 <a href="https://www.youtube.com/@AdharLimbu" class="btn youtube">
 YouTube
 </a>
-
 <a href="https://wa.me/917583914380" class="btn whatsapp">
 WhatsApp
 </a>
-
 </div>
-
 </section>
 
 <!-- FOOTER -->
-
 <footer>
-
 <p>
-© 2026 Adhar Limbu | <a href="https://adharlimbu.com" style="color:#3a86ff;text-decoration:none;">adharlimbu.com</a> | All Rights Reserved
+© 2026 Adhar Limbu | <a href="https://adharlimbu.online" style="color:#3a86ff;text-decoration:none;">adharlimbu.online</a> | All Rights Reserved
 </p>
-
 <p style="margin-top:10px;">
 Business/Collab: collab@adharlimbu.online
 </p>
-
 </footer>
 
 </body>
