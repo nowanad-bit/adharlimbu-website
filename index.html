@@ -48,6 +48,12 @@
 <!-- FAVICON -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23ff006e'>▶</text></svg>">
 
+<!-- PWA MANIFEST -->
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Adhar Limbu">
+
 <!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLVC7V30H8"></script>
 <script>
@@ -664,6 +670,73 @@ Email: <a href="mailto:nowanad@gmail.com" style="color:#3a86ff;text-decoration:n
 </footer>
 
 <script>
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(registration => {
+      console.log('Service Worker registered:', registration);
+    })
+    .catch(error => {
+      console.log('Service Worker registration failed:', error);
+    });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+const installBtn = document.createElement('button');
+installBtn.id = 'installPWA';
+installBtn.textContent = '📲 Install App';
+installBtn.style.cssText = `
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  background: linear-gradient(90deg, #ff006e, #8338ec);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 998;
+  box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
+  display: none;
+  transition: 0.3s;
+  font-family: Poppins, sans-serif;
+`;
+
+installBtn.addEventListener('mouseenter', () => {
+  installBtn.style.transform = 'translateY(-5px)';
+  installBtn.style.boxShadow = '0 8px 25px rgba(255, 0, 110, 0.6)';
+});
+
+installBtn.addEventListener('mouseleave', () => {
+  installBtn.style.transform = 'translateY(0)';
+  installBtn.style.boxShadow = '0 5px 15px rgba(255, 0, 110, 0.4)';
+});
+
+document.body.appendChild(installBtn);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('PWA was installed');
+  installBtn.style.display = 'none';
+});
+
 // Dark Mode Toggle
 function toggleDarkMode(){
 const body = document.body;
