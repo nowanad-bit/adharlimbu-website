@@ -3,11 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adhar Limbu - Official Website</title>
-<meta name="description" content="Official website of Adhar Limbu - Comedy, Viral Shorts, Digital Creator">
+<title>Adhar Limbu - Official Website | Comedy, Viral Shorts, Digital Creator</title>
+<meta name="description" content="Official website of Adhar Limbu - Comedy, Viral Shorts, Digital Creator. Watch funny videos, connect on social media, and support the creator.">
+<meta name="keywords" content="Adhar Limbu, comedy, viral shorts, digital creator, entertainer, funny videos, social media">
+<meta name="author" content="Adhar Limbu">
+<meta name="theme-color" content="#ff006e">
 <link rel="canonical" href="https://adharlimbu.online">
+
+<!-- OPEN GRAPH TAGS (For Social Sharing) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adharlimbu.online">
+<meta property="og:title" content="Adhar Limbu - Official Website">
+<meta property="og:description" content="Official website of Adhar Limbu - Comedy, Viral Shorts, Digital Creator">
+<meta property="og:image" content="https://adharlimbu.online/adhar/YOUR-HERO-IMAGE.jpg">
+
+<!-- TWITTER CARD TAGS -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://adharlimbu.online">
+<meta name="twitter:title" content="Adhar Limbu - Official Website">
+<meta name="twitter:description" content="Comedy, Viral Shorts, Digital Creator">
+<meta name="twitter:image" content="https://adharlimbu.online/adhar/YOUR-HERO-IMAGE.jpg">
+
+<!-- SCHEMA MARKUP (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "Adhar Limbu",
+  "url": "https://adharlimbu.online",
+  "image": "https://adharlimbu.online/adhar/YOUR-IMAGE-1.jpg",
+  "sameAs": [
+    "https://www.youtube.com/@AdharLimbu",
+    "https://www.instagram.com/adhar_limbu/",
+    "https://www.facebook.com/nowanadofficial/"
+  ],
+  "jobTitle": "Digital Creator, Entertainer",
+  "description": "Comedy, Viral Shorts, Digital Creator"
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- FAVICON -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23ff006e'>▶</text></svg>">
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SLVC7V30H8"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-SLVC7V30H8');
+</script>
 <style>
 *{
 margin:0;
@@ -22,7 +70,124 @@ body{
 background:#0b0b0b;
 color:white;
 overflow-x:hidden;
+transition: background 0.3s, color 0.3s;
 }
+/* DARK MODE */
+body.light-mode{
+background:#f5f5f5;
+color:#000;
+}
+body.light-mode header{
+background: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), url('adhar/YOUR-HERO-IMAGE.jpg') !important;
+}
+body.light-mode .btn-dark-mode{
+background:#333;
+color:#fff;
+}
+body.light-mode section{
+background: #f5f5f5 !important;
+color: #000 !important;
+}
+body.light-mode .hero h1{
+background:linear-gradient(90deg,#ff006e,#8338ec,#3a86ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+body.light-mode .hero p{
+color:#333;
+}
+body.light-mode .about-text p{
+color:#666;
+}
+body.light-mode .section-title{
+color:#3a86ff;
+}
+body.light-mode footer{
+background:#e0e0e0;
+color:#333;
+border-top:1px solid #ccc;
+}
+body.light-mode .comedy{
+background:#f0f0f0 !important;
+border-top:1px solid #ddd !important;
+border-bottom:1px solid #ddd !important;
+}
+body.light-mode .upi-section{
+background:#e8e8e8;
+border:2px solid #3a86ff;
+color:#000;
+}
+body.light-mode .stat-box{
+background:#e0e0e0;
+border:1px solid #bbb;
+color:#000;
+}
+body.light-mode .gallery-grid img:hover{
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* DARK MODE TOGGLE BUTTON */
+.btn-dark-mode{
+position:fixed;
+top:20px;
+right:20px;
+background:#fff;
+color:#000;
+border:none;
+padding:10px 15px;
+border-radius:50px;
+cursor:pointer;
+font-size:20px;
+z-index:1000;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+transition: 0.3s;
+}
+.btn-dark-mode:hover{
+transform:scale(1.1);
+}
+
+/* BACK TO TOP BUTTON */
+#backToTop{
+display:none;
+position:fixed;
+bottom:30px;
+right:30px;
+background:linear-gradient(90deg,#ff006e,#8338ec);
+color:white;
+border:none;
+padding:15px 18px;
+border-radius:50%;
+cursor:pointer;
+font-size:24px;
+z-index:999;
+box-shadow: 0 5px 15px rgba(255,0,110,0.4);
+transition: 0.3s;
+}
+#backToTop:hover{
+transform:translateY(-5px);
+box-shadow: 0 8px 25px rgba(255,0,110,0.6);
+}
+#backToTop.show{
+display:block;
+}
+
+/* COPY UPI BUTTON */
+.copy-btn{
+background:#3a86ff;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+font-size:13px;
+margin-top:10px;
+transition:0.3s;
+}
+.copy-btn:hover{
+background:#2563eb;
+transform:scale(1.05);
+}
+
 /* HERO */
 header{
 min-height:100vh;
@@ -230,6 +395,12 @@ font-size:32px;
 </style>
 </head>
 <body>
+
+<!-- BACK TO TOP BUTTON -->
+<button id="backToTop" onclick="scrollToTop()">↑</button>
+
+<!-- DARK MODE TOGGLE -->
+<button class="btn-dark-mode" id="darkModeBtn" onclick="toggleDarkMode()">🌙</button>
 
 <!-- HERO -->
 <header>
@@ -443,6 +614,9 @@ word-break:break-all;
 ">
 limbunowan1234@oksbi
 </p>
+<button class="copy-btn" onclick="copyToClipboard('limbunowan1234@oksbi')">
+📋 Copy UPI ID
+</button>
 </div>
 <a href="upi://pay?pa=limbunowan1234@oksbi&pn=Adhar%20Limbu&cu=INR"
 class="btn instagram">
@@ -483,7 +657,70 @@ WhatsApp
 <p style="margin-top:10px;">
 Email: <a href="mailto:nowanad@gmail.com" style="color:#3a86ff;text-decoration:none;">nowanad@gmail.com</a>
 </p>
+<p style="margin-top:10px; font-size:14px;">
+<a href="https://adharlimbu.online/privacy-policy.html" style="color:#3a86ff;text-decoration:none;">Privacy Policy</a> | 
+<a href="https://adharlimbu.online/terms-of-service.html" style="color:#3a86ff;text-decoration:none;">Terms of Service</a>
+</p>
 </footer>
+
+<script>
+// Dark Mode Toggle
+function toggleDarkMode(){
+const body = document.body;
+const btn = document.getElementById('darkModeBtn');
+
+if(body.classList.contains('light-mode')){
+body.classList.remove('light-mode');
+btn.textContent = '🌙';
+localStorage.setItem('theme', 'dark');
+} else {
+body.classList.add('light-mode');
+btn.textContent = '☀️';
+localStorage.setItem('theme', 'light');
+}
+}
+
+// Back to Top Button
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function(){
+if(window.pageYOffset > 300){
+backToTopBtn.classList.add('show');
+} else {
+backToTopBtn.classList.remove('show');
+}
+});
+
+function scrollToTop(){
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+}
+
+// Copy to Clipboard
+function copyToClipboard(text){
+navigator.clipboard.writeText(text).then(function(){
+alert('✅ UPI ID copied to clipboard!');
+}).catch(function(){
+alert('❌ Failed to copy');
+});
+}
+
+// Load saved theme on page load
+window.addEventListener('load', function(){
+const savedTheme = localStorage.getItem('theme') || 'dark';
+const btn = document.getElementById('darkModeBtn');
+
+if(savedTheme === 'light'){
+document.body.classList.add('light-mode');
+btn.textContent = '☀️';
+} else {
+document.body.classList.remove('light-mode');
+btn.textContent = '🌙';
+}
+});
+</script>
 
 </body>
 </html>
