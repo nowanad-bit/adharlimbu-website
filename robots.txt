@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /sitemap.xml
+Disallow: 
+
+Sitemap: https://adharlimbu.online/sitemap.xml
