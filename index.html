@@ -398,7 +398,165 @@ font-size:34px;
 font-size:32px;
 }
 }
-</style>
+</.news-ticker-wrapper {
+  background: #0d0d0d;
+  border-top: 3px solid #ff006e;
+  border-bottom: 3px solid #ff006e;
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+}
+
+.news-ticker-inner {
+  display: flex;
+  align-items: stretch;
+}
+
+.news-label {
+  background: linear-gradient(90deg, #ff006e, #c2005a);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.news-label::after {
+  content: '';
+  position: absolute;
+  right: -14px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 46px 0 0 15px;
+  border-color: transparent transparent transparent #c2005a;
+}
+
+.news-label .pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse-dot 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+.news-scroll-track {
+  overflow: hidden;
+  flex: 1;
+  padding: 0 20px 0 30px;
+  display: flex;
+  align-items: center;
+}
+
+.news-scroll-content {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.news-scroll-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.news-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  font-size: 14px;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.news-item:hover {
+  color: #ff006e;
+}
+
+.news-item .news-dot {
+  color: #ff006e;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.news-item .news-sep {
+  color: #333;
+  margin: 0 20px;
+  font-size: 20px;
+}
+
+.news-loading {
+  color: #888;
+  font-size: 13px;
+  font-style: italic;
+  padding: 12px 0;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.news-controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  border-left: 1px solid #222;
+}
+
+.news-ctrl-btn {
+  background: none;
+  border: none;
+  color: #666;
+  width: 44px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.news-ctrl-btn:hover {
+  color: #ff006e;
+  background: rgba(255,0,110,0.08);
+}
+
+.news-timestamp {
+  font-size: 11px;
+  color: #555;
+  padding: 0 14px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #1a1a1a;
+}style>
 </head>
 <body>
 
@@ -429,7 +587,23 @@ YouTube
 📰 News
 </a>
 </div>
-</header>
+</header><div class="news-ticker-wrapper" id="newsTicker">
+  <div class="news-ticker-inner">
+    <div class="news-label">
+      <span class="pulse-dot"></span>
+      🏔️ Darjeeling
+    </div>
+    <div class="news-scroll-track">
+      <div class="news-scroll-content" id="tickerContent">
+        <span class="news-loading">⏳ Loading latest Darjeeling news...</span>
+      </div>
+    </div>
+    <div class="news-controls">
+      <button class="news-ctrl-btn" id="pauseBtn" title="Pause/Resume" onclick="togglePause()">⏸</button>
+    </div>
+    <div class="news-timestamp" id="newsTimestamp">--</div>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section>
