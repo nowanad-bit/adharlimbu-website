@@ -398,11 +398,13 @@ window.addEventListener('load', function(){
 
 <script>
 // ===== DARJEELING NEWS TICKER =====
-(function() {
-  const HEADLINES_KEY = 'dj_news_cache';
-  const CACHE_TTL = 30 * 60 * 1000;
+<script>
+(function () {
+  const CACHE_KEY = 'dj_news_v2';
+  const CACHE_TTL = 20 * 60 * 1000; // 20 minutes
   let isPaused = false;
 
+  // Fallback headlines if all feeds fail
   const fallbackHeadlines = [
     "Darjeeling tea exports rise this quarter amid growing global demand",
     "GTA demands permanent political solution for Gorkhaland issue",
@@ -416,49 +418,100 @@ window.addEventListener('load', function(){
     "Sikkim border trade discussions benefit Darjeeling merchants"
   ];
 
+  // RSS feeds via rss2json public API (free, no key needed)
+  const RSS_FEEDS = [
+    // Times of India - Darjeeling tag
+    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ftimesofindia.indiatimes.com%2Frssfeeds%2F-2128821153.cms',
+    // Hindustan Times - West Bengal
+    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.hindustantimes.com%2Ffeeds%2Frss%2Findia-news%2Frssfeed.xml',
+    // The Telegraph India
+    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.telegraphindia.com%2F1.2268751'
+  ];
+
+  // Keywords to filter Darjeeling-related news
+  const DARJEELING_KEYWORDS = [
+    'darjeeling', 'gorkha', 'gta', 'siliguri', 'kalimpong',
+    'kurseong', 'mirik', 'teesta', 'west bengal', 'dooars',
+    'toy train', 'tea garden', 'hill station', 'bengal hills'
+  ];
+
+  function isDarjeelingRelated(title, description) {
+    const text = (title + ' ' + (description || '')).toLowerCase();
+    return DARJEELING_KEYWORDS.some(kw => text.includes(kw));
+  }
+
+  function cleanTitle(title) {
+    return title
+      .replace(/<[^>]*>/g, '') // strip HTML tags
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .trim();
+  }
+
   function renderTicker(headlines) {
     const content = document.getElementById('tickerContent');
     if (!content) return;
-    const all = [...headlines, ...headlines];
+
+    const all = [...headlines, ...headlines]; // duplicate for seamless loop
     content.innerHTML = all.map(h =>
-      `<span class="news-item"><span class="news-dot">●</span>${h}<span class="news-sep">|</span></span>`
+      `<span class="news-item"><span class="news-dot">●</span>${cleanTitle(h)}<span class="news-sep">|</span></span>`
     ).join('');
+
+    // Re-apply pause state
+    if (isPaused) content.style.animationPlayState = 'paused';
+
     const ts = document.getElementById('newsTimestamp');
-    if (ts) ts.textContent = new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+    if (ts) ts.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
   }
 
-  async function fetchDarjeelingNews() {
+  async function fetchFeed(url) {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+    if (data.status !== 'ok' || !data.items) return [];
+    return data.items
+      .filter(item => isDarjeelingRelated(item.title, item.description))
+      .map(item => item.title)
+      .slice(0, 5);
+  }
+
+  async function fetchAllNews() {
+    // Check cache
     try {
-      const cached = sessionStorage.getItem(HEADLINES_KEY);
+      const cached = sessionStorage.getItem(CACHE_KEY);
       if (cached) {
         const { headlines, time } = JSON.parse(cached);
-        if (Date.now() - time < CACHE_TTL) { renderTicker(headlines); return; }
+        if (Date.now() - time < CACHE_TTL && headlines.length > 0) {
+          renderTicker(headlines);
+          return;
+        }
       }
-    } catch(e) {}
+    } catch (e) {}
 
+    // Show fallback while loading
     renderTicker(fallbackHeadlines);
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          tools: [{ type: "web_search_20250305", name: "web_search" }],
-          messages: [{ role: "user", content: `Search for the latest news from Darjeeling, West Bengal, India from today or this week. Return ONLY a JSON array of exactly 10 short news headline strings (each under 120 characters). No preamble, no markdown, no explanation. Just the raw JSON array like: ["Headline 1", "Headline 2", ...]` }]
-        })
-      });
-      const data = await response.json();
-      const textBlock = data.content?.find(b => b.type === 'text');
-      if (!textBlock) throw new Error('No text');
-      const raw = textBlock.text.replace(/```json|```/g, '').trim();
-      const headlines = JSON.parse(raw);
-      if (Array.isArray(headlines) && headlines.length > 0) {
-        renderTicker(headlines);
-        try { sessionStorage.setItem(HEADLINES_KEY, JSON.stringify({ headlines, time: Date.now() })); } catch(e) {}
+      // Fetch all feeds in parallel
+      const results = await Promise.allSettled(RSS_FEEDS.map(fetchFeed));
+      const allHeadlines = results
+        .filter(r => r.status === 'fulfilled')
+        .flatMap(r => r.value);
+
+      if (allHeadlines.length >= 3) {
+        // Deduplicate
+        const unique = [...new Set(allHeadlines)];
+        renderTicker(unique);
+        try {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ headlines: unique, time: Date.now() }));
+        } catch (e) {}
+      } else {
+        // Not enough Darjeeling-specific news found, use fallback
+        renderTicker(fallbackHeadlines);
       }
-    } catch(err) {
+    } catch (err) {
       console.warn('News fetch failed, using fallback:', err);
       renderTicker(fallbackHeadlines);
     }
@@ -473,12 +526,15 @@ window.addEventListener('load', function(){
   }
   window.togglePause = togglePause;
 
+  // Init
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fetchDarjeelingNews);
+    document.addEventListener('DOMContentLoaded', fetchAllNews);
   } else {
-    fetchDarjeelingNews();
+    fetchAllNews();
   }
-  setInterval(fetchDarjeelingNews, CACHE_TTL);
+
+  // Refresh every 20 minutes
+  setInterval(fetchAllNews, CACHE_TTL);
 })();
 </script>
 
