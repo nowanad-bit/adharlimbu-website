@@ -400,11 +400,10 @@ window.addEventListener('load', function(){
 // ===== DARJEELING NEWS TICKER =====
 <script>
 (function () {
-  const CACHE_KEY = 'dj_news_v2';
-  const CACHE_TTL = 20 * 60 * 1000; // 20 minutes
+  const CACHE_KEY = 'dj_news_v3';
+  const CACHE_TTL = 20 * 60 * 1000;
   let isPaused = false;
 
-  // Fallback headlines if all feeds fail
   const fallbackHeadlines = [
     "Darjeeling tea exports rise this quarter amid growing global demand",
     "GTA demands permanent political solution for Gorkhaland issue",
@@ -415,67 +414,65 @@ window.addEventListener('load', function(){
     "Landslide blocks NH-10 near Kalimpong; NHAI teams deployed",
     "Darjeeling Municipal Corporation launches cleanliness drive",
     "Hill cart road widening project kicks off near Kurseong",
-    "Sikkim border trade discussions benefit Darjeeling merchants"
+    "Sikkim border trade discussions benefit Darjeeling merchants",
+    "Darjeeling orange festival draws thousands of visitors this season",
+    "New bus routes connect remote Darjeeling villages to main town"
   ];
 
-  // RSS feeds via rss2json public API (free, no key needed)
-  const RSS_FEEDS = [
-    // Times of India - Darjeeling tag
-    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ftimesofindia.indiatimes.com%2Frssfeeds%2F-2128821153.cms',
-    // Hindustan Times - West Bengal
-    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.hindustantimes.com%2Ffeeds%2Frss%2Findia-news%2Frssfeed.xml',
-    // The Telegraph India
-    'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.telegraphindia.com%2F1.2268751'
-  ];
-
-  // Keywords to filter Darjeeling-related news
   const DARJEELING_KEYWORDS = [
-    'darjeeling', 'gorkha', 'gta', 'siliguri', 'kalimpong',
-    'kurseong', 'mirik', 'teesta', 'west bengal', 'dooars',
-    'toy train', 'tea garden', 'hill station', 'bengal hills'
+    'darjeeling','gorkha','gta','siliguri','kalimpong',
+    'kurseong','mirik','teesta','west bengal','dooars',
+    'toy train','tea garden','hill station','bengal hills','gorkhaland'
   ];
 
-  function isDarjeelingRelated(title, description) {
-    const text = (title + ' ' + (description || '')).toLowerCase();
+  function isDarjeelingRelated(title, desc) {
+    const text = (title + ' ' + (desc || '')).toLowerCase();
     return DARJEELING_KEYWORDS.some(kw => text.includes(kw));
   }
 
   function cleanTitle(title) {
     return title
-      .replace(/<[^>]*>/g, '') // strip HTML tags
-      .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
+      .replace(/<[^>]*>/g, '')
+      .replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
       .trim();
   }
 
   function renderTicker(headlines) {
     const content = document.getElementById('tickerContent');
     if (!content) return;
-
-    const all = [...headlines, ...headlines]; // duplicate for seamless loop
+    const all = [...headlines, ...headlines];
     content.innerHTML = all.map(h =>
       `<span class="news-item"><span class="news-dot">●</span>${cleanTitle(h)}<span class="news-sep">|</span></span>`
     ).join('');
-
-    // Re-apply pause state
     if (isPaused) content.style.animationPlayState = 'paused';
-
     const ts = document.getElementById('newsTimestamp');
     if (ts) ts.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
   }
 
-  async function fetchFeed(url) {
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  // Use allorigins proxy to bypass CORS
+  async function fetchFeed(rssUrl) {
+    const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
+    const res = await fetch(proxy, { signal: AbortSignal.timeout(8000) });
     const data = await res.json();
-    if (data.status !== 'ok' || !data.items) return [];
-    return data.items
-      .filter(item => isDarjeelingRelated(item.title, item.description))
-      .map(item => item.title)
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, 'text/xml');
+    const items = Array.from(xml.querySelectorAll('item'));
+    return items
+      .filter(item => {
+        const title = item.querySelector('title')?.textContent || '';
+        const desc = item.querySelector('description')?.textContent || '';
+        return isDarjeelingRelated(title, desc);
+      })
+      .map(item => item.querySelector('title')?.textContent || '')
+      .filter(Boolean)
       .slice(0, 5);
   }
+
+  const RSS_URLS = [
+    'https://timesofindia.indiatimes.com/rssfeeds/-2128821153.cms',
+    'https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml',
+  ];
 
   async function fetchAllNews() {
     // Check cache
@@ -490,30 +487,27 @@ window.addEventListener('load', function(){
       }
     } catch (e) {}
 
-    // Show fallback while loading
+    // Show fallback IMMEDIATELY — no loading spinner
     renderTicker(fallbackHeadlines);
 
+    // Try to fetch real news in background
     try {
-      // Fetch all feeds in parallel
-      const results = await Promise.allSettled(RSS_FEEDS.map(fetchFeed));
+      const results = await Promise.allSettled(RSS_URLS.map(fetchFeed));
       const allHeadlines = results
         .filter(r => r.status === 'fulfilled')
         .flatMap(r => r.value);
 
       if (allHeadlines.length >= 3) {
-        // Deduplicate
         const unique = [...new Set(allHeadlines)];
         renderTicker(unique);
         try {
           sessionStorage.setItem(CACHE_KEY, JSON.stringify({ headlines: unique, time: Date.now() }));
         } catch (e) {}
-      } else {
-        // Not enough Darjeeling-specific news found, use fallback
-        renderTicker(fallbackHeadlines);
       }
+      // If fewer than 3 results, keep showing fallback (already rendered)
     } catch (err) {
-      console.warn('News fetch failed, using fallback:', err);
-      renderTicker(fallbackHeadlines);
+      // Fallback already shown, nothing to do
+      console.warn('RSS fetch failed, showing fallback news.');
     }
   }
 
@@ -526,14 +520,11 @@ window.addEventListener('load', function(){
   }
   window.togglePause = togglePause;
 
-  // Init
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fetchAllNews);
   } else {
     fetchAllNews();
   }
-
-  // Refresh every 20 minutes
   setInterval(fetchAllNews, CACHE_TTL);
 })();
 </script>
