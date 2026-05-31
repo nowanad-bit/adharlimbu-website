@@ -970,6 +970,123 @@ btn.textContent = '🌙';
 }
 });
 </script>
+<script>
+(function() {
+  const HEADLINES_KEY = 'dj_news_cache';
+  const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
+  let isPaused = false;
+
+  // Default headlines shown while loading or if API fails
+  const fallbackHeadlines = [
+    "Darjeeling tea exports rise this quarter amid growing global demand",
+    "GTA demands permanent political solution for Gorkhaland issue",
+    "Heavy rainfall alert issued for Darjeeling hills — IMD warning",
+    "Toy Train services resume on Ghum-Darjeeling section after maintenance",
+    "Tourism season peaks as travellers flock to Darjeeling this summer",
+    "Local schools in Darjeeling adopt new digital learning programs",
+    "Landslide blocks NH-10 near Kalimpong; NHAI teams deployed",
+    "Darjeeling Municipal Corporation launches cleanliness drive",
+    "Hill cart road widening project kicks off near Kurseong",
+    "Sikkim border trade discussions benefit Darjeeling merchants"
+  ];
+
+  function renderTicker(headlines) {
+    const content = document.getElementById('tickerContent');
+    if (!content) return;
+
+    // Duplicate for seamless loop
+    const all = [...headlines, ...headlines];
+    content.innerHTML = all.map((h, i) =>
+      `<span class="news-item">
+        <span class="news-dot">●</span>
+        ${h}
+        <span class="news-sep">|</span>
+      </span>`
+    ).join('');
+
+    // Update timestamp
+    const ts = document.getElementById('newsTimestamp');
+    if (ts) {
+      const now = new Date();
+      ts.textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  async function fetchDarjeelingNews() {
+    // Check cache first
+    try {
+      const cached = sessionStorage.getItem(HEADLINES_KEY);
+      if (cached) {
+        const { headlines, time } = JSON.parse(cached);
+        if (Date.now() - time < CACHE_TTL) {
+          renderTicker(headlines);
+          return;
+        }
+      }
+    } catch(e) {}
+
+    // Show fallback while fetching
+    renderTicker(fallbackHeadlines);
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          tools: [{ type: "web_search_20250305", name: "web_search" }],
+          messages: [{
+            role: "user",
+            content: `Search for the latest news from Darjeeling, West Bengal, India from today or this week. 
+Return ONLY a JSON array of exactly 10 short news headline strings (each under 120 characters). 
+No preamble, no markdown, no explanation. Just the raw JSON array like:
+["Headline 1", "Headline 2", ...]`
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const textBlock = data.content?.find(b => b.type === 'text');
+      if (!textBlock) throw new Error('No text response');
+
+      const raw = textBlock.text.replace(/```json|```/g, '').trim();
+      const headlines = JSON.parse(raw);
+
+      if (Array.isArray(headlines) && headlines.length > 0) {
+        renderTicker(headlines);
+        // Cache it
+        try {
+          sessionStorage.setItem(HEADLINES_KEY, JSON.stringify({ headlines, time: Date.now() }));
+        } catch(e) {}
+      }
+    } catch(err) {
+      console.warn('News fetch failed, using fallback:', err);
+      renderTicker(fallbackHeadlines);
+    }
+  }
+
+  function togglePause() {
+    isPaused = !isPaused;
+    const content = document.getElementById('tickerContent');
+    const btn = document.getElementById('pauseBtn');
+    if (content) content.style.animationPlayState = isPaused ? 'paused' : 'running';
+    if (btn) btn.textContent = isPaused ? '▶' : '⏸';
+  }
+
+  window.togglePause = togglePause;
+
+  // Fetch on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fetchDarjeelingNews);
+  } else {
+    fetchDarjeelingNews();
+  }
+
+  // Refresh every 30 minutes
+  setInterval(fetchDarjeelingNews, CACHE_TTL);
+})();
+</script>
 </body>
 </html>
