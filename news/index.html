@@ -307,19 +307,17 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif 4
 
 <script>
 // ============================================================
-// KHABAR DARJEELING KO — Live News via Google News RSS
-// Uses allorigins.win CORS proxy + Google News RSS feed
-// Auto-refreshes every 30 minutes
+// KHABAR DARJEELING KO — Fixed Live News Script
+// Replace the entire <script>...</script> block in news/index.html
 // ============================================================
 
-const CACHE_KEY = 'kdko_news_v1';
-const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+const CACHE_KEY = 'kdko_v3';
+const CACHE_TTL = 30 * 60 * 1000;
 
-const CATEGORIES = ['🏔️ Hills', '🏛️ Politics', '🌧️ Weather', '🚂 Transport', '🌿 Tourism', '📚 Education', '🛣️ Roads', '🏙️ Local', '🌸 Culture', '💡 Development', '🌿 Environment', '🛒 Trade'];
+const CATEGORIES = ['🏔️ Hills','🏛️ Politics','🌧️ Weather','🚂 Transport','🌿 Tourism',
+  '📚 Education','🛣️ Roads','🏙️ Local','🌸 Culture','💡 Development','🌿 Environment','🛒 Trade'];
 
-function randomCategory() {
-  return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
-}
+function randomCategory() { return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)]; }
 
 function timeAgo(dateStr) {
   try {
@@ -336,9 +334,55 @@ function timeAgo(dateStr) {
 function cleanText(str) {
   return (str || '')
     .replace(/<[^>]*>/g, '')
-    .replace(/&amp;/g, '&').replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/\[.*?\]/g, '').trim();
+    .replace(/&amp;/g,'&').replace(/&quot;/g,'"')
+    .replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+    .replace(/\[.*?\]/g,'').trim();
+}
+
+// Try multiple proxies in order
+async function fetchWithProxy(rssUrl) {
+  const proxies = [
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=20`,
+    `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`,
+    `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`
+  ];
+
+  // Try rss2json first (returns clean JSON)
+  try {
+    const res = await fetch(proxies[0], { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+    if (data.status === 'ok' && data.items && data.items.length > 0) {
+      return data.items.map(item => ({
+        title: cleanText(item.title),
+        description: cleanText(item.description || item.content || ''),
+        link: item.link || '#',
+        pubDate: item.pubDate || new Date().toISOString(),
+        source: cleanText(item.author || 'Google News'),
+        category: randomCategory()
+      })).filter(a => a.title && a.title.length > 10);
+    }
+  } catch(e) { console.warn('rss2json failed:', e); }
+
+  // Try allorigins as fallback (returns raw XML)
+  try {
+    const res = await fetch(proxies[1], { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, 'text/xml');
+    const items = Array.from(xml.querySelectorAll('item'));
+    if (items.length > 0) {
+      return items.slice(0, 20).map(item => ({
+        title: cleanText(item.querySelector('title')?.textContent),
+        description: cleanText(item.querySelector('description')?.textContent),
+        link: item.querySelector('link')?.textContent || '#',
+        pubDate: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
+        source: cleanText(item.querySelector('source')?.textContent) || 'News',
+        category: randomCategory()
+      })).filter(a => a.title && a.title.length > 10);
+    }
+  } catch(e) { console.warn('allorigins failed:', e); }
+
+  return [];
 }
 
 async function fetchNews() {
@@ -354,37 +398,42 @@ async function fetchNews() {
     }
   } catch(e) {}
 
+  // Two RSS feeds for Darjeeling
+  const feeds = [
+    'https://news.google.com/rss/search?q=Darjeeling+news&hl=en-IN&gl=IN&ceid=IN:en',
+    'https://news.google.com/rss/search?q=Darjeeling+Gorkhaland+hills&hl=en-IN&gl=IN&ceid=IN:en'
+  ];
+
   try {
-    // Google News RSS for Darjeeling
-    const rssUrl = 'https://news.google.com/rss/search?q=Darjeeling&hl=en-IN&gl=IN&ceid=IN:en';
-    const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
+    const results = await Promise.allSettled(feeds.map(f => fetchWithProxy(f)));
+    let allArticles = results
+      .filter(r => r.status === 'fulfilled')
+      .flatMap(r => r.value);
 
-    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
-    const data = await res.json();
+    // Deduplicate by title
+    const seen = new Set();
+    allArticles = allArticles.filter(a => {
+      if (seen.has(a.title)) return false;
+      seen.add(a.title);
+      return true;
+    });
 
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, 'text/xml');
-    const items = Array.from(xml.querySelectorAll('item'));
-
-    const articles = items.slice(0, 15).map(item => ({
-      title: cleanText(item.querySelector('title')?.textContent),
-      description: cleanText(item.querySelector('description')?.textContent),
-      link: item.querySelector('link')?.textContent || '#',
-      pubDate: item.querySelector('pubDate')?.textContent || '',
-      source: cleanText(item.querySelector('source')?.textContent) || 'Google News',
-      category: randomCategory()
-    })).filter(a => a.title && a.title.length > 10);
-
-    if (articles.length >= 3) {
-      renderAll(articles);
-      try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ articles, time: Date.now() })); } catch(e) {}
+    if (allArticles.length >= 3) {
+      renderAll(allArticles);
+      try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ articles: allArticles, time: Date.now() })); } catch(e) {}
     } else {
       renderFallback();
     }
   } catch(err) {
-    console.warn('News fetch failed:', err);
+    console.warn('All feeds failed:', err);
     renderFallback();
   }
+}
+
+function openLink(url) {
+  if (!url || url === '#') return;
+  // Handle Google News redirect URLs
+  try { window.open(url, '_blank', 'noopener'); } catch(e) {}
 }
 
 function renderAll(articles) {
@@ -399,7 +448,7 @@ function renderTicker(articles) {
   const content = document.getElementById('tickerContent');
   if (!content) return;
   const items = articles.slice(0, 8).map(a => `<span class="ticker-item">${a.title}</span>`).join('');
-  content.innerHTML = items + items; // duplicate for loop
+  content.innerHTML = items + items;
 }
 
 function renderHero(article) {
@@ -410,29 +459,30 @@ function renderHero(article) {
     <div class="hero-mountain"></div>
     <div class="hero-category">${article.category}</div>
     <h1 class="hero-headline">${article.title}</h1>
-    <p class="hero-summary">${article.description ? article.description.slice(0, 180) + '...' : 'Read the full story on the source website.'}</p>
+    <p class="hero-summary">${article.description ? article.description.slice(0, 200) + '...' : 'Tap to read the full story.'}</p>
     <div class="hero-meta">
       <span class="hero-meta-time">${timeAgo(article.pubDate)}</span>
       <span style="color:rgba(255,255,255,0.2)">•</span>
       <span class="hero-meta-source">${article.source}</span>
-      ${article.link !== '#' ? `<a href="${article.link}" target="_blank" class="hero-read-link">Read More →</a>` : ''}
+      <span style="color:rgba(255,255,255,0.5);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(192,57,43,0.4);">Read More →</span>
     </div>
   `;
-  el.onclick = () => { if(article.link !== '#') window.open(article.link, '_blank'); };
+  el.style.cursor = 'pointer';
+  el.onclick = () => openLink(article.link);
 }
 
 function renderSidebar(articles) {
   const el = document.getElementById('sidebarStories');
   if (!el || !articles.length) return;
   el.innerHTML = articles.map(a => `
-    <div class="sidebar-story" onclick="window.open('${a.link}','_blank')">
+    <div class="sidebar-story" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
       <div class="sidebar-category">${a.category}</div>
       <div class="sidebar-headline">${a.title}</div>
       <div class="sidebar-summary">${(a.description || '').slice(0, 100)}...</div>
       <div class="sidebar-meta">
         <span class="sidebar-time">${timeAgo(a.pubDate)}</span>
         <span style="color:#ddd">•</span>
-        ${a.link !== '#' ? `<a href="${a.link}" target="_blank" class="sidebar-link">Read →</a>` : ''}
+        <span class="sidebar-time">${a.source}</span>
       </div>
     </div>
   `).join('');
@@ -442,14 +492,14 @@ function renderGrid(articles) {
   const el = document.getElementById('newsGrid');
   if (!el || !articles.length) return;
   el.innerHTML = articles.map((a, i) => `
-    <div class="news-card" onclick="window.open('${a.link}','_blank')">
+    <div class="news-card" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
       <div class="card-number">0${i+1}</div>
       <div class="card-category">${a.category}</div>
       <div class="card-headline">${a.title}</div>
       <div class="card-summary">${(a.description || '').slice(0, 110)}...</div>
       <div class="card-meta">
         <span class="card-time">${timeAgo(a.pubDate)}</span>
-        ${a.link !== '#' ? `<a href="${a.link}" target="_blank" class="card-link">Read →</a>` : ''}
+        <span style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-size:11px;">Read →</span>
       </div>
     </div>
   `).join('');
@@ -459,7 +509,7 @@ function renderLatest(articles) {
   const el = document.getElementById('latestList');
   if (!el || !articles.length) return;
   el.innerHTML = articles.map((a, i) => `
-    <div class="latest-item" onclick="window.open('${a.link}','_blank')">
+    <div class="latest-item" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
       <div class="latest-num">0${i+1}</div>
       <div>
         <div class="latest-category">${a.category}</div>
@@ -469,7 +519,7 @@ function renderLatest(articles) {
           <span class="latest-time">${timeAgo(a.pubDate)}</span>
           <span style="color:#ddd">•</span>
           <span class="latest-time">${a.source}</span>
-          ${a.link !== '#' ? `<a href="${a.link}" target="_blank" class="latest-link">Read full story →</a>` : ''}
+          <span style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-size:11px;">Read full story →</span>
         </div>
       </div>
     </div>
@@ -478,16 +528,14 @@ function renderLatest(articles) {
 
 function renderFallback() {
   const fallback = [
-    { title: "Darjeeling tea exports rise this quarter amid growing global demand", description: "The iconic tea gardens of Darjeeling are witnessing a resurgence as international buyers flock to secure first-flush stocks.", link: "#", pubDate: new Date().toISOString(), source: "Local News", category: "🌿 Economy" },
-    { title: "GTA demands permanent political solution for Gorkhaland issue", description: "The Gorkhaland Territorial Administration has submitted a fresh memorandum calling for a permanent settlement.", link: "#", pubDate: new Date(Date.now()-3600000).toISOString(), source: "Local News", category: "🏛️ Politics" },
-    { title: "Heavy rainfall alert issued for Darjeeling hills — IMD warning", description: "The Indian Meteorological Department has warned of heavy rainfall across the Darjeeling district this week.", link: "#", pubDate: new Date(Date.now()-7200000).toISOString(), source: "IMD", category: "🌧️ Weather" },
-    { title: "Toy Train resumes full service on Ghum–Darjeeling section", description: "The beloved UNESCO heritage Darjeeling Himalayan Railway has resumed full operations after maintenance.", link: "#", pubDate: new Date(Date.now()-10800000).toISOString(), source: "Local News", category: "🚂 Transport" },
-    { title: "Tourism season peaks as visitors flock to Darjeeling hills", description: "Hotels across Darjeeling report near-full occupancy as the summer tourism season reaches its peak.", link: "#", pubDate: new Date(Date.now()-14400000).toISOString(), source: "Local News", category: "🌿 Tourism" },
-    { title: "Landslide blocks NH-10 near Kalimpong; NHAI teams deployed", description: "A major landslide has blocked National Highway 10 near Kalimpong, with teams working to restore connectivity.", link: "#", pubDate: new Date(Date.now()-18000000).toISOString(), source: "Local News", category: "🛣️ Roads" },
-    { title: "Darjeeling Municipal Corporation launches cleanliness drive", description: "The DMC has kicked off a month-long cleanliness campaign across key tourist spots.", link: "#", pubDate: new Date(Date.now()-21600000).toISOString(), source: "Local News", category: "🏙️ Local" },
-    { title: "Singalila National Park reports increase in red panda sightings", description: "Forest officials report a promising rise in red panda sightings, crediting conservation efforts.", link: "#", pubDate: new Date(Date.now()-25200000).toISOString(), source: "Forest Dept", category: "🌿 Environment" },
-    { title: "New bus routes to connect remote Darjeeling villages to main town", description: "WBTC announces three new bus routes linking remote villages to the main town centre.", link: "#", pubDate: new Date(Date.now()-28800000).toISOString(), source: "Local News", category: "🚌 Transport" },
-    { title: "Darjeeling orange festival draws thousands of visitors", description: "The annual Orange Festival has attracted record footfall with stalls and folk performances.", link: "#", pubDate: new Date(Date.now()-32400000).toISOString(), source: "Local News", category: "🌸 Culture" },
+    { title:"Darjeeling tea exports rise this quarter amid growing global demand", description:"The iconic tea gardens of Darjeeling are witnessing a resurgence as international buyers flock to secure first-flush stocks.", link:"https://news.google.com/search?q=darjeeling+tea", pubDate:new Date().toISOString(), source:"Local News", category:"🌿 Economy" },
+    { title:"GTA demands permanent political solution for Gorkhaland issue", description:"The Gorkhaland Territorial Administration has submitted a fresh memorandum calling for a permanent settlement.", link:"https://news.google.com/search?q=gorkhaland", pubDate:new Date(Date.now()-3600000).toISOString(), source:"Local News", category:"🏛️ Politics" },
+    { title:"Heavy rainfall alert issued for Darjeeling hills — IMD warning", description:"The Indian Meteorological Department has warned of heavy rainfall across Darjeeling this week.", link:"https://news.google.com/search?q=darjeeling+rain", pubDate:new Date(Date.now()-7200000).toISOString(), source:"IMD", category:"🌧️ Weather" },
+    { title:"Toy Train resumes full service on Ghum–Darjeeling section", description:"The beloved UNESCO heritage Darjeeling Himalayan Railway has resumed full operations after maintenance.", link:"https://news.google.com/search?q=darjeeling+toy+train", pubDate:new Date(Date.now()-10800000).toISOString(), source:"Local News", category:"🚂 Transport" },
+    { title:"Tourism season peaks as visitors flock to Darjeeling hills", description:"Hotels across Darjeeling report near-full occupancy as the summer tourism season reaches its peak.", link:"https://news.google.com/search?q=darjeeling+tourism", pubDate:new Date(Date.now()-14400000).toISOString(), source:"Local News", category:"🌿 Tourism" },
+    { title:"Landslide blocks NH-10 near Kalimpong; NHAI teams deployed", description:"A major landslide has blocked National Highway 10, with teams working to restore connectivity.", link:"https://news.google.com/search?q=kalimpong+landslide", pubDate:new Date(Date.now()-18000000).toISOString(), source:"Local News", category:"🛣️ Roads" },
+    { title:"Darjeeling Municipal Corporation launches cleanliness drive", description:"The DMC has kicked off a month-long cleanliness campaign across key tourist spots.", link:"https://news.google.com/search?q=darjeeling+news", pubDate:new Date(Date.now()-21600000).toISOString(), source:"Local News", category:"🏙️ Local" },
+    { title:"Singalila National Park reports increase in red panda sightings", description:"Forest officials report a promising rise in red panda sightings, crediting conservation efforts.", link:"https://news.google.com/search?q=singalila+red+panda", pubDate:new Date(Date.now()-25200000).toISOString(), source:"Forest Dept", category:"🌿 Environment" },
   ];
   renderAll(fallback);
 }
@@ -499,7 +547,7 @@ async function fetchWeather() {
     const data = await res.json();
     const c = data.current;
     const code = c.weather_code;
-    const desc = code <= 1 ? '☀️ Clear' : code <= 3 ? '⛅ Partly Cloudy' : code <= 49 ? '🌫️ Foggy' : code <= 67 ? '🌧️ Rainy' : code <= 77 ? '❄️ Snowy' : '⛈️ Stormy';
+    const desc = code<=1?'☀️ Clear':code<=3?'⛅ Partly Cloudy':code<=49?'🌫️ Foggy':code<=67?'🌧️ Rainy':code<=77?'❄️ Snowy':'⛈️ Stormy';
     document.getElementById('weatherTemp').textContent = Math.round(c.temperature_2m) + '°C';
     document.getElementById('weatherDesc').textContent = desc;
     document.getElementById('weatherHumidity').textContent = c.relative_humidity_2m + '%';
@@ -512,20 +560,19 @@ async function fetchWeather() {
   }
 }
 
-// DATE
 function setDate() {
   const now = new Date();
   document.getElementById('mastDate').innerHTML =
-    now.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) +
-    '<br>' + now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' }) + ' IST';
+    now.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) +
+    '<br>' + now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' IST';
 }
 
-// BACK TO TOP
 window.addEventListener('scroll', () => {
   document.getElementById('backToTop').classList.toggle('show', window.pageYOffset > 300);
 });
 
-// INIT
+window.openLink = openLink;
+
 setDate();
 fetchNews();
 fetchWeather();
@@ -538,5 +585,6 @@ setInterval(() => {
   setDate();
 }, CACHE_TTL);
 </script>
+
 </body>
 </html>
