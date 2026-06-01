@@ -1,168 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit News - Khabar Darjeeling Ko</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit News - Khabar Darjeeling Ko</title>
+    <meta name="description" content="Submit your news and stories to Khabar Darjeeling Ko community news platform">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#c0392b">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #111111;
+            border-bottom: 4px solid #c0392b;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo:hover {
+            color: #ff6b57;
+        }
+
+        .back-link {
+            color: #ff6b57;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .form-card {
+            background: #181818;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ddd;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        label .required {
+            color: #c0392b;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #c0392b;
+            box-shadow: 0 0 8px rgba(192, 57, 43, 0.2);
+            background: #1a1a1a;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        textarea::placeholder {
+            color: #666;
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6b57' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .image-upload-section {
+            background: #0f0f0f;
+            border: 2px dashed #333;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-upload-section:hover {
+            border-color: #c0392b;
+            background: #1a1a1a;
+        }
+
+        .image-upload-section.dragover {
+            border-color: #ff6b57;
+            background: #1a1a1a;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .upload-text strong {
+            color: #ddd;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 15px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .remove-image:hover {
+            background: #a02e1f;
+        }
+
+        .file-info {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button[type="submit"],
+        button[type="reset"] {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button[type="submit"] {
+            background: #c0392b;
+            color: white;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background: #a02e1f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+        }
+
+        button[type="submit"]:disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        button[type="reset"] {
+            background: #333;
+            color: #aaa;
+        }
+
+        button[type="reset"]:hover {
+            background: #444;
+            color: #ccc;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid;
+        }
+
+        .error-message {
+            background: #3d1514;
+            color: #ff6b57;
+            border-left-color: #c0392b;
+            display: block;
+        }
+
+        .success-message {
+            background: #1a3a1a;
+            color: #6bff57;
+            border-left-color: #28a745;
+            display: block;
+        }
+
+        .validation-error {
+            color: #ff6b57;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input.invalid,
+        textarea.invalid,
+        select.invalid {
+            border-color: #c0392b;
+        }
+
+        input.invalid ~ .validation-error,
+        textarea.invalid ~ .validation-error,
+        select.invalid ~ .validation-error {
+            display: block;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .char-count.warning {
+            color: #ff6b57;
+        }
+
+        footer {
+            background: #111111;
+            border-top: 1px solid #2a2a2a;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            font-size: 12px;
+        }
+
+        footer a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ff6b57;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #333;
+            border-top-color: #c0392b;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .form-card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            header .container {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <a href="/news/" class="back-link">← Back to News</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="form-card">
+        <h1>📰 Submit News</h1>
+        <p class="form-subtitle">Share your story with the Darjeeling community</p>
+
+        <div id="statusMessage" class="message"></div>
+
+        <form id="newsForm" novalidate>
+
+            <!-- Name and Email Row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Your Name <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        required
+                        minlength="2"
+                        maxlength="100"
+                        placeholder="Enter your full name"
+                    >
+                    <div class="validation-error">Please enter a valid name (2-100 characters)</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        required
+                        placeholder="your@email.com"
+                    >
+                    <div class="validation-error">Please enter a valid email address</div>
+                </div>
+            </div>
+
+            <!-- Location and Category Row -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location">Location <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="location" 
+                        name="location"
+                        required
+                        placeholder="e.g., Darjeeling, Kalimpong, Siliguri..."
+                    >
+                    <div class="validation-error">Please enter a location</div>
+                    <div class="field-hint">City/area where the news is from</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category <span class="required">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category...</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Tourism">Tourism</option>
+                        <option value="Education">Education</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Business">Business</option>
+                        <option value="Tea">Tea Industry</option>
+                        <option value="Weather">Weather</option>
+                        <option value="Community">Community</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="validation-error">Please select a category</div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title">News Title <span class="required">*</span></label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title"
+                    required
+                    minlength="5"
+                    maxlength="200"
+                    placeholder="Enter an engaging headline..."
+                >
+                <div class="validation-error">Please enter a title (5-200 characters)</div>
+                <div class="char-count"><span id="titleCount">0</span>/200</div>
+            </div>
+
+            <!-- Content -->
+            <div class="form-group">
+                <label for="content">News Content <span class="required">*</span></label>
+                <textarea 
+                    id="content" 
+                    name="content"
+                    required
+                    minlength="20"
+                    maxlength="5000"
+                    placeholder="Write your news story here. Include important details, quotes, and context..."
+                ></textarea>
+                <div class="validation-error">Please enter content (20-5000 characters)</div>
+                <div class="char-count"><span id="contentCount">0</span>/5000</div>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label>Featured Image (Optional)</label>
+                <div class="image-upload-section" id="imageUploadArea">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text">
+                        <strong>Click to upload</strong> or drag and drop<br>
+                        PNG, JPG, GIF up to 5MB
+                    </div>
+                    <input 
+                        type="file" 
+                        id="imageInput" 
+                        accept="image/png,image/jpeg,image/gif,image/webp"
+                    >
+                </div>
+                <div id="imagePreview" class="image-preview">
+                    <img id="previewImg" src="" alt="Preview">
+                    <button type="button" class="remove-image" onclick="removeImage()">✕</button>
+                </div>
+                <div id="imageError" class="validation-error"></div>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="button-group">
+                <button type="reset" onclick="resetForm()">Clear Form</button>
+                <button type="submit" id="submitBtn">Submit News</button>
+            </div>
+
+        </form>
+
+        <p style="text-align: center; color: #666; font-size: 12px; margin-top: 20px;">
+            By submitting, you agree to our <a href="/terms-of-service.html" style="color: #888;">Terms of Service</a> and <a href="/privacy-policy.html" style="color: #888;">Privacy Policy</a>
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Khabar Darjeeling Ko. All rights reserved.</p>
+    <p>Community-driven news platform for Darjeeling Hills</p>
+</footer>
 
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
 const supabase = createClient(
-  'https://zclotvuignhleyrvjekb.supabase.co',
-  'sb_publishable_ccgt9ZOZR0kUJhdDwcLOpQ_or0_XjBK'
+    'https://zclotvuignhleyrvjekb.supabase.co',
+    'sb_publishable_ccgt9ZOZR0kUJhdDwcLOpQ_or0_XjBK'
 );
 
-window.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('newsForm');
+let selectedImage = null;
+let isUploading = false;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// Initialize form
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newsForm');
+    const titleInput = document.getElementById('title');
+    const contentInput = document.getElementById('content');
 
-    const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('status');
+    // Character counter
+    titleInput.addEventListener('input', (e) => {
+        document.getElementById('titleCount').textContent = e.target.value.length;
+    });
 
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
+    contentInput.addEventListener('input', (e) => {
+        const count = e.target.value.length;
+        document.getElementById('contentCount').textContent = count;
+        
+        const counter = e.target.parentElement.querySelector('.char-count');
+        if (count > 4500) {
+            counter.classList.add('warning');
+        } else {
+            counter.classList.remove('warning');
+        }
+    });
 
-    const payload = {
-      title: document.getElementById('title').value,
-      content: document.getElementById('content').value,
-      submitter_name: document.getElementById('name').value,
-      submitter_email: document.getElementById('email').value,
-      location: document.getElementById('location').value,
-      category: document.getElementById('category').value,
-      status: 'pending'
-    };
+    // Image upload handling
+    const imageUploadArea = document.getElementById('imageUploadArea');
+    const imageInput = document.getElementById('imageInput');
 
-    const { error } = await supabase
-      .from('news_submissions')
-      .insert([payload]);
+    imageUploadArea.addEventListener('click', () => imageInput.click());
 
-    if (error) {
-      status.innerHTML = '❌ Error: ' + error.message;
-      btn.disabled = false;
-      btn.textContent = 'Submit News';
-      return;
+    imageUploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        imageUploadArea.classList.add('dragover');
+    });
+
+    imageUploadArea.addEventListener('dragleave', () => {
+        imageUploadArea.classList.remove('dragover');
+    });
+
+    imageUploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        imageUploadArea.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleImageSelection(files[0]);
+        }
+    });
+
+    imageInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleImageSelection(e.target.files[0]);
+        }
+    });
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
+        await submitNews();
+    });
+});
+
+// Validate form
+function validateForm() {
+    const form = document.getElementById('newsForm');
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        input.classList.remove('invalid');
+        
+        if (!input.value.trim()) {
+            input.classList.add('invalid');
+            isValid = false;
+        } else if (input.id === 'email' && !isValidEmail(input.value)) {
+            input.classList.add('invalid');
+            isValid = false;
+        } else if (input.id === 'title' && input.value.length < 5) {
+            input.classList.add('invalid');
+            isValid = false;
+        } else if (input.id === 'content' && input.value.length < 20) {
+            input.classList.add('invalid');
+            isValid = false;
+        }
+    });
+
+    return isValid;
+}
+
+// Validate email
+function isValidEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+// Handle image selection
+function handleImageSelection(file) {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (file.size > maxSize) {
+        showImageError('File size must be less than 5MB');
+        return;
     }
 
-    status.innerHTML = '✅ News submitted successfully and is awaiting admin approval.';
-    form.reset();
-    btn.disabled = false;
-    btn.textContent = 'Submit News';
-  });
-});
+    if (!file.type.startsWith('image/')) {
+        showImageError('Please select a valid image file');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        selectedImage = file;
+        document.getElementById('previewImg').src = e.target.result;
+        document.getElementById('imagePreview').style.display = 'block';
+        document.getElementById('imageError').textContent = '';
+    };
+    reader.readAsDataURL(file);
+}
+
+// Remove image
+window.removeImage = function() {
+    selectedImage = null;
+    document.getElementById('imageInput').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+};
+
+// Show image error
+function showImageError(message) {
+    document.getElementById('imageError').textContent = message;
+    document.getElementById('imageError').style.display = 'block';
+}
+
+// Submit news
+async function submitNews() {
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="loading-spinner"></span>Submitting...';
+
+    try {
+        // Upload image if selected
+        let imageUrl = null;
+        if (selectedImage) {
+            imageUrl = await uploadImage();
+        }
+
+        // Prepare payload
+        const payload = {
+            title: document.getElementById('title').value.trim(),
+            content: document.getElementById('content').value.trim(),
+            submitter_name: document.getElementById('name').value.trim(),
+            submitter_email: document.getElementById('email').value.trim(),
+            location: document.getElementById('location').value.trim(),
+            category: document.getElementById('category').value,
+            image_url: imageUrl,
+            status: 'pending'
+        };
+
+        // Insert into news_submissions
+        const { error } = await supabase
+            .from('news_submissions')
+            .insert([payload]);
+
+        if (error) throw error;
+
+        // Show success message
+        statusMessage.classList.add('success-message');
+        statusMessage.classList.remove('error-message');
+        statusMessage.innerHTML = '✅ Thank you! Your news has been submitted successfully. Our team will review it soon.';
+        
+        // Reset form
+        resetForm();
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+            window.location.href = '/news/?submitted=true';
+        }, 3000);
+
+    } catch (err) {
+        statusMessage.classList.add('error-message');
+        statusMessage.classList.remove('success-message');
+        statusMessage.innerHTML = `❌ Error: ${err.message}. Please try again.`;
+        console.error('Error:', err);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit News';
+    }
+}
+
+// Upload image to Supabase Storage
+async function uploadImage() {
+    try {
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.jpg`;
+        const bucketName = 'news-images';
+
+        // Upload file
+        const { error } = await supabase.storage
+            .from(bucketName)
+            .upload(`submissions/${fileName}`, selectedImage);
+
+        if (error) throw error;
+
+        // Get public URL
+        const { data } = supabase.storage
+            .from(bucketName)
+            .getPublicUrl(`submissions/${fileName}`);
+
+        return data.publicUrl;
+    } catch (err) {
+        console.warn('Image upload failed, continuing without image:', err);
+        return null;
+    }
+}
+
+// Reset form
+window.resetForm = function() {
+    document.getElementById('newsForm').reset();
+    removeImage();
+    document.getElementById('titleCount').textContent = '0';
+    document.getElementById('contentCount').textContent = '0';
+    document.querySelectorAll('input.invalid, textarea.invalid, select.invalid').forEach(el => {
+        el.classList.remove('invalid');
+    });
+};
 </script>
-
-<style>
-body{
-margin:0;
-background:#0f0f0f;
-color:white;
-font-family:Arial,sans-serif;
-}
-.container{
-max-width:800px;
-margin:40px auto;
-padding:20px;
-}
-.card{
-background:#181818;
-padding:25px;
-border-radius:12px;
-border:1px solid #2a2a2a;
-}
-h1{
-margin-top:0;
-text-align:center;
-}
-input,textarea,select{
-width:100%;
-padding:12px;
-margin-top:8px;
-margin-bottom:18px;
-background:#111;
-border:1px solid #333;
-border-radius:8px;
-color:white;
-box-sizing:border-box;
-}
-textarea{
-min-height:180px;
-resize:vertical;
-}
-button{
-width:100%;
-padding:14px;
-background:#c0392b;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
-button:hover{
-opacity:.95;
-}
-.back{
-display:inline-block;
-margin-bottom:20px;
-color:#ff6b57;
-text-decoration:none;
-}
-#status{
-margin-top:15px;
-font-weight:bold;
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-
-<a href="/news/" class="back">← Back to News</a>
-
-<div class="card">
-<h1>📰 Submit News</h1>
-
-<form id="newsForm">
-
-<label>Your Name</label>
-<input id="name" required>
-
-<label>Email</label>
-<input id="email" type="email" required>
-
-<label>Location</label>
-<input id="location" placeholder="Darjeeling, Kalimpong, Siliguri..." required>
-
-<label>Category</label>
-<select id="category" required>
-<option value="Politics">Politics</option>
-<option value="Tourism">Tourism</option>
-<option value="Education">Education</option>
-<option value="Sports">Sports</option>
-<option value="Business">Business</option>
-<option value="Tea">Tea Industry</option>
-<option value="Weather">Weather</option>
-<option value="Community">Community</option>
-<option value="Other">Other</option>
-</select>
-
-<label>News Title</label>
-<input id="title" required>
-
-<label>News Content</label>
-<textarea id="content" required></textarea>
-
-<button id="submitBtn" type="submit">Submit News</button>
-
-</form>
-
-<div id="status"></div>
-
-</div>
-</div>
 
 </body>
 </html>
