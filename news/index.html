@@ -1,6 +1,92 @@
-🏔️ Khabar Darjeeling Ko
-Submit News
-Loading featured news...
-Latest News
-Loading news...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khabar Darjeeling Ko</title>
+<meta name="description" content="Community-driven news platform for Darjeeling Hills">
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+
+const supabase = createClient(
+  'https://zclotvuignhleyrvjekb.supabase.co',
+  'sb_publishable_ccgt9ZOZR0kUJhdDwcLOpQ_or0_XjBK'
+);
+
+async function loadNews() {
+  const newsContainer = document.getElementById('news-grid');
+  try {
+    const { data, error } = await supabase
+      .from('news')
+      .select('*')
+      .eq('status','published')
+      .order('created_at', { ascending:false });
+
+    if(error) throw error;
+
+    if(!data || data.length === 0){
+      newsContainer.innerHTML = "<p>No published news yet.</p>";
+      return;
+    }
+
+    const featured = data[0];
+    document.getElementById('featured').innerHTML = `
+      ${featured.image_url ? `<img src="${featured.image_url}" style="width:100%;max-height:380px;object-fit:cover;border-radius:10px;">` : ''}
+      <h1>${featured.title}</h1>
+      <p>${featured.content?.substring(0,300) || ''}...</p>
+      <small>${featured.location || 'Darjeeling'} • ${featured.author_name || 'Reporter'}</small>
+    `;
+
+    newsContainer.innerHTML = data.slice(1).map(item => `
+      <article class="card">
+        ${item.image_url ? `<img src="${item.image_url}" class="thumb">` : ''}
+        <span class="cat">${item.category || 'News'}</span>
+        <h3>${item.title}</h3>
+        <p>${(item.content || '').substring(0,140)}...</p>
+        <div class="meta">${item.location || 'Darjeeling'} • ${item.author_name || 'Reporter'}</div>
+      </article>
+    `).join('');
+  } catch(err){
+    newsContainer.innerHTML = `<p>Error loading news: ${err.message}</p>`;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadNews);
+</script>
+<style>
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px;background:#111;border-bottom:3px solid #c0392b;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:28px;font-weight:bold}
+.btn{background:#c0392b;color:#fff;text-decoration:none;padding:10px 15px;border-radius:6px}
+.container{max-width:1200px;margin:auto;padding:20px}
+#featured{background:#181818;padding:20px;border-radius:12px;margin-bottom:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:#181818;padding:15px;border-radius:10px}
+.thumb{width:100%;height:180px;object-fit:cover;border-radius:8px}
+.cat{color:#ff6b57;font-size:12px;font-weight:bold}
+.meta{font-size:12px;color:#aaa}
+footer{text-align:center;padding:20px;color:#888}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🏔️ Khabar Darjeeling Ko</div>
+<a class="btn" href="/news/submit.html">Submit News</a>
+</header>
+
+<div class="container">
+<section id="featured">
+<p>Loading featured news...</p>
+</section>
+
+<h2>Latest News</h2>
+<div id="news-grid" class="grid">
+<p>Loading news...</p>
+</div>
+</div>
+
+<footer>
 Community News Platform • Powered by Supabase
+</footer>
+</body>
+</html>
