@@ -4,543 +4,256 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Khabar Darjeeling Ko — adharlimbu.online</title>
-<meta name="description" content="Latest news from Darjeeling hills — breaking news, local updates, and stories from the mountains.">
+<meta name="description" content="Latest news from Darjeeling hills — live news, local updates, and stories from the mountains.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adharlimbu.online/news/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23ff006e'>▶</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23c0392b'>📰</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink: #0e0c0a;
-  --paper: #f7f3ee;
-  --accent: #c0392b;
-  --gold: #b8860b;
-  --muted: #7a7065;
-  --rule: #d4cfc9;
-  --col-w: 1200px;
-}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--paper); color: var(--ink); font-family: 'Source Serif 4', Georgia, serif; min-height: 100vh; }
+html, body { height: 100%; }
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  background: #0e0c0a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
-.masthead { background: var(--ink); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
-.masthead-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 5%; border-bottom: 1px solid #333; }
-.masthead-brand { text-decoration: none; }
-.masthead-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; }
-.masthead-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: white; }
-.masthead-title span { color: var(--accent); }
-.masthead-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; text-align: right; }
-.masthead-nav { display: flex; align-items: center; padding: 0 5%; overflow-x: auto; scrollbar-width: none; }
-.masthead-nav::-webkit-scrollbar { display: none; }
-.nav-link { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #aaa; text-decoration: none; padding: 10px 16px; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
-.nav-link:hover, .nav-link.active { color: white; border-bottom-color: var(--accent); }
+/* HEADER */
+.header {
+  background: #0e0c0a;
+  border-bottom: 3px solid #c0392b;
+  padding: 10px 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-.ticker-bar { background: var(--accent); padding: 8px 5%; display: flex; align-items: center; gap: 15px; overflow: hidden; }
-.ticker-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: white; white-space: nowrap; background: rgba(0,0,0,0.2); padding: 3px 10px; border-radius: 2px; flex-shrink: 0; }
-.ticker-scroll { overflow: hidden; flex: 1; }
-.ticker-content { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 500; color: white; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.ticker-item { margin-right: 50px; }
-.ticker-item::before { content: '◆ '; opacity: 0.6; }
+.brand { text-decoration: none; }
+.brand-sub { font-size: 10px; color: #c0392b; letter-spacing: 3px; text-transform: uppercase; }
+.brand-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: white; line-height: 1; }
+.brand-title span { color: #c0392b; }
 
-.container { max-width: var(--col-w); margin: 0 auto; padding: 0 5%; }
-.section-rule { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
-.section-rule-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
-.section-rule-line { flex: 1; height: 1px; background: var(--rule); }
+.header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-/* HERO */
-.hero-section { padding: 40px 5% 0; max-width: var(--col-w); margin: 0 auto; }
-.hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 0; border: 1px solid var(--rule); background: white; box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
-.hero-main { position: relative; overflow: hidden; min-height: 460px; background: linear-gradient(135deg, #1a0505 0%, #2d0a0a 50%, #1a1a1a 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 35px; border-right: 1px solid var(--rule); cursor: pointer; transition: 0.3s; }
-.hero-main:hover { filter: brightness(1.05); }
-.hero-bg-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(192,57,43,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(184,134,11,0.2) 0%, transparent 50%); pointer-events: none; }
-.hero-mountain { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, rgba(192,57,43,0.15), transparent); clip-path: polygon(0 100%, 15% 40%, 30% 70%, 45% 20%, 60% 55%, 75% 30%, 90% 60%, 100% 35%, 100% 100%); pointer-events: none; }
-.hero-category { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.4); padding: 4px 12px; display: inline-block; margin-bottom: 14px; position: relative; }
-.hero-headline { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; line-height: 1.15; color: white; margin-bottom: 12px; position: relative; }
-.hero-summary { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.65); position: relative; margin-bottom: 18px; }
-.hero-meta { display: flex; align-items: center; gap: 10px; position: relative; }
-.hero-meta-time { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
-.hero-meta-source { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
-.hero-read-link { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--accent); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(192,57,43,0.4); padding-bottom: 1px; }
-.hero-read-link:hover { color: white; }
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #c0392b;
+  padding: 5px 12px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.live-dot { width: 7px; height: 7px; background: white; border-radius: 50%; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-.hero-sidebar { display: flex; flex-direction: column; }
-.sidebar-story { flex: 1; padding: 20px 22px; border-bottom: 1px solid var(--rule); cursor: pointer; transition: background 0.2s; }
-.sidebar-story:last-child { border-bottom: none; }
-.sidebar-story:hover { background: #faf8f5; }
-.sidebar-category { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 7px; }
-.sidebar-headline { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 7px; }
-.sidebar-summary { font-size: 12px; line-height: 1.6; color: var(--muted); margin-bottom: 8px; }
-.sidebar-meta { display: flex; align-items: center; gap: 8px; }
-.sidebar-time { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
-.sidebar-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--accent); text-decoration: none; letter-spacing: 1px; }
+.back-btn {
+  text-decoration: none;
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  transition: 0.2s;
+}
+.back-btn:hover { color: white; border-color: #c0392b; }
 
-/* NEWS GRID */
-.mid-section { max-width: var(--col-w); margin: 35px auto 0; padding: 0 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 35px; align-items: start; }
-.news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-.news-card { background: white; padding: 22px; cursor: pointer; transition: background 0.2s; }
-.news-card:hover { background: #faf8f5; }
-.card-number { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: var(--rule); line-height: 1; margin-bottom: 8px; }
-.card-category { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 7px; }
-.card-headline { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 8px; }
-.card-summary { font-size: 12px; line-height: 1.6; color: var(--muted); margin-bottom: 10px; }
-.card-meta { display: flex; align-items: center; gap: 8px; }
-.card-time { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
-.card-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--accent); text-decoration: none; }
+/* TAB BAR */
+.tab-bar {
+  background: #1a1a1a;
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid #333;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
 
-/* SIDEBAR WIDGETS */
-.news-sidebar { display: flex; flex-direction: column; gap: 22px; }
-.widget { background: white; border: 1px solid var(--rule); overflow: hidden; }
-.widget-header { background: var(--ink); padding: 11px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: white; }
-.widget-content { padding: 16px; }
-.weather-display { text-align: center; padding: 8px 0; }
-.weather-temp { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--ink); line-height: 1; }
-.weather-desc { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-.weather-loc { font-size: 11px; color: #bbb; margin-top: 3px; }
-.weather-details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule); }
-.weather-detail { text-align: center; }
-.weather-detail-val { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--ink); }
-.weather-detail-label { font-size: 10px; color: var(--muted); }
-.quick-links { display: flex; flex-direction: column; }
-.quick-link { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); font-size: 13px; font-weight: 600; transition: color 0.2s; }
-.quick-link:last-child { border-bottom: none; }
-.quick-link:hover { color: var(--accent); }
+.tab-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 11px 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+.tab-btn:hover { color: white; }
+.tab-btn.active { color: white; border-bottom-color: #c0392b; }
 
-/* LATEST */
-.bottom-section { max-width: var(--col-w); margin: 35px auto; padding: 0 5%; }
-.latest-list { display: flex; flex-direction: column; }
-.latest-item { display: grid; grid-template-columns: auto 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); cursor: pointer; }
-.latest-item:hover .latest-headline { color: var(--accent); }
-.latest-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--rule); line-height: 1; width: 32px; text-align: right; padding-top: 3px; }
-.latest-category { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
-.latest-headline { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 6px; transition: color 0.2s; }
-.latest-summary { font-size: 12px; line-height: 1.6; color: var(--muted); margin-bottom: 7px; }
-.latest-meta { display: flex; align-items: center; gap: 8px; }
-.latest-time { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
-.latest-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--accent); text-decoration: none; }
+/* WEATHER BAR */
+.weather-bar {
+  background: #111;
+  padding: 7px 4%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  color: #888;
+  flex-shrink: 0;
+  border-bottom: 1px solid #222;
+  flex-wrap: wrap;
+}
+.weather-item { display: flex; align-items: center; gap: 6px; }
+.weather-val { color: white; font-weight: 700; font-size: 13px; }
+.weather-date { margin-left: auto; color: #555; font-size: 11px; }
 
-/* LOADING SKELETONS */
-.skeleton { background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-.skeleton-text { height: 14px; margin-bottom: 8px; }
-.skeleton-title { height: 22px; margin-bottom: 10px; }
+/* IFRAME CONTAINER */
+.iframe-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
 
-/* REFRESH BADGE */
-.refresh-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1px; color: #28a745; background: rgba(40,167,69,0.1); border: 1px solid rgba(40,167,69,0.3); padding: 3px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 5px; }
-.refresh-dot { width: 6px; height: 6px; background: #28a745; border-radius: 50%; animation: pulse-dot 2s infinite; }
-@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.news-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* LOADING OVERLAY */
+.frame-loading {
+  position: absolute;
+  inset: 0;
+  background: #0e0c0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: opacity 0.5s;
+}
+.frame-loading.hidden { opacity: 0; pointer-events: none; }
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top-color: #c0392b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 13px; color: #888; letter-spacing: 2px; text-transform: uppercase; }
 
 /* FOOTER */
-.news-footer { background: var(--ink); color: white; padding: 28px 5%; text-align: center; margin-top: 40px; }
-.news-footer-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; margin-bottom: 6px; }
-.news-footer-title span { color: var(--accent); }
-.news-footer p { font-size: 12px; color: #888; margin-bottom: 12px; }
-.footer-links { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
-.footer-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #888; text-decoration: none; transition: color 0.2s; }
-.footer-link:hover { color: var(--accent); }
+.footer {
+  background: #050505;
+  padding: 8px 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-top: 1px solid #222;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-left { font-size: 11px; color: #555; }
+.footer-links { display: flex; gap: 15px; }
+.footer-link { font-size: 11px; color: #555; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+.footer-link:hover { color: #c0392b; }
 
-#backToTop { display: none; position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 999; box-shadow: 0 4px 15px rgba(192,57,43,0.4); transition: 0.3s; }
-#backToTop.show { display: block; }
-#backToTop:hover { transform: translateY(-3px); }
-
-@media (max-width: 768px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-main { min-height: 300px; }
-  .hero-headline { font-size: 24px; }
-  .mid-section { grid-template-columns: 1fr; }
-  .news-grid { grid-template-columns: 1fr; }
-  .news-sidebar { display: none; }
-  .masthead-title { font-size: 18px; }
+@media(max-width: 500px) {
+  .brand-title { font-size: 17px; }
+  .weather-date { display: none; }
 }
 </style>
 </head>
 <body>
 
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<!-- MASTHEAD -->
-<header class="masthead">
-  <div class="masthead-top">
-    <a href="https://adharlimbu.online" class="masthead-brand">
-      <div class="masthead-logo">adharlimbu.online</div>
-      <div class="masthead-title">🏔️ Khabar <span>Darjeeling Ko</span></div>
-    </a>
-    <div class="masthead-date" id="mastDate"></div>
+<!-- HEADER -->
+<header class="header">
+  <a href="https://adharlimbu.online" class="brand">
+    <div class="brand-sub">adharlimbu.online</div>
+    <div class="brand-title">🏔️ Khabar <span>Darjeeling Ko</span></div>
+  </a>
+  <div class="header-right">
+    <div class="live-badge"><span class="live-dot"></span> Live News</div>
+    <a href="https://adharlimbu.online" class="back-btn">← Back</a>
   </div>
-  <nav class="masthead-nav">
-    <a href="#top-stories" class="nav-link active">Top Stories</a>
-    <a href="#latest" class="nav-link">Latest</a>
-    <a href="#weather" class="nav-link">Weather</a>
-    <a href="https://adharlimbu.online" class="nav-link">← Back to Site</a>
-  </nav>
 </header>
 
-<!-- TICKER -->
-<div class="ticker-bar">
-  <span class="ticker-label">🔴 LIVE</span>
-  <div class="ticker-scroll">
-    <div class="ticker-content" id="tickerContent">
-      <span class="ticker-item">Loading latest Darjeeling news...</span>
-      <span class="ticker-item">Loading latest Darjeeling news...</span>
-    </div>
-  </div>
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="loadFeed('darjeeling', this)">🏔️ Darjeeling</button>
+  <button class="tab-btn" onclick="loadFeed('gorkhaland', this)">🏛️ Gorkhaland</button>
+  <button class="tab-btn" onclick="loadFeed('kalimpong', this)">🗺️ Kalimpong</button>
+  <button class="tab-btn" onclick="loadFeed('siliguri', this)">🏙️ Siliguri</button>
+  <button class="tab-btn" onclick="loadFeed('darjeeling+tea', this)">🍃 Tea</button>
+  <button class="tab-btn" onclick="loadFeed('west+bengal+hills', this)">⛰️ Hills</button>
 </div>
 
-<!-- HERO -->
-<div class="hero-section" id="top-stories">
-  <div class="section-rule">
-    <span class="section-rule-label">Top Stories</span>
-    <div class="section-rule-line"></div>
-    <span class="refresh-badge"><span class="refresh-dot"></span> Auto-refreshing</span>
-  </div>
-
-  <div class="hero-grid">
-    <div class="hero-main" id="heroStory">
-      <div class="hero-bg-pattern"></div>
-      <div class="hero-mountain"></div>
-      <div class="hero-category">🏔️ Loading...</div>
-      <h1 class="hero-headline">Fetching latest Darjeeling news for you...</h1>
-      <p class="hero-summary">Please wait while we load the freshest stories from Darjeeling.</p>
-      <div class="hero-meta">
-        <span class="hero-meta-time">Just now</span>
-      </div>
-    </div>
-    <div class="hero-sidebar" id="sidebarStories">
-      <div class="sidebar-story">
-        <div class="sidebar-category skeleton skeleton-text" style="width:60%"></div>
-        <div class="sidebar-headline skeleton skeleton-title"></div>
-        <div class="sidebar-summary skeleton skeleton-text"></div>
-        <div class="sidebar-summary skeleton skeleton-text" style="width:40%"></div>
-      </div>
-      <div class="sidebar-story">
-        <div class="sidebar-category skeleton skeleton-text" style="width:60%"></div>
-        <div class="sidebar-headline skeleton skeleton-title"></div>
-        <div class="sidebar-summary skeleton skeleton-text"></div>
-        <div class="sidebar-summary skeleton skeleton-text" style="width:40%"></div>
-      </div>
-      <div class="sidebar-story">
-        <div class="sidebar-category skeleton skeleton-text" style="width:60%"></div>
-        <div class="sidebar-headline skeleton skeleton-title"></div>
-        <div class="sidebar-summary skeleton skeleton-text"></div>
-        <div class="sidebar-summary skeleton skeleton-text" style="width:40%"></div>
-      </div>
-    </div>
-  </div>
+<!-- WEATHER BAR -->
+<div class="weather-bar">
+  <div class="weather-item">⛅ <span class="weather-val" id="wTemp">--°C</span></div>
+  <div class="weather-item">💧 <span class="weather-val" id="wHumidity">--%</span></div>
+  <div class="weather-item">💨 <span class="weather-val" id="wWind">-- km/h</span></div>
+  <div class="weather-item" id="wDesc">Darjeeling Weather</div>
+  <div class="weather-date" id="wDate"></div>
 </div>
 
-<!-- MID SECTION -->
-<div class="mid-section">
-  <div>
-    <div class="section-rule" style="margin-bottom:20px;">
-      <span class="section-rule-label">More Stories</span>
-      <div class="section-rule-line"></div>
-    </div>
-    <div class="news-grid" id="newsGrid">
-      <div class="news-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:60%"></div></div>
-      <div class="news-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:60%"></div></div>
-      <div class="news-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:60%"></div></div>
-      <div class="news-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:60%"></div></div>
-    </div>
+<!-- NEWS IFRAME -->
+<div class="iframe-container">
+  <div class="frame-loading" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading Darjeeling News...</div>
   </div>
-
-  <div class="news-sidebar" id="weather">
-    <div class="widget">
-      <div class="widget-header">⛅ Darjeeling Weather</div>
-      <div class="widget-content">
-        <div class="weather-display">
-          <div class="weather-temp" id="weatherTemp">--°</div>
-          <div class="weather-desc" id="weatherDesc">Loading...</div>
-          <div class="weather-loc">Darjeeling, West Bengal</div>
-          <div class="weather-details">
-            <div class="weather-detail"><div class="weather-detail-val" id="weatherHumidity">--%</div><div class="weather-detail-label">Humidity</div></div>
-            <div class="weather-detail"><div class="weather-detail-val" id="weatherWind">--</div><div class="weather-detail-label">Wind km/h</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="widget">
-      <div class="widget-header">🔗 Quick Links</div>
-      <div class="widget-content">
-        <div class="quick-links">
-          <a href="https://adharlimbu.online" class="quick-link">🎭 Adhar Limbu</a>
-          <a href="https://www.youtube.com/@AdharLimbu" target="_blank" class="quick-link">▶️ YouTube</a>
-          <a href="https://www.instagram.com/adhar_limbu/" target="_blank" class="quick-link">📸 Instagram</a>
-          <a href="https://www.facebook.com/nowanadofficial/" target="_blank" class="quick-link">👍 Facebook</a>
-          <a href="https://wa.me/917583914380" target="_blank" class="quick-link">💬 WhatsApp</a>
-        </div>
-      </div>
-    </div>
-    <div class="widget">
-      <div class="widget-header">📰 About</div>
-      <div class="widget-content">
-        <p style="font-size:13px;line-height:1.7;color:var(--muted);">Khabar Darjeeling Ko brings you live news from the beautiful hills of Darjeeling — curated by <strong>Adhar Limbu</strong>. 🏔️ News refreshes automatically every 30 minutes.</p>
-      </div>
-    </div>
-  </div>
+  <iframe
+    id="newsFrame"
+    class="news-frame"
+    src="https://news.google.com/search?q=darjeeling&hl=en-IN&gl=IN&ceid=IN:en"
+    onload="hideLoader()"
+    sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation">
+  </iframe>
 </div>
 
-<!-- LATEST -->
-<div class="bottom-section" id="latest">
-  <div class="section-rule" style="margin-bottom:22px;">
-    <span class="section-rule-label">Latest Updates</span>
-    <div class="section-rule-line"></div>
-  </div>
-  <div class="latest-list" id="latestList">
-    <div class="latest-item"><div class="latest-num">--</div><div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div></div>
-    <div class="latest-item"><div class="latest-num">--</div><div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div></div>
-    <div class="latest-item"><div class="latest-num">--</div><div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div></div>
-    <div class="latest-item"><div class="latest-num">--</div><div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div></div>
-  </div>
-</div>
-
-<footer class="news-footer">
-  <div class="news-footer-title">🏔️ Khabar <span>Darjeeling Ko</span></div>
-  <p>Curated by Adhar Limbu • adharlimbu.online • News updates every 30 minutes</p>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">🏔️ Khabar Darjeeling Ko • Powered by Google News</div>
   <div class="footer-links">
-    <a href="https://adharlimbu.online" class="footer-link">Home</a>
     <a href="https://www.youtube.com/@AdharLimbu" target="_blank" class="footer-link">YouTube</a>
     <a href="https://www.instagram.com/adhar_limbu/" target="_blank" class="footer-link">Instagram</a>
-    <a href="https://adharlimbu.online/privacy-policy.html" class="footer-link">Privacy</a>
   </div>
 </footer>
 
 <script>
-// ============================================================
-// KHABAR DARJEELING KO — Fixed Live News Script
-// Replace the entire <script>...</script> block in news/index.html
-// ============================================================
-
-const CACHE_KEY = 'kdko_v3';
-const CACHE_TTL = 30 * 60 * 1000;
-
-const CATEGORIES = ['🏔️ Hills','🏛️ Politics','🌧️ Weather','🚂 Transport','🌿 Tourism',
-  '📚 Education','🛣️ Roads','🏙️ Local','🌸 Culture','💡 Development','🌿 Environment','🛒 Trade'];
-
-function randomCategory() { return CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)]; }
-
-function timeAgo(dateStr) {
-  try {
-    const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 60000);
-    if (diff < 1) return 'Just now';
-    if (diff < 60) return diff + ' min ago';
-    const h = Math.floor(diff / 60);
-    if (h < 24) return h + ' hr' + (h > 1 ? 's' : '') + ' ago';
-    const d = Math.floor(h / 24);
-    return d + ' day' + (d > 1 ? 's' : '') + ' ago';
-  } catch(e) { return 'Recently'; }
+function hideLoader() {
+  document.getElementById('loadingOverlay').classList.add('hidden');
 }
 
-function cleanText(str) {
-  return (str || '')
-    .replace(/<[^>]*>/g, '')
-    .replace(/&amp;/g,'&').replace(/&quot;/g,'"')
-    .replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>')
-    .replace(/\[.*?\]/g,'').trim();
+function loadFeed(query, btn) {
+  // Update active tab
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Show loader
+  document.getElementById('loadingOverlay').classList.remove('hidden');
+
+  // Load new feed
+  const frame = document.getElementById('newsFrame');
+  frame.src = `https://news.google.com/search?q=${query}&hl=en-IN&gl=IN&ceid=IN:en`;
 }
 
-// Try multiple proxies in order
-async function fetchWithProxy(rssUrl) {
-  const proxies = [
-    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=20`,
-    `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`,
-    `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`
-  ];
-
-  // Try rss2json first (returns clean JSON)
-  try {
-    const res = await fetch(proxies[0], { signal: AbortSignal.timeout(8000) });
-    const data = await res.json();
-    if (data.status === 'ok' && data.items && data.items.length > 0) {
-      return data.items.map(item => ({
-        title: cleanText(item.title),
-        description: cleanText(item.description || item.content || ''),
-        link: item.link || '#',
-        pubDate: item.pubDate || new Date().toISOString(),
-        source: cleanText(item.author || 'Google News'),
-        category: randomCategory()
-      })).filter(a => a.title && a.title.length > 10);
-    }
-  } catch(e) { console.warn('rss2json failed:', e); }
-
-  // Try allorigins as fallback (returns raw XML)
-  try {
-    const res = await fetch(proxies[1], { signal: AbortSignal.timeout(8000) });
-    const data = await res.json();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, 'text/xml');
-    const items = Array.from(xml.querySelectorAll('item'));
-    if (items.length > 0) {
-      return items.slice(0, 20).map(item => ({
-        title: cleanText(item.querySelector('title')?.textContent),
-        description: cleanText(item.querySelector('description')?.textContent),
-        link: item.querySelector('link')?.textContent || '#',
-        pubDate: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
-        source: cleanText(item.querySelector('source')?.textContent) || 'News',
-        category: randomCategory()
-      })).filter(a => a.title && a.title.length > 10);
-    }
-  } catch(e) { console.warn('allorigins failed:', e); }
-
-  return [];
-}
-
-async function fetchNews() {
-  // Check cache
-  try {
-    const cached = sessionStorage.getItem(CACHE_KEY);
-    if (cached) {
-      const { articles, time } = JSON.parse(cached);
-      if (Date.now() - time < CACHE_TTL && articles.length > 0) {
-        renderAll(articles);
-        return;
-      }
-    }
-  } catch(e) {}
-
-  // Two RSS feeds for Darjeeling
-  const feeds = [
-    'https://news.google.com/rss/search?q=Darjeeling+news&hl=en-IN&gl=IN&ceid=IN:en',
-    'https://news.google.com/rss/search?q=Darjeeling+Gorkhaland+hills&hl=en-IN&gl=IN&ceid=IN:en'
-  ];
-
-  try {
-    const results = await Promise.allSettled(feeds.map(f => fetchWithProxy(f)));
-    let allArticles = results
-      .filter(r => r.status === 'fulfilled')
-      .flatMap(r => r.value);
-
-    // Deduplicate by title
-    const seen = new Set();
-    allArticles = allArticles.filter(a => {
-      if (seen.has(a.title)) return false;
-      seen.add(a.title);
-      return true;
-    });
-
-    if (allArticles.length >= 3) {
-      renderAll(allArticles);
-      try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ articles: allArticles, time: Date.now() })); } catch(e) {}
-    } else {
-      renderFallback();
-    }
-  } catch(err) {
-    console.warn('All feeds failed:', err);
-    renderFallback();
-  }
-}
-
-function openLink(url) {
-  if (!url || url === '#') return;
-  // Handle Google News redirect URLs
-  try { window.open(url, '_blank', 'noopener'); } catch(e) {}
-}
-
-function renderAll(articles) {
-  renderTicker(articles);
-  renderHero(articles[0]);
-  renderSidebar(articles.slice(1, 4));
-  renderGrid(articles.slice(4, 8));
-  renderLatest(articles.slice(8, 15));
-}
-
-function renderTicker(articles) {
-  const content = document.getElementById('tickerContent');
-  if (!content) return;
-  const items = articles.slice(0, 8).map(a => `<span class="ticker-item">${a.title}</span>`).join('');
-  content.innerHTML = items + items;
-}
-
-function renderHero(article) {
-  if (!article) return;
-  const el = document.getElementById('heroStory');
-  el.innerHTML = `
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-mountain"></div>
-    <div class="hero-category">${article.category}</div>
-    <h1 class="hero-headline">${article.title}</h1>
-    <p class="hero-summary">${article.description ? article.description.slice(0, 200) + '...' : 'Tap to read the full story.'}</p>
-    <div class="hero-meta">
-      <span class="hero-meta-time">${timeAgo(article.pubDate)}</span>
-      <span style="color:rgba(255,255,255,0.2)">•</span>
-      <span class="hero-meta-source">${article.source}</span>
-      <span style="color:rgba(255,255,255,0.5);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(192,57,43,0.4);">Read More →</span>
-    </div>
-  `;
-  el.style.cursor = 'pointer';
-  el.onclick = () => openLink(article.link);
-}
-
-function renderSidebar(articles) {
-  const el = document.getElementById('sidebarStories');
-  if (!el || !articles.length) return;
-  el.innerHTML = articles.map(a => `
-    <div class="sidebar-story" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
-      <div class="sidebar-category">${a.category}</div>
-      <div class="sidebar-headline">${a.title}</div>
-      <div class="sidebar-summary">${(a.description || '').slice(0, 100)}...</div>
-      <div class="sidebar-meta">
-        <span class="sidebar-time">${timeAgo(a.pubDate)}</span>
-        <span style="color:#ddd">•</span>
-        <span class="sidebar-time">${a.source}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderGrid(articles) {
-  const el = document.getElementById('newsGrid');
-  if (!el || !articles.length) return;
-  el.innerHTML = articles.map((a, i) => `
-    <div class="news-card" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
-      <div class="card-number">0${i+1}</div>
-      <div class="card-category">${a.category}</div>
-      <div class="card-headline">${a.title}</div>
-      <div class="card-summary">${(a.description || '').slice(0, 110)}...</div>
-      <div class="card-meta">
-        <span class="card-time">${timeAgo(a.pubDate)}</span>
-        <span style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-size:11px;">Read →</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderLatest(articles) {
-  const el = document.getElementById('latestList');
-  if (!el || !articles.length) return;
-  el.innerHTML = articles.map((a, i) => `
-    <div class="latest-item" onclick="openLink('${a.link.replace(/'/g,"\\'")}')">
-      <div class="latest-num">0${i+1}</div>
-      <div>
-        <div class="latest-category">${a.category}</div>
-        <div class="latest-headline">${a.title}</div>
-        <div class="latest-summary">${(a.description || '').slice(0, 150)}...</div>
-        <div class="latest-meta">
-          <span class="latest-time">${timeAgo(a.pubDate)}</span>
-          <span style="color:#ddd">•</span>
-          <span class="latest-time">${a.source}</span>
-          <span style="color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-size:11px;">Read full story →</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderFallback() {
-  const fallback = [
-    { title:"Darjeeling tea exports rise this quarter amid growing global demand", description:"The iconic tea gardens of Darjeeling are witnessing a resurgence as international buyers flock to secure first-flush stocks.", link:"https://news.google.com/search?q=darjeeling+tea", pubDate:new Date().toISOString(), source:"Local News", category:"🌿 Economy" },
-    { title:"GTA demands permanent political solution for Gorkhaland issue", description:"The Gorkhaland Territorial Administration has submitted a fresh memorandum calling for a permanent settlement.", link:"https://news.google.com/search?q=gorkhaland", pubDate:new Date(Date.now()-3600000).toISOString(), source:"Local News", category:"🏛️ Politics" },
-    { title:"Heavy rainfall alert issued for Darjeeling hills — IMD warning", description:"The Indian Meteorological Department has warned of heavy rainfall across Darjeeling this week.", link:"https://news.google.com/search?q=darjeeling+rain", pubDate:new Date(Date.now()-7200000).toISOString(), source:"IMD", category:"🌧️ Weather" },
-    { title:"Toy Train resumes full service on Ghum–Darjeeling section", description:"The beloved UNESCO heritage Darjeeling Himalayan Railway has resumed full operations after maintenance.", link:"https://news.google.com/search?q=darjeeling+toy+train", pubDate:new Date(Date.now()-10800000).toISOString(), source:"Local News", category:"🚂 Transport" },
-    { title:"Tourism season peaks as visitors flock to Darjeeling hills", description:"Hotels across Darjeeling report near-full occupancy as the summer tourism season reaches its peak.", link:"https://news.google.com/search?q=darjeeling+tourism", pubDate:new Date(Date.now()-14400000).toISOString(), source:"Local News", category:"🌿 Tourism" },
-    { title:"Landslide blocks NH-10 near Kalimpong; NHAI teams deployed", description:"A major landslide has blocked National Highway 10, with teams working to restore connectivity.", link:"https://news.google.com/search?q=kalimpong+landslide", pubDate:new Date(Date.now()-18000000).toISOString(), source:"Local News", category:"🛣️ Roads" },
-    { title:"Darjeeling Municipal Corporation launches cleanliness drive", description:"The DMC has kicked off a month-long cleanliness campaign across key tourist spots.", link:"https://news.google.com/search?q=darjeeling+news", pubDate:new Date(Date.now()-21600000).toISOString(), source:"Local News", category:"🏙️ Local" },
-    { title:"Singalila National Park reports increase in red panda sightings", description:"Forest officials report a promising rise in red panda sightings, crediting conservation efforts.", link:"https://news.google.com/search?q=singalila+red+panda", pubDate:new Date(Date.now()-25200000).toISOString(), source:"Forest Dept", category:"🌿 Environment" },
-  ];
-  renderAll(fallback);
-}
-
-// WEATHER
+// Weather
 async function fetchWeather() {
   try {
     const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=27.0361&longitude=88.2627&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=Asia/Kolkata');
@@ -548,43 +261,19 @@ async function fetchWeather() {
     const c = data.current;
     const code = c.weather_code;
     const desc = code<=1?'☀️ Clear':code<=3?'⛅ Partly Cloudy':code<=49?'🌫️ Foggy':code<=67?'🌧️ Rainy':code<=77?'❄️ Snowy':'⛈️ Stormy';
-    document.getElementById('weatherTemp').textContent = Math.round(c.temperature_2m) + '°C';
-    document.getElementById('weatherDesc').textContent = desc;
-    document.getElementById('weatherHumidity').textContent = c.relative_humidity_2m + '%';
-    document.getElementById('weatherWind').textContent = Math.round(c.wind_speed_10m);
-  } catch(e) {
-    document.getElementById('weatherTemp').textContent = '14°C';
-    document.getElementById('weatherDesc').textContent = '⛅ Partly Cloudy';
-    document.getElementById('weatherHumidity').textContent = '78%';
-    document.getElementById('weatherWind').textContent = '12';
-  }
+    document.getElementById('wTemp').textContent = Math.round(c.temperature_2m) + '°C';
+    document.getElementById('wHumidity').textContent = c.relative_humidity_2m + '%';
+    document.getElementById('wWind').textContent = Math.round(c.wind_speed_10m) + ' km/h';
+    document.getElementById('wDesc').textContent = desc;
+  } catch(e) {}
 }
 
-function setDate() {
-  const now = new Date();
-  document.getElementById('mastDate').innerHTML =
-    now.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) +
-    '<br>' + now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' IST';
-}
-
-window.addEventListener('scroll', () => {
-  document.getElementById('backToTop').classList.toggle('show', window.pageYOffset > 300);
+// Date
+document.getElementById('wDate').textContent = new Date().toLocaleDateString('en-IN', {
+  weekday:'long', day:'numeric', month:'long', year:'numeric'
 });
 
-window.openLink = openLink;
-
-setDate();
-fetchNews();
 fetchWeather();
-
-// Auto-refresh every 30 minutes
-setInterval(() => {
-  sessionStorage.removeItem(CACHE_KEY);
-  fetchNews();
-  fetchWeather();
-  setDate();
-}, CACHE_TTL);
 </script>
-
 </body>
 </html>
