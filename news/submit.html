@@ -3,204 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit News | Khabar Darjeeling Ko</title>
+<title>Submit News - Khabar Darjeeling Ko</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+
+const supabase = createClient(
+  'https://zclotvuignhleyrvjekb.supabase.co',
+  'sb_publishable_ccgt9ZOZR0kUJhdDwcLOpQ_or0_XjBK'
+);
+
+window.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('newsForm');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('status');
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const payload = {
+      title: document.getElementById('title').value,
+      content: document.getElementById('content').value,
+      submitter_name: document.getElementById('name').value,
+      submitter_email: document.getElementById('email').value,
+      location: document.getElementById('location').value,
+      category: document.getElementById('category').value,
+      status: 'pending'
+    };
+
+    const { error } = await supabase
+      .from('news_submissions')
+      .insert([payload]);
+
+    if (error) {
+      status.innerHTML = '❌ Error: ' + error.message;
+      btn.disabled = false;
+      btn.textContent = 'Submit News';
+      return;
+    }
+
+    status.innerHTML = '✅ News submitted successfully and is awaiting admin approval.';
+    form.reset();
+    btn.disabled = false;
+    btn.textContent = 'Submit News';
+  });
+});
+</script>
 
 <style>
-:root{
---accent:#c0392b;
---bg:#0e0c0a;
---card:#151515;
---border:#262626;
---text:#ffffff;
---muted:#8d8d8d;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 body{
-background:var(--bg);
-color:var(--text);
-font-family:'Barlow Condensed',sans-serif;
+margin:0;
+background:#0f0f0f;
+color:white;
+font-family:Arial,sans-serif;
 }
-
-.header{
-padding:20px;
-text-align:center;
-border-bottom:2px solid var(--accent);
-background:#0a0a0a;
-}
-
-.logo{
-font-family:'Playfair Display',serif;
-font-size:32px;
-font-weight:900;
-}
-
-.logo span{
-color:var(--accent);
-}
-
-.subtitle{
-color:var(--muted);
-margin-top:8px;
-font-size:14px;
-letter-spacing:2px;
-}
-
 .container{
 max-width:800px;
-margin:30px auto;
+margin:40px auto;
 padding:20px;
 }
-
-.form-card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:15px;
+.card{
+background:#181818;
 padding:25px;
+border-radius:12px;
+border:1px solid #2a2a2a;
 }
-
-.form-title{
-font-family:'Playfair Display',serif;
-font-size:28px;
-margin-bottom:10px;
+h1{
+margin-top:0;
+text-align:center;
 }
-
-.form-desc{
-color:var(--muted);
-margin-bottom:25px;
-line-height:1.6;
-}
-
-label{
-display:block;
-margin-bottom:8px;
-font-size:14px;
-letter-spacing:1px;
-text-transform:uppercase;
-}
-
-input,
-textarea,
-select{
+input,textarea,select{
 width:100%;
-padding:14px;
-background:#0f0f0f;
-border:1px solid #333;
-border-radius:10px;
-color:white;
-font-size:15px;
+padding:12px;
+margin-top:8px;
 margin-bottom:18px;
+background:#111;
+border:1px solid #333;
+border-radius:8px;
+color:white;
+box-sizing:border-box;
 }
-
 textarea{
 min-height:180px;
 resize:vertical;
 }
-
-input:focus,
-textarea:focus,
-select:focus{
-outline:none;
-border-color:var(--accent);
-}
-
-.submit-btn{
+button{
 width:100%;
-padding:16px;
-background:var(--accent);
-border:none;
-border-radius:10px;
+padding:14px;
+background:#c0392b;
 color:white;
+border:none;
+border-radius:8px;
 font-size:16px;
-font-weight:700;
 cursor:pointer;
-transition:.3s;
 }
-
-.submit-btn:hover{
-opacity:.9;
+button:hover{
+opacity:.95;
 }
-
-.note{
+.back{
+display:inline-block;
+margin-bottom:20px;
+color:#ff6b57;
+text-decoration:none;
+}
+#status{
 margin-top:15px;
-font-size:13px;
-color:var(--muted);
-text-align:center;
-}
-
-#message{
-margin-top:20px;
-padding:15px;
-border-radius:10px;
-text-align:center;
-display:none;
-}
-
-.success{
-background:#0f3d1f;
-color:#8df5a5;
-}
-
-.error{
-background:#4d1010;
-color:#ffb3b3;
-}
-
-.footer{
-text-align:center;
-padding:25px;
-color:#555;
-font-size:12px;
+font-weight:bold;
 }
 </style>
 </head>
-
 <body>
-
-<header class="header">
-<div class="logo">🏔️ Khabar <span>Darjeeling Ko</span></div>
-<div class="subtitle">Citizen Journalism Platform</div>
-</header>
 
 <div class="container">
 
-<div class="form-card">
+<a href="/news/" class="back">← Back to News</a>
 
-<h1 class="form-title">Submit a News Report</h1>
-
-<p class="form-desc">
-Witnessed something important in Darjeeling, Kalimpong, Kurseong, Mirik or Siliguri?
-Submit your report and our team will review it before publishing.
-</p>
+<div class="card">
+<h1>📰 Submit News</h1>
 
 <form id="newsForm">
 
-<label>News Title</label>
-<input type="text" id="title" required>
+<label>Your Name</label>
+<input id="name" required>
 
-<label>Category</label>
-<select id="category">
-<option>Local News</option>
-<option>Politics</option>
-<option>Tourism</option>
-<option>Tea Industry</option>
-<option>Weather</option>
-<option>Education</option>
-<option>Sports</option>
-<option>Business</option>
-</select>
+<label>Email</label>
+<input id="email" type="email" required>
 
 <label>Location</label>
-<input type="text" id="location" placeholder="Darjeeling, Kalimpong, Siliguri..." required>
+<input id="location" placeholder="Darjeeling, Kalimpong, Siliguri..." required>
 
-<label>News Details</label>
+<label>Category</label>
+<select id="category" required>
+<option value="Politics">Politics</option>
+<option value="Tourism">Tourism</option>
+<option value="Education">Education</option>
+<option value="Sports">Sports</option>
+<option value="Business">Business</option>
+<option value="Tea">Tea Industry</option>
+<option value="Weather">Weather</option>
+<option value="Community">Community</option>
+<option value="Other">Other</option>
+</select>
+
+<label>News Title</label>
+<input id="title" required>
+
+<label>News Content</label>
 <textarea id="content" required></textarea>
 
-<label>Your Name</label>
+<button id="submitBtn" type="submit">Submit News</button>
+
+</form>
+
+<div id="status"></div>
+
+</div>
+</div>
+
+</body>
+</html>
