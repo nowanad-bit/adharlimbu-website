@@ -92,7 +92,99 @@ body{background:var(--ink);color:white;font-family:'Barlow Condensed',sans-serif
   .weather-date{display:none;}
 }
 </style>
-</head>
+</head><script type="module">
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+const supabase = createClient(
+
+  'https://zclotvuignhleyrvjekb.supabase.co',
+
+  'YOUR_CURRENT_PUBLISHABLE_KEY'
+
+);
+
+async function loadNews() {
+
+  const { data, error } = await supabase
+
+    .from('news')
+
+    .select('*')
+
+    .eq('status', 'published')
+
+    .order('created_at', { ascending: false });
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+  const content = document.getElementById('newsContent');
+
+  content.innerHTML = `
+
+    <div class="section-rule">
+
+      <span class="section-label">Latest News</span>
+
+      <div class="section-line"></div>
+
+    </div>
+
+    <div class="cards-grid">
+
+      ${data.map(item => `
+
+        <div class="news-card">
+
+          <div class="card-tag">${item.category || 'News'}</div>
+
+          <div class="card-title">${item.title}</div>
+
+          <div class="card-desc">
+
+            ${(item.content || '').substring(0, 180)}...
+
+          </div>
+
+          <div class="card-meta">
+
+            <span>${item.location || 'Darjeeling'}</span>
+
+            <span>${item.author_name || 'Reporter'}</span>
+
+          </div>
+
+        </div>
+
+      `).join('')}
+
+    </div>
+
+    <div style="margin-top:20px;text-align:center">
+
+      <a href="/news/submit.html"
+
+         style="background:#c0392b;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;">
+
+         Submit News
+
+      </a>
+
+    </div>
+
+  `;
+
+}
+
+loadNews();
+
+</script>
 <body>
 
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
