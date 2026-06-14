@@ -3,30 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Darjeeling Web Studio — Where Local Brands Go Global</title>
-  <meta name="description" content="Darjeeling Web Studio helps local businesses in Darjeeling and the Himalayan region build a professional digital presence. Website design, development, branding, and SEO." />
-  <meta name="keywords" content="web design Darjeeling, website development Darjeeling, branding, SEO, digital agency" />
+  <title>Darjeeling Web Studio | Modern Websites for Himalayan Businesses</title>
+  <meta name="description" content="Darjeeling Web Studio creates modern websites, branding, and digital solutions for businesses in Darjeeling and the Himalayan region." />
+  <meta name="keywords" content="web design Darjeeling, website development Darjeeling, branding Darjeeling, SEO Darjeeling, digital agency Himalaya" />
+  <meta property="og:title" content="Darjeeling Web Studio | Modern Websites for Himalayan Businesses" />
+  <meta property="og:description" content="Modern websites and digital solutions for businesses in Darjeeling and the Himalayan region." />
+  <meta property="og:url" content="https://adharlimbu.online" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --black: #0a0a0a;
       --offblack: #111111;
-      --charcoal: #1c1c1c;
+      --charcoal: #1a1a1a;
+      --navy: #0d1117;
       --red: #c0392b;
       --red-bright: #e74c3c;
       --white: #ffffff;
       --offwhite: #f5f5f0;
       --muted: #888888;
-      --border: rgba(255,255,255,0.08);
-      --glass: rgba(255,255,255,0.04);
+      --muted-light: #aaaaaa;
+      --border: rgba(255,255,255,0.07);
+      --glass: rgba(255,255,255,0.03);
+      --red-glass: rgba(192,57,43,0.08);
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Inter', sans-serif;
       background: var(--black);
@@ -35,59 +42,100 @@
       line-height: 1.6;
     }
 
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
     /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.2rem 2rem;
+      z-index: 1000;
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      transition: background 0.3s;
+      transition: background 0.4s, padding 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      border-color: var(--border);
+      padding: 0.7rem 2rem;
     }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
       text-decoration: none;
     }
-
-    .nav-logo span { color: var(--red); }
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo-text span:first-child {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo-text span:last-child {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 2.2rem;
       list-style: none;
     }
-
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       transition: color 0.2s;
+      position: relative;
     }
-
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
     .nav-cta {
-      background: var(--red);
+      background: var(--red) !important;
       color: var(--white) !important;
-      padding: 0.5rem 1.2rem;
-      border-radius: 4px;
+      padding: 0.55rem 1.3rem !important;
+      border-radius: 5px;
+      font-size: 0.82rem !important;
       transition: background 0.2s !important;
     }
-
-    .nav-cta:hover { background: var(--red-bright) !important; color: var(--white) !important; }
+    .nav-cta:hover { background: var(--red-bright) !important; }
+    .nav-cta::after { display: none !important; }
 
     .hamburger {
       display: none;
@@ -98,40 +146,38 @@
       border: none;
       padding: 4px;
     }
-
     .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
+      display: block; width: 24px; height: 2px;
       background: var(--white);
       transition: all 0.3s;
     }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 64px; left: 0; right: 0;
-      background: var(--offblack);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      z-index: 99;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
       flex-direction: column;
-      gap: 1.2rem;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
     }
-
     .mobile-menu.open { display: flex; }
-
     .mobile-menu a {
-      color: var(--muted);
+      color: var(--white);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
       transition: color 0.2s;
     }
-
-    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu a:hover { color: var(--red); }
 
     /* ── HERO ── */
     .hero {
@@ -141,73 +187,114 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: 8rem 2rem 4rem;
+      padding: 7rem 2rem 5rem;
     }
 
     .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(180deg, #0d0505 0%, #0a0a0a 60%, #0a0a0a 100%);
     }
 
-    /* SVG mountain silhouette */
-    .hero-bg svg {
+    /* Animated gradient orbs */
+    .hero-orb {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 70%;
-      opacity: 0.12;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero-orb-1 {
+      width: 500px; height: 500px;
+      background: rgba(192,57,43,0.12);
+      top: -100px; right: -100px;
+      animation-delay: 0s;
+    }
+    .hero-orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(192,57,43,0.07);
+      bottom: 100px; left: -50px;
+      animation-delay: 3s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
     }
 
-    .hero-gradient {
+    /* Mountain SVG */
+    .hero-mountains {
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(192,57,43,0.15) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.08) 0%, transparent 50%);
+      bottom: 0; left: 0; width: 100%;
+      z-index: 1;
+      opacity: 0.1;
     }
 
     .hero-content {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 2;
       text-align: center;
-      max-width: 800px;
+      max-width: 860px;
+    }
+
+    .hero-logo {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 2rem;
+      display: block;
+      filter: drop-shadow(0 0 30px rgba(192,57,43,0.3));
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+    @keyframes logoGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(192,57,43,0.2)); }
+      50% { filter: drop-shadow(0 0 40px rgba(192,57,43,0.5)); }
     }
 
     .hero-eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 1.5rem;
-      border: 1px solid rgba(192,57,43,0.3);
-      padding: 0.35rem 1rem;
+      border: 1px solid rgba(192,57,43,0.25);
+      padding: 0.4rem 1.2rem;
       border-radius: 100px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '—';
+      opacity: 0.5;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 8vw, 7rem);
+      font-size: clamp(2.8rem, 7vw, 6rem);
       font-weight: 700;
       line-height: 1.0;
       letter-spacing: -0.02em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.3rem;
       color: var(--white);
     }
-
-    .hero h1 em {
-      font-style: italic;
+    .hero h1 .studio {
       color: var(--red);
+      font-style: italic;
     }
 
     .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--muted-light);
+      font-style: italic;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
       color: var(--muted);
       font-weight: 300;
-      letter-spacing: 0.04em;
-      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
     }
 
     .hero-actions {
@@ -215,102 +302,109 @@
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 2.5rem;
     }
 
     .btn-primary {
       background: var(--red);
       color: var(--white);
-      padding: 0.85rem 2rem;
+      padding: 0.9rem 2.2rem;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
       letter-spacing: 0.04em;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(192,57,43,0.3);
     }
-
-    .btn-primary:hover { background: var(--red-bright); transform: translateY(-1px); }
+    .btn-primary:hover {
+      background: var(--red-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(192,57,43,0.4);
+    }
 
     .btn-secondary {
       background: transparent;
       color: var(--white);
-      padding: 0.85rem 2rem;
+      padding: 0.9rem 2.2rem;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
       letter-spacing: 0.04em;
       border: 1px solid rgba(255,255,255,0.2);
-      transition: border-color 0.2s, transform 0.2s;
+      transition: all 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
     }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-2px);
+    }
 
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
+    .trust-badges {
       display: flex;
-      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       color: var(--muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      border-radius: 100px;
       text-transform: uppercase;
-      z-index: 1;
     }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
-      animation: scrollDown 1.5s ease-in-out infinite;
-    }
-
-    @keyframes scrollDown {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
+    .badge span { color: var(--red); }
 
     /* ── SECTIONS ── */
     section { padding: 6rem 2rem; }
-
     .container { max-width: 1100px; margin: 0 auto; }
 
     .section-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--red);
     }
 
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 700;
       line-height: 1.1;
       color: var(--white);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
-
     .section-sub {
       color: var(--muted);
-      font-size: 1rem;
-      max-width: 520px;
+      font-size: 0.95rem;
+      max-width: 500px;
       margin-bottom: 3.5rem;
       font-weight: 300;
+      line-height: 1.8;
     }
 
     /* ── SERVICES ── */
@@ -318,57 +412,63 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
     }
 
     .service-card {
       background: var(--glass);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 2rem;
-      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+      transition: all 0.3s;
       position: relative;
       overflow: hidden;
+      cursor: default;
     }
-
-    .service-card::before {
+    .service-card::after {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 3px;
-      height: 0;
-      background: var(--red);
-      transition: height 0.3s;
+      inset: 0;
+      background: linear-gradient(135deg, var(--red-glass), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 14px;
     }
-
     .service-card:hover {
-      border-color: rgba(192,57,43,0.3);
-      transform: translateY(-4px);
-      background: rgba(255,255,255,0.06);
+      border-color: rgba(192,57,43,0.25);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
+    .service-card:hover::after { opacity: 1; }
 
-    .service-card:hover::before { height: 100%; }
-
-    .service-icon {
-      font-size: 2rem;
+    .service-icon-wrap {
+      width: 48px; height: 48px;
+      background: var(--red-glass);
+      border: 1px solid rgba(192,57,43,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
       margin-bottom: 1.2rem;
-      display: block;
+      position: relative;
+      z-index: 1;
     }
-
     .service-card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 600;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
       color: var(--white);
+      position: relative; z-index: 1;
     }
-
     .service-card p {
       color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
+      font-size: 0.88rem;
+      line-height: 1.75;
       font-weight: 300;
+      position: relative; z-index: 1;
     }
 
     /* ── PORTFOLIO ── */
@@ -381,113 +481,222 @@
     }
 
     .portfolio-card {
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       position: relative;
       aspect-ratio: 16/10;
       cursor: pointer;
-      group: true;
     }
 
-    .portfolio-thumb {
-      width: 100%;
-      height: 100%;
+    .portfolio-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .portfolio-card:hover .portfolio-bg { transform: scale(1.06); }
+
+    .bg-gorkhaTv { background: linear-gradient(135deg, #0f0f2a 0%, #1a0a3e 40%, #0d0a20 100%); }
+    .bg-khabar { background: linear-gradient(135deg, #1a0505 0%, #2d0808 40%, #100303 100%); }
+    .bg-adhar { background: linear-gradient(135deg, #050f1a 0%, #081a2d 40%, #030d18 100%); }
+    .bg-hotel { background: linear-gradient(135deg, #1a1206 0%, #2d1f08 40%, #100c03 100%); }
+    .bg-cafe { background: linear-gradient(135deg, #061a0a 0%, #0a2d10 40%, #030f06 100%); }
+    .bg-travel { background: linear-gradient(135deg, #06101a 0%, #0a1a2d 40%, #030810 100%); }
+
+    .portfolio-bg-text {
+      position: absolute; inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      transition: transform 0.4s;
-    }
-
-    .portfolio-card:hover .portfolio-thumb { transform: scale(1.04); }
-
-    .portfolio-thumb-gorkhaTv {
-      background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 50%, #0d1117 100%);
-    }
-
-    .portfolio-thumb-hotel {
-      background: linear-gradient(135deg, #1a1206 0%, #2d1f0a 50%, #1a1206 100%);
-    }
-
-    .portfolio-thumb-cafe {
-      background: linear-gradient(135deg, #0a1a0f 0%, #0f2d1a 50%, #0a1a0f 100%);
-    }
-
-    .portfolio-thumb-travel {
-      background: linear-gradient(135deg, #0a0f1a 0%, #0f1a2d 50%, #0a0f1a 100%);
-    }
-
-    .portfolio-thumb-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
-      opacity: 0.15;
-      letter-spacing: -0.02em;
+      opacity: 0.1;
       text-align: center;
       padding: 1rem;
+      line-height: 1.1;
     }
 
     .portfolio-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 1.5rem;
-      opacity: 0;
-      transition: opacity 0.3s;
+      transition: background 0.3s;
     }
-
-    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
 
     .portfolio-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 0.4rem;
-      font-weight: 500;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
     }
-
     .portfolio-overlay h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: var(--white);
-    }
-
-    .portfolio-info {
-      padding: 1.2rem 0 0;
-    }
-
-    .portfolio-info h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-weight: 600;
       color: var(--white);
       margin-bottom: 0.2rem;
     }
+    .portfolio-overlay p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    .portfolio-card:hover .portfolio-overlay p {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-    .portfolio-info p {
+    .portfolio-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    .badge-live { background: #16a34a; color: white; }
+    .badge-soon { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); backdrop-filter: blur(8px); }
+
+    .portfolio-link {
+      position: absolute; inset: 0; z-index: 3;
+    }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--offblack); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .pricing-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      background: var(--glass);
+      position: relative;
+      transition: all 0.3s;
+    }
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .pricing-card.featured {
+      border-color: var(--red);
+      background: linear-gradient(135deg, rgba(192,57,43,0.08), var(--glass));
+    }
+    .pricing-featured-label {
+      position: absolute;
+      top: -13px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .pricing-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.8rem;
+    }
+    .pricing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .pricing-price sup { font-size: 1.5rem; vertical-align: top; margin-top: 0.5rem; display: inline-block; }
+    .pricing-price sub { font-size: 1rem; color: var(--muted); }
+    .pricing-desc {
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
+      margin-bottom: 1.8rem;
       font-weight: 300;
     }
 
-    /* ── ABOUT ── */
-    #about {
-      background: var(--charcoal);
-      position: relative;
-      overflow: hidden;
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--muted-light);
+      font-weight: 300;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--red);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
     }
 
+    .pricing-btn {
+      display: block;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .pricing-btn-outline {
+      border: 1px solid var(--border);
+      color: var(--white);
+    }
+    .pricing-btn-outline:hover {
+      border-color: var(--red);
+      background: var(--red-glass);
+    }
+    .pricing-btn-solid {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+    }
+    .pricing-btn-solid:hover {
+      background: var(--red-bright);
+      box-shadow: 0 8px 30px rgba(192,57,43,0.4);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--charcoal); position: relative; overflow: hidden; }
     #about::before {
       content: '';
       position: absolute;
-      top: -100px; right: -100px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(192,57,43,0.08) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(192,57,43,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -498,65 +707,67 @@
       align-items: center;
     }
 
+    .about-body {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+    .about-body strong { color: var(--white); font-weight: 500; }
+
     .about-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
       margin-top: 2.5rem;
     }
-
     .stat {
       border-left: 2px solid var(--red);
       padding-left: 1rem;
     }
-
     .stat-number {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       font-weight: 700;
       color: var(--white);
       line-height: 1;
     }
-
     .stat-label {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--muted);
       font-weight: 300;
       margin-top: 0.2rem;
       letter-spacing: 0.04em;
     }
 
-    .about-visual {
+    .about-visual-wrap {
       position: relative;
     }
-
-    .about-mountain {
+    .about-banner {
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
+      border-radius: 14px;
       display: block;
-      opacity: 0.6;
+      opacity: 0.85;
     }
-
-    .about-badge {
+    .about-founder-card {
       position: absolute;
-      bottom: -1rem; left: -1rem;
+      bottom: -1.5rem; left: -1.5rem;
       background: var(--red);
       padding: 1.2rem 1.5rem;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(192,57,43,0.3);
     }
-
-    .about-badge p {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
+    .about-founder-card p {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.7);
       margin-bottom: 0.2rem;
     }
-
-    .about-badge strong {
+    .about-founder-card strong {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--white);
     }
@@ -574,10 +785,9 @@
     .contact-methods {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
-
     .contact-item {
       display: flex;
       align-items: center;
@@ -588,31 +798,32 @@
       border-radius: 10px;
       text-decoration: none;
       color: var(--white);
-      transition: border-color 0.2s, background 0.2s;
+      transition: all 0.2s;
     }
-
     .contact-item:hover {
-      border-color: rgba(192,57,43,0.4);
-      background: rgba(192,57,43,0.05);
+      border-color: rgba(192,57,43,0.35);
+      background: var(--red-glass);
+      transform: translateX(4px);
     }
-
-    .contact-item-icon {
-      font-size: 1.3rem;
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--red-glass);
+      border: 1px solid rgba(192,57,43,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
       flex-shrink: 0;
     }
-
-    .contact-item-text p {
-      font-size: 0.72rem;
+    .contact-text p {
+      font-size: 0.68rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 0.1rem;
     }
-
-    .contact-item-text strong {
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
+    .contact-text strong { font-size: 0.92rem; font-weight: 400; }
 
     .whatsapp-btn {
       display: inline-flex;
@@ -624,592 +835,718 @@
       border-radius: 8px;
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.95rem;
-      transition: background 0.2s, transform 0.2s;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
       margin-bottom: 2rem;
     }
-
-    .whatsapp-btn:hover { background: #1da851; transform: translateY(-1px); }
-
-    .social-links {
-      display: flex;
-      gap: 0.8rem;
+    .whatsapp-btn:hover {
+      background: #1da851;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.35);
     }
 
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+    }
     .social-link {
-      width: 42px; height: 42px;
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    .social-link:hover {
+      border-color: var(--red);
+      color: var(--white);
+      background: var(--red-glass);
+      transform: translateY(-2px);
+    }
+
+    .contact-quote-box {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-quote-box::before {
+      content: '"';
+      position: absolute;
+      top: -1rem; left: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 9rem;
+      color: var(--red);
+      opacity: 0.1;
+      line-height: 1;
+    }
+    .contact-quote-box blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .contact-quote-box cite {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: normal;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-mountain {
+      margin-top: 2rem;
+      opacity: 0.15;
+      width: 100%;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      padding: 4rem 2rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand img {
+      height: 60px;
+      width: auto;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 280px;
+      margin-bottom: 1.5rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .footer-social a {
+      width: 36px; height: 36px;
       border: 1px solid var(--border);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      font-size: 1.1rem;
       color: var(--muted);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
     }
-
-    .social-link:hover {
+    .footer-social a:hover {
       border-color: var(--red);
       color: var(--white);
-      background: rgba(192,57,43,0.1);
+      background: var(--red-glass);
     }
-
-    /* Contact right side - mountain quote */
-    .contact-quote {
-      position: relative;
-      padding: 3rem;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--glass);
-      overflow: hidden;
-    }
-
-    .contact-quote::before {
-      content: '"';
-      position: absolute;
-      top: -1rem; left: 1rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8rem;
-      color: var(--red);
-      opacity: 0.15;
-      line-height: 1;
-    }
-
-    .contact-quote blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 400;
-      line-height: 1.5;
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       color: var(--white);
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      position: relative;
+      margin-bottom: 1.2rem;
     }
-
-    .contact-quote cite {
-      font-size: 0.82rem;
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a {
       color: var(--muted);
-      font-style: normal;
-      letter-spacing: 0.06em;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 300;
+      transition: color 0.2s;
     }
+    .footer-col ul li a:hover { color: var(--white); }
 
-    .contact-quote-mountain {
-      margin-top: 2rem;
-      opacity: 0.2;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--offblack);
+    .footer-bottom {
       border-top: 1px solid var(--border);
-      padding: 2.5rem 2rem;
-    }
-
-    .footer-inner {
+      padding: 1.5rem 2rem;
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
     }
-
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--white);
-      text-decoration: none;
-    }
-
-    .footer-logo span { color: var(--red); }
-
     .footer-copy {
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
+      font-style: italic;
     }
+    .footer-copy strong { color: var(--red); font-style: normal; }
 
-    .footer-links {
+    /* ── FLOATING WHATSAPP ── */
+    .float-wa {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
       display: flex;
-      gap: 1.5rem;
-    }
-
-    .footer-links a {
-      color: var(--muted);
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
-      font-size: 0.82rem;
-      transition: color 0.2s;
+      z-index: 500;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.2s;
+      animation: pulse 2s ease-in-out infinite;
     }
-
-    .footer-links a:hover { color: var(--white); }
+    .float-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
 
     /* ── DIVIDER ── */
     .divider {
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
-      margin: 0 auto;
       max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+    .fade-up:nth-child(5) { transition-delay: 0.4s; }
+    .fade-up:nth-child(6) { transition-delay: 0.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      .hero-orb { animation: none; }
+      .hero-logo { animation: none; }
+      .float-wa { animation: none; }
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual-wrap { order: -1; }
+      .about-banner { max-width: 400px; margin: 0 auto; }
+      .about-founder-card { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .about-visual { order: -1; }
-      .about-mountain { max-width: 280px; }
-      .about-badge { display: none; }
-
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      section { padding: 4rem 1.5rem; }
-
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
+      section { padding: 4rem 1.25rem; }
+      .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; }
     }
 
     @media (max-width: 480px) {
       .hero-actions { flex-direction: column; align-items: center; }
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .trust-badges { gap: 0.5rem; }
       .about-stats { grid-template-columns: 1fr 1fr; }
-    }
-
-    /* ── ANIMATIONS ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .fade-up:nth-child(2) { transition-delay: 0.1s; }
-    .fade-up:nth-child(3) { transition-delay: 0.2s; }
-    .fade-up:nth-child(4) { transition-delay: 0.3s; }
-    .fade-up:nth-child(5) { transition-delay: 0.4s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up { opacity: 1; transform: none; transition: none; }
-      .scroll-line { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">DWS<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20a%20website%20for%20my%20business." target="_blank" rel="noopener" class="float-wa" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#services" onclick="closeMenu()">Services</a>
-    <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#contact" onclick="closeMenu()">Contact</a>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="logo.png" alt="Darjeeling Web Studio Logo" />
+    <div class="nav-logo-text">
+      <span>Darjeeling Web Studio</span>
+      <span>Where Local Brands Go Global</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
   </div>
+  <svg class="hero-mountains" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 300 L0 200 L100 130 L180 180 L280 80 L380 160 L480 50 L560 130 L660 10 L760 110 L860 40 L960 150 L1060 70 L1160 170 L1280 100 L1380 180 L1440 140 L1440 300 Z" fill="white"/>
+    <path d="M0 300 L0 240 L180 190 L300 230 L440 170 L560 210 L660 155 L760 200 L880 160 L1000 205 L1120 165 L1240 210 L1380 175 L1440 200 L1440 300 Z" fill="white" opacity="0.4"/>
+    <!-- Snow caps -->
+    <path d="M480 50 L465 85 L495 85 Z" fill="white" opacity="0.6"/>
+    <path d="M660 10 L642 50 L678 50 Z" fill="white" opacity="0.8"/>
+    <path d="M860 40 L844 78 L876 78 Z" fill="white" opacity="0.5"/>
+  </svg>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg">
-      <div class="hero-gradient"></div>
-      <!-- Mountain silhouette SVG -->
-      <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 500 L0 320 L120 200 L200 280 L320 120 L420 220 L520 80 L600 160 L700 20 L800 140 L900 60 L1000 180 L1100 100 L1200 220 L1320 140 L1440 260 L1440 500 Z" fill="white"/>
-        <path d="M0 500 L0 380 L200 300 L350 360 L480 280 L580 320 L680 260 L760 300 L860 240 L980 310 L1100 260 L1200 320 L1320 280 L1440 340 L1440 500 Z" fill="white" opacity="0.5"/>
-      </svg>
+  <div class="hero-content">
+    <img src="logo.png" alt="Darjeeling Web Studio" class="hero-logo" />
+    <div class="hero-eyebrow">Digital Agency · Darjeeling, India</div>
+    <h1>Darjeeling<br/><span class="studio">Web Studio</span></h1>
+    <p class="hero-tagline">— Where Local Brands Go Global —</p>
+    <p class="hero-sub">Modern websites and digital solutions for businesses in Darjeeling and the Himalayan region.</p>
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        View Portfolio
+      </a>
+      <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20a%20website." target="_blank" rel="noopener" class="btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Contact on WhatsApp
+      </a>
     </div>
+    <div class="trust-badges">
+      <div class="badge"><span>✓</span> Mobile Friendly</div>
+      <div class="badge"><span>✓</span> SEO Ready</div>
+      <div class="badge"><span>✓</span> Modern UI</div>
+      <div class="badge"><span>✓</span> Fast Performance</div>
+    </div>
+  </div>
+</section>
 
-    <div class="hero-content">
-      <div class="hero-eyebrow fade-up visible">Digital Agency · Darjeeling, India</div>
-      <h1 class="fade-up visible">
-        Darjeeling<br/><em>Web Studio</em>
-      </h1>
-      <p class="hero-tagline fade-up visible">Where Local Brands Go Global</p>
-      <div class="hero-actions fade-up visible">
-        <a href="#portfolio" class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          View Portfolio
-        </a>
-        <a href="https://wa.me/917557061046" target="_blank" rel="noopener" class="btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          Contact on WhatsApp
-        </a>
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label fade-up">What we offer</p>
+    <h2 class="section-title fade-up">Built for Himalayan<br/>businesses</h2>
+    <p class="section-sub fade-up">Everything your local business needs to build a strong, credible digital presence — from first impression to final conversion.</p>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🎨</div>
+        <h3>Website Design</h3>
+        <p>Custom, modern designs tailored to your brand identity — clean, beautiful, and built to impress every visitor.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🏢</div>
+        <h3>Business Websites</h3>
+        <p>Professional multi-page websites for shops, offices, and service businesses in Darjeeling and the hills.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🏨</div>
+        <h3>Hotel & Homestay Websites</h3>
+        <p>Showcase your property with beautiful galleries, booking information, and WhatsApp integration for inquiries.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">✦</div>
+        <h3>Branding & Social Media</h3>
+        <p>Logo design, visual identity, and consistent social media presence that sets your business apart from the rest.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🔍</div>
+        <h3>SEO Optimization</h3>
+        <p>Get discovered on Google. We optimize your site so customers searching in Darjeeling find you first.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">👤</div>
+        <h3>Portfolio Websites</h3>
+        <p>Showcase your work, skills, and achievements with a stunning personal portfolio that opens doors.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <p class="section-label fade-up">What we do</p>
-      <h2 class="section-title fade-up">Services built for<br/>Himalayan businesses</h2>
-      <p class="section-sub fade-up">Everything a local business needs to establish a strong, credible digital presence — from first impression to final conversion.</p>
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <p class="section-label fade-up">Our work</p>
+    <h2 class="section-title fade-up">Projects from the<br/>hills of Darjeeling</h2>
+    <p class="section-sub fade-up">Real websites and digital products built for clients across the region.</p>
+    <div class="portfolio-grid">
 
-      <div class="services-grid">
-        <div class="service-card fade-up">
-          <span class="service-icon">🎨</span>
-          <h3>Website Design</h3>
-          <p>Custom designs that reflect your brand's identity — clean, modern, and crafted to make a lasting impression on every visitor.</p>
-        </div>
-        <div class="service-card fade-up">
-          <span class="service-icon">⚙️</span>
-          <h3>Web Development</h3>
-          <p>Fast, reliable websites built with modern technology. From simple landing pages to full business platforms — we code it right.</p>
-        </div>
-        <div class="service-card fade-up">
-          <span class="service-icon">📱</span>
-          <h3>Mobile-Friendly Design</h3>
-          <p>Your site looks and works perfectly on every screen — phones, tablets, laptops. Mobile-first, always responsive.</p>
-        </div>
-        <div class="service-card fade-up">
-          <span class="service-icon">🔍</span>
-          <h3>SEO Optimization</h3>
-          <p>Get found on Google. We optimize your site so customers searching in Darjeeling and beyond can discover your business.</p>
-        </div>
-        <div class="service-card fade-up">
-          <span class="service-icon">✦</span>
-          <h3>Branding & Identity</h3>
-          <p>Logo design, color systems, and visual identity that set your business apart and build trust with your audience.</p>
-        </div>
-        <div class="service-card fade-up">
-          <span class="service-icon">📣</span>
-          <h3>Social Media Setup</h3>
-          <p>Profile design, content strategy, and a consistent visual presence across Instagram, Facebook, and beyond.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PORTFOLIO -->
-  <section id="portfolio">
-    <div class="container">
-      <p class="section-label fade-up">Our work</p>
-      <h2 class="section-title fade-up">Projects from the<br/>hills of Darjeeling</h2>
-      <p class="section-sub fade-up">A selection of digital products and websites built for clients across the region.</p>
-
-      <div class="portfolio-grid">
-        <!-- GorkhaTV - LIVE -->
-        <div>
-          <a href="https://gorkhatv.site" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div class="portfolio-card fade-up">
-              <div class="portfolio-thumb portfolio-thumb-gorkhaTv">
-                <div class="portfolio-thumb-text">GorkhaTV</div>
-              </div>
-              <div class="portfolio-overlay">
-                <p class="portfolio-tag">Streaming Platform</p>
-                <h3>GorkhaTV ↗</h3>
-              </div>
-              <div style="position:absolute;top:1rem;right:1rem;background:#22c55e;color:white;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;">Live</div>
-            </div>
-          </a>
-          <div class="portfolio-info">
+      <!-- GorkhaTV -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card">
+          <div class="portfolio-bg bg-gorkhaTv">
+            <div class="portfolio-bg-text">GorkhaTV</div>
+          </div>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">Streaming Platform</p>
             <h3>GorkhaTV</h3>
-            <p>Streaming platform for Gorkha & Darjeeling content</p>
+            <p>Netflix-style platform for Gorkha & Darjeeling content</p>
           </div>
+          <span class="portfolio-badge badge-live">Live ↗</span>
+          <a href="https://gorkhatv.site" target="_blank" rel="noopener" class="portfolio-link" aria-label="Visit GorkhaTV"></a>
         </div>
+      </div>
 
-        <!-- Khabar Darjeeling - LIVE -->
-        <div>
-          <a href="https://khabardarjeeling.space" target="_blank" rel="noopener" style="text-decoration:none;">
-            <div class="portfolio-card fade-up">
-              <div class="portfolio-thumb" style="background:linear-gradient(135deg,#1a0a0a 0%,#2d0a0a 50%,#1a0505 100%);">
-                <div class="portfolio-thumb-text">Khabar<br/>Darjeeling</div>
-              </div>
-              <div class="portfolio-overlay">
-                <p class="portfolio-tag">News Platform</p>
-                <h3>Khabar Darjeeling ↗</h3>
-              </div>
-              <div style="position:absolute;top:1rem;right:1rem;background:#22c55e;color:white;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;">Live</div>
-            </div>
-          </a>
-          <div class="portfolio-info">
+      <!-- Khabar Darjeeling -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card">
+          <div class="portfolio-bg bg-khabar">
+            <div class="portfolio-bg-text">Khabar Darjeeling</div>
+          </div>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">News Platform · PWA</p>
             <h3>Khabar Darjeeling</h3>
-            <p>Regional news PWA for the Darjeeling hills</p>
+            <p>Regional news app for the Darjeeling hills</p>
           </div>
+          <span class="portfolio-badge badge-live">Live ↗</span>
+          <a href="https://khabardarjeeling.space" target="_blank" rel="noopener" class="portfolio-link" aria-label="Visit Khabar Darjeeling"></a>
         </div>
+      </div>
 
-        <!-- Hotel - Coming Soon -->
-        <div>
-          <div class="portfolio-card fade-up" style="cursor:default;">
-            <div class="portfolio-thumb portfolio-thumb-hotel">
-              <div class="portfolio-thumb-text">Hotel<br/>Darjeeling</div>
-            </div>
-            <div class="portfolio-overlay">
-              <p class="portfolio-tag">Hospitality</p>
-              <h3>Darjeeling Hotel Demo</h3>
-            </div>
-            <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;backdrop-filter:blur(8px);">Coming Soon</div>
+      <!-- Adhar Limbu Portfolio -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card">
+          <div class="portfolio-bg bg-adhar">
+            <div class="portfolio-bg-text">Adhar Limbu</div>
           </div>
-          <div class="portfolio-info">
-            <h3>Darjeeling Hotel Demo</h3>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">Personal Portfolio</p>
+            <h3>Adhar Limbu</h3>
+            <p>Personal portfolio & digital agency website</p>
+          </div>
+          <span class="portfolio-badge badge-live">Live ↗</span>
+          <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="portfolio-link" aria-label="Visit adharlimbu.online"></a>
+        </div>
+      </div>
+
+      <!-- Hotel -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card" style="cursor:default;">
+          <div class="portfolio-bg bg-hotel">
+            <div class="portfolio-bg-text">Himalayan Hotel</div>
+          </div>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">Hospitality</p>
+            <h3>Himalayan Hotel Demo</h3>
             <p>Luxury hotel booking website with gallery</p>
           </div>
+          <span class="portfolio-badge badge-soon">Coming Soon</span>
         </div>
+      </div>
 
-        <!-- Café - Coming Soon -->
-        <div>
-          <div class="portfolio-card fade-up" style="cursor:default;">
-            <div class="portfolio-thumb portfolio-thumb-cafe">
-              <div class="portfolio-thumb-text">Café<br/>Website</div>
-            </div>
-            <div class="portfolio-overlay">
-              <p class="portfolio-tag">Food & Beverage</p>
-              <h3>Café Website Demo</h3>
-            </div>
-            <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;backdrop-filter:blur(8px);">Coming Soon</div>
+      <!-- Café -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card" style="cursor:default;">
+          <div class="portfolio-bg bg-cafe">
+            <div class="portfolio-bg-text">Darjeeling Café</div>
           </div>
-          <div class="portfolio-info">
-            <h3>Café Website Demo</h3>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">Food & Beverage</p>
+            <h3>Darjeeling Café Website</h3>
             <p>Menu showcase and online presence for local café</p>
           </div>
+          <span class="portfolio-badge badge-soon">Coming Soon</span>
         </div>
+      </div>
 
-        <!-- Travel - Coming Soon -->
-        <div>
-          <div class="portfolio-card fade-up" style="cursor:default;">
-            <div class="portfolio-thumb portfolio-thumb-travel">
-              <div class="portfolio-thumb-text">Travel<br/>Agency</div>
-            </div>
-            <div class="portfolio-overlay">
-              <p class="portfolio-tag">Tourism</p>
-              <h3>Travel Agency Demo</h3>
-            </div>
-            <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.15);color:white;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:100px;backdrop-filter:blur(8px);">Coming Soon</div>
+      <!-- Travel -->
+      <div class="fade-up" style="position:relative;">
+        <div class="portfolio-card" style="cursor:default;">
+          <div class="portfolio-bg bg-travel">
+            <div class="portfolio-bg-text">Travel Agency</div>
           </div>
-          <div class="portfolio-info">
-            <h3>Travel Agency Demo</h3>
-            <p>Tour packages and trek bookings for the Himalayas</p>
+          <div class="portfolio-overlay">
+            <p class="portfolio-tag">Tourism</p>
+            <h3>Travel Agency Website</h3>
+            <p>Trek and tour packages for the Himalayas</p>
+          </div>
+          <span class="portfolio-badge badge-soon">Coming Soon</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <p class="section-label fade-up">Transparent pricing</p>
+    <h2 class="section-title fade-up">Simple packages for<br/>every business</h2>
+    <p class="section-sub fade-up">No hidden fees. No surprises. Just honest pricing for quality websites built right here in Darjeeling.</p>
+    <div class="pricing-grid">
+
+      <div class="pricing-card fade-up">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price"><sup>₹</sup>4,999<sub>+</sub></div>
+        <p class="pricing-desc">Perfect for small businesses getting online for the first time.</p>
+        <ul class="pricing-features">
+          <li>1-page website</li>
+          <li>Mobile responsive design</li>
+          <li>WhatsApp integration</li>
+          <li>Contact form</li>
+          <li>Basic SEO setup</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Starter%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+      </div>
+
+      <div class="pricing-card featured fade-up">
+        <div class="pricing-featured-label">Most Popular</div>
+        <div class="pricing-name">Business</div>
+        <div class="pricing-price"><sup>₹</sup>9,999<sub>+</sub></div>
+        <p class="pricing-desc">The complete package for growing businesses in Darjeeling.</p>
+        <ul class="pricing-features">
+          <li>Multi-page website</li>
+          <li>Modern premium UI</li>
+          <li>Full SEO optimization</li>
+          <li>Social media links</li>
+          <li>Fast performance</li>
+          <li>WhatsApp & contact integration</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Business%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-solid">Get Started</a>
+      </div>
+
+      <div class="pricing-card fade-up">
+        <div class="pricing-name">Premium</div>
+        <div class="pricing-price"><sup>₹</sup>19,999<sub>+</sub></div>
+        <p class="pricing-desc">For businesses that want the best — fully custom and feature-rich.</p>
+        <ul class="pricing-features">
+          <li>Custom design from scratch</li>
+          <li>Advanced features & animations</li>
+          <li>Booking / contact systems</li>
+          <li>Full branding support</li>
+          <li>Priority support</li>
+          <li>Ongoing maintenance option</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Premium%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-label fade-up">About us</p>
+        <h2 class="section-title fade-up">Built in Darjeeling,<br/>for Darjeeling</h2>
+        <p class="about-body fade-up">
+          We help <strong>local businesses and brands</strong> create modern digital identities through beautiful websites and professional online presence. From tea estates and hotels to cafés and travel agencies — if you're in the hills, we're here for you.<br/><br/>
+          Founded by <strong>Adhar Limbu</strong>, Darjeeling Web Studio is rooted in a simple belief: every local business deserves a website that truly represents them. We bring premium design quality to the Himalayan region.
+        </p>
+        <div class="about-stats fade-up">
+          <div class="stat">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Projects delivered</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Client satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Years experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5★</div>
+            <div class="stat-label">Average rating</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div>
-          <p class="section-label fade-up">About us</p>
-          <h2 class="section-title fade-up">Built in Darjeeling,<br/>for Darjeeling</h2>
-          <p class="section-sub fade-up" style="margin-bottom: 1rem;">
-            We help local businesses — tea estates, hotels, restaurants, shops, and services — build a professional digital presence that reaches customers near and far.
-          </p>
-          <p class="fade-up" style="color: var(--muted); font-size: 0.95rem; font-weight: 300; line-height: 1.8;">
-            Founded by Adhar Limbu, Darjeeling Web Studio is rooted in a simple belief: every local business deserves a website that truly represents them. We bring big-city design quality to the hills of Darjeeling.
-          </p>
-          <div class="about-stats fade-up">
-            <div class="stat">
-              <div class="stat-number">20+</div>
-              <div class="stat-label">Projects delivered</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">100%</div>
-              <div class="stat-label">Client satisfaction</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">3+</div>
-              <div class="stat-label">Years experience</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">5★</div>
-              <div class="stat-label">Average rating</div>
-            </div>
-          </div>
-        </div>
-        <div class="about-visual fade-up">
-          <!-- Inline mountain SVG illustration -->
-          <svg class="about-mountain" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Sky gradient -->
-            <defs>
-              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#1a0a0a"/>
-                <stop offset="100%" stop-color="#0a0a0a"/>
-              </linearGradient>
-              <linearGradient id="snowGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="100%" stop-color="#cccccc"/>
-              </linearGradient>
-            </defs>
-            <rect width="420" height="320" fill="url(#skyGrad)"/>
-            <!-- Stars -->
-            <circle cx="50" cy="30" r="1" fill="white" opacity="0.6"/>
-            <circle cx="120" cy="15" r="1.5" fill="white" opacity="0.4"/>
-            <circle cx="200" cy="25" r="1" fill="white" opacity="0.7"/>
-            <circle cx="300" cy="10" r="1" fill="white" opacity="0.5"/>
-            <circle cx="380" cy="35" r="1.5" fill="white" opacity="0.3"/>
-            <circle cx="80" cy="55" r="1" fill="white" opacity="0.4"/>
-            <circle cx="350" cy="20" r="1" fill="white" opacity="0.6"/>
-            <!-- Back mountains -->
-            <path d="M0 200 L60 100 L120 160 L180 80 L240 130 L300 70 L360 120 L420 90 L420 320 L0 320 Z" fill="#1a1a1a"/>
-            <!-- Mid mountains -->
-            <path d="M0 240 L80 150 L150 200 L210 120 L270 170 L330 110 L390 160 L420 140 L420 320 L0 320 Z" fill="#222222"/>
-            <!-- Snow caps -->
-            <path d="M210 120 L195 155 L225 155 Z" fill="url(#snowGrad)" opacity="0.8"/>
-            <path d="M330 110 L315 145 L345 145 Z" fill="url(#snowGrad)" opacity="0.6"/>
-            <path d="M180 80 L165 115 L195 115 Z" fill="url(#snowGrad)" opacity="0.9"/>
-            <!-- Red accent line (sunrise) -->
-            <line x1="0" y1="200" x2="420" y2="200" stroke="#c0392b" stroke-width="1" opacity="0.3"/>
-            <!-- Front hills -->
-            <path d="M0 280 L100 240 L200 265 L300 235 L420 260 L420 320 L0 320 Z" fill="#111111"/>
-            <!-- Tea garden rows (subtle) -->
-            <path d="M30 295 Q60 290 90 295" stroke="#1a1a1a" stroke-width="2" fill="none" opacity="0.5"/>
-            <path d="M120 285 Q150 280 180 285" stroke="#1a1a1a" stroke-width="2" fill="none" opacity="0.5"/>
-            <path d="M220 288 Q250 283 280 288" stroke="#1a1a1a" stroke-width="2" fill="none" opacity="0.5"/>
-            <path d="M310 278 Q340 273 370 278" stroke="#1a1a1a" stroke-width="2" fill="none" opacity="0.5"/>
-          </svg>
-          <div class="about-badge">
-            <p>Based in</p>
-            <strong>Darjeeling, WB</strong>
-          </div>
+      <div class="about-visual-wrap fade-up">
+        <img src="banner.png" alt="Darjeeling Web Studio Banner" class="about-banner" />
+        <div class="about-founder-card">
+          <p>Founded by</p>
+          <strong>Adhar Limbu</strong>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<div class="divider"></div>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <p class="section-label fade-up">Get in touch</p>
-      <h2 class="section-title fade-up">Let's build something<br/>great together</h2>
-      <p class="section-sub fade-up">Ready to take your business online? Reach out — we'll get back to you the same day.</p>
-
-      <div class="contact-grid">
-        <div>
-          <div class="contact-methods">
-            <a href="tel:+917557061046" class="contact-item">
-              <span class="contact-item-icon">📞</span>
-              <div class="contact-item-text">
-                <p>Phone</p>
-                <strong>+91 7557 061 046</strong>
-              </div>
-            </a>
-            <a href="mailto:nowanad@gmail.com" class="contact-item">
-              <span class="contact-item-icon">✉️</span>
-              <div class="contact-item-text">
-                <p>Email</p>
-                <strong>nowanad@gmail.com</strong>
-              </div>
-            </a>
-            <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="contact-item">
-              <span class="contact-item-icon">🌐</span>
-              <div class="contact-item-text">
-                <p>Website</p>
-                <strong>adharlimbu.online</strong>
-              </div>
-            </a>
-          </div>
-
-          <a href="https://wa.me/917557061046?text=Hi!%20I%20found%20your%20studio%20and%20I'm%20interested%20in%20a%20website." target="_blank" rel="noopener" class="whatsapp-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            Chat on WhatsApp
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label fade-up">Get in touch</p>
+    <h2 class="section-title fade-up">Let's build something<br/>great together</h2>
+    <p class="section-sub fade-up">Ready to take your business online? Reach out — we respond the same day.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-methods">
+          <a href="tel:+917557061046" class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text"><p>Phone / WhatsApp</p><strong>+91 7557 061 046</strong></div>
           </a>
-
-          <div class="social-links">
-            <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="#" class="social-link" aria-label="Facebook" title="Facebook">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://github.com/nowanad-bit" target="_blank" rel="noopener" class="social-link" aria-label="GitHub" title="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://wa.me/917557061046" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp" title="WhatsApp">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            </a>
-          </div>
+          <a href="mailto:nowanad@gmail.com" class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text"><p>Email</p><strong>nowanad@gmail.com</strong></div>
+          </a>
+          <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-text"><p>Website</p><strong>adharlimbu.online</strong></div>
+          </a>
         </div>
 
-        <div class="contact-quote fade-up">
-          <blockquote>
-            "The mountains are calling — and your customers are searching. Let's make sure they find you."
-          </blockquote>
-          <cite>— Adhar Limbu, Founder · Darjeeling Web Studio</cite>
-          <div class="contact-quote-mountain">
-            <svg viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 120 L50 60 L100 90 L160 30 L220 70 L280 20 L340 55 L400 35 L400 120 Z" fill="white"/>
-              <path d="M160 30 L148 55 L172 55 Z" fill="white" opacity="0.5"/>
-              <path d="M280 20 L268 48 L292 48 Z" fill="white" opacity="0.4"/>
-            </svg>
-          </div>
+        <a href="https://wa.me/917557061046?text=Hi!%20I%20found%20your%20studio%20and%20I'm%20interested%20in%20a%20website." target="_blank" rel="noopener" class="whatsapp-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Chat on WhatsApp
+        </a>
+
+        <div class="social-row">
+          <a href="https://instagram.com/darjeelingwebstudio" target="_blank" rel="noopener" class="social-link" title="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com/share/1E5nsjLGAy/?mibextid=wwXIfr" target="_blank" rel="noopener" class="social-link" title="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://wa.me/917557061046" target="_blank" rel="noopener" class="social-link" title="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <a href="#" class="footer-logo">Darjeeling Web Studio<span>.</span></a>
-      <p class="footer-copy">© 2026 Darjeeling Web Studio · All rights reserved</p>
-      <div class="footer-links">
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
+      <div class="contact-quote-box fade-up">
+        <blockquote>"The mountains are calling — and your customers are searching. Let's make sure they find you."</blockquote>
+        <cite>— Adhar Limbu, Founder · Darjeeling Web Studio</cite>
+        <svg class="contact-mountain" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 100 L60 50 L110 75 L170 25 L230 60 L290 15 L350 45 L400 30 L400 100 Z" fill="white"/>
+          <path d="M170 25 L157 52 L183 52 Z" fill="white" opacity="0.5"/>
+          <path d="M290 15 L277 44 L303 44 Z" fill="white" opacity="0.4"/>
+        </svg>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-    function closeMenu() {
-      document.getElementById('mobileMenu').classList.remove('open');
-    }
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Darjeeling Web Studio" />
+      <p>Built in the Hills, for the World. We create modern websites and digital solutions for businesses in Darjeeling and the Himalayan region.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/darjeelingwebstudio" target="_blank" rel="noopener" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://facebook.com/share/1E5nsjLGAy/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://wa.me/917557061046" target="_blank" rel="noopener" title="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a href="mailto:nowanad@gmail.com" class="social-link" title="Email">✉</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+917557061046">+91 7557 061 046</a></li>
+        <li><a href="mailto:nowanad@gmail.com">nowanad@gmail.com</a></li>
+        <li><a href="https://adharlimbu.online" target="_blank" rel="noopener">adharlimbu.online</a></li>
+        <li><a href="https://gorkhatv.site" target="_blank" rel="noopener">GorkhaTV</a></li>
+        <li><a href="https://khabardarjeeling.space" target="_blank" rel="noopener">Khabar Darjeeling</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 <strong>Darjeeling Web Studio</strong>. Built in the Hills, for the World.</p>
+    <p class="footer-copy" style="font-style:normal;">Darjeeling, West Bengal, India</p>
+  </div>
+</footer>
 
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-    document.querySelectorAll('.fade-up').forEach(el => {
-      if (!el.classList.contains('visible')) {
-        observer.observe(el);
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
       }
     });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
 
-    // Close mobile menu on outside click
-    document.addEventListener('click', (e) => {
-      const menu = document.getElementById('mobileMenu');
-      const hamburger = document.querySelector('.hamburger');
-      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-        menu.classList.remove('open');
-      }
+  // Mobile menu
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  // Scroll animations
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  </script>
-
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+</script>
 </body>
 </html>
