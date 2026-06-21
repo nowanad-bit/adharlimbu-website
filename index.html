@@ -13,11 +13,11 @@
   <meta property="og:image" content="https://adharlimbu.online/banner.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image" content="https://adharlimbu.online/banner.png" />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -59,13 +59,8 @@
     .mobile-menu a:hover { color: var(--red); }
 
     /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 7rem 2rem 5rem; }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, #0d0505 0%, #0a0a0a 60%, #0a0a0a 100%); }
-    .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); animation: float 8s ease-in-out infinite; }
-    .hero-orb-1 { width: 500px; height: 500px; background: rgba(192,57,43,0.12); top: -100px; right: -100px; }
-    .hero-orb-2 { width: 300px; height: 300px; background: rgba(192,57,43,0.07); bottom: 100px; left: -50px; animation-delay: 3s; }
-    @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
-    .hero-mountains { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 1; opacity: 0.1; }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 7rem 2rem 5rem; background: var(--black); }
+    #heroCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; }
     .hero-content { position: relative; z-index: 2; text-align: center; max-width: 860px; }
     .hero-logo { width: 120px; height: auto; margin: 0 auto 2rem; display: block; animation: logoGlow 3s ease-in-out infinite; }
     @keyframes logoGlow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(192,57,43,0.2)); } 50% { filter: drop-shadow(0 0 40px rgba(192,57,43,0.5)); } }
@@ -84,7 +79,7 @@
     .badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); border: 1px solid var(--border); padding: 0.35rem 0.8rem; border-radius: 100px; text-transform: uppercase; }
     .badge span { color: var(--red); }
 
-    /* SECTIONS */
+    /* 3D ENHANCED SERVICE CARDS */
     section { padding: 6rem 2rem; }
     .container { max-width: 1100px; margin: 0 auto; }
     .section-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; }
@@ -92,39 +87,54 @@
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 0.8rem; }
     .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 500px; margin-bottom: 3.5rem; font-weight: 300; line-height: 1.8; }
 
-    /* SERVICES */
     #services { background: var(--offblack); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .service-card { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; cursor: default; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; perspective: 1200px; }
+    .service-card { 
+      background: var(--glass); 
+      border: 1px solid var(--border); 
+      border-radius: 14px; 
+      padding: 2rem; 
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+      position: relative; 
+      overflow: hidden; 
+      cursor: default;
+      transform-style: preserve-3d;
+    }
     .service-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--red-glass), transparent); opacity: 0; transition: opacity 0.3s; border-radius: 14px; }
-    .service-card:hover { border-color: rgba(192,57,43,0.25); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .service-card:hover { 
+      border-color: rgba(192,57,43,0.25); 
+      transform: translateY(-8px) rotateX(5deg) rotateY(-2deg);
+      box-shadow: 0 24px 50px rgba(192,57,43,0.2), 0 0 30px rgba(192,57,43,0.1);
+    }
     .service-card:hover::after { opacity: 1; }
-    .service-icon-wrap { width: 48px; height: 48px; background: var(--red-glass); border: 1px solid rgba(192,57,43,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+    .service-icon-wrap { width: 48px; height: 48px; background: var(--red-glass); border: 1px solid rgba(192,57,43,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; position: relative; z-index: 1; transition: all 0.3s; }
+    .service-card:hover .service-icon-wrap { transform: scale(1.15) rotateZ(8deg); }
     .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--white); position: relative; z-index: 1; }
     .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; font-weight: 300; position: relative; z-index: 1; }
 
-    /* PROCESS */
-    #process { background: var(--black); }
-    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-    .process-step { padding: 2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--glass); transition: all 0.3s; }
-    .process-step:hover { border-color: rgba(192,57,43,0.25); transform: translateY(-4px); }
-    .process-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: var(--red); opacity: 0.25; line-height: 1; margin-bottom: 0.5rem; }
-    .process-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
-    .process-step p { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
-
-    /* PORTFOLIO */
+    /* 3D FLOATING PORTFOLIO CARDS */
     #portfolio { background: var(--offblack); }
     .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-
     .portfolio-card {
       border-radius: 16px;
       overflow: hidden;
       position: relative;
       background: var(--charcoal);
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-style: preserve-3d;
+      animation: float 3s ease-in-out infinite;
     }
-    .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.5); border-color: rgba(192,57,43,0.2); }
+    .portfolio-card:nth-child(1) { animation-delay: 0s; }
+    .portfolio-card:nth-child(2) { animation-delay: 0.3s; }
+    .portfolio-card:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes float { 0%, 100% { transform: translateY(0px) rotateZ(-1deg); } 50% { transform: translateY(-12px) rotateZ(1deg); } }
+    .portfolio-card:hover { 
+      transform: translateY(-16px) scale(1.02) rotateX(3deg);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.4), 0 0 40px rgba(192,57,43,0.15); 
+      border-color: rgba(192,57,43,0.3);
+      animation: none;
+    }
 
     .portfolio-screenshot {
       width: 100%;
@@ -134,14 +144,13 @@
       display: block;
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .portfolio-card:hover .portfolio-screenshot { transform: scale(1.04); }
+    .portfolio-card:hover .portfolio-screenshot { transform: scale(1.06); }
 
     .portfolio-screenshot-wrap {
       position: relative;
       overflow: hidden;
     }
 
-    /* Mobile mockup on hover */
     .portfolio-mobile-wrap {
       position: absolute;
       bottom: -10px;
@@ -153,11 +162,11 @@
       overflow: hidden;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(10px) scale(0.9);
       transition: all 0.35s ease;
       z-index: 5;
     }
-    .portfolio-card:hover .portfolio-mobile-wrap { opacity: 1; transform: translateY(0); }
+    .portfolio-card:hover .portfolio-mobile-wrap { opacity: 1; transform: translateY(0) scale(1); }
     .portfolio-mobile-wrap img { width: 100%; display: block; }
 
     .portfolio-info {
@@ -219,6 +228,15 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
+
+    /* PROCESS */
+    #process { background: var(--black); }
+    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .process-step { padding: 2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--glass); transition: all 0.3s; }
+    .process-step:hover { border-color: rgba(192,57,43,0.25); transform: translateY(-4px); }
+    .process-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: var(--red); opacity: 0.25; line-height: 1; margin-bottom: 0.5rem; }
+    .process-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+    .process-step p { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
 
     /* TESTIMONIALS */
     #testimonials { background: var(--charcoal); }
@@ -335,11 +353,11 @@
     .fade-up:nth-child(5) { transition-delay: 0.4s; }
     .fade-up:nth-child(6) { transition-delay: 0.5s; }
 
-    @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } .hero-orb, .hero-logo, .float-wa { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } .hero-logo, .float-wa { animation: none; } .service-card:hover { transform: none; } .portfolio-card:hover { animation: none; transform: none; } }
 
     @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } .about-visual-wrap { order: -1; } .about-banner { max-width: 400px; margin: 0 auto; } .about-founder-card { display: none; } .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } .footer-top { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 4rem 1.25rem; } .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; } .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; } .portfolio-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 480px) { .hero-actions { flex-direction: column; align-items: center; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } .trust-badges { gap: 0.5rem; } .about-stats { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 4rem 1.25rem; } .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; } .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; } .portfolio-grid { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } .service-card:hover { transform: translateY(-6px); } }
+    @media (max-width: 480px) { .hero-actions { flex-direction: column; align-items: center; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } .trust-badges { gap: 0.5rem; } .about-stats { grid-template-columns: 1fr 1fr; } #heroCanvas { display: none; } }
   </style>
 </head>
 <body>
@@ -378,19 +396,9 @@
   <a href="#contact" onclick="closeMenu()">Contact</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO with 3D Canvas -->
 <section class="hero" id="home">
-  <div class="hero-bg">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-  </div>
-  <svg class="hero-mountains" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 300 L0 200 L100 130 L180 180 L280 80 L380 160 L480 50 L560 130 L660 10 L760 110 L860 40 L960 150 L1060 70 L1160 170 L1280 100 L1380 180 L1440 140 L1440 300 Z" fill="white"/>
-    <path d="M0 300 L0 240 L180 190 L300 230 L440 170 L560 210 L660 155 L760 200 L880 160 L1000 205 L1120 165 L1240 210 L1380 175 L1440 200 L1440 300 Z" fill="white" opacity="0.4"/>
-    <path d="M480 50 L465 85 L495 85 Z" fill="white" opacity="0.6"/>
-    <path d="M660 10 L642 50 L678 50 Z" fill="white" opacity="0.8"/>
-    <path d="M860 40 L844 78 L876 78 Z" fill="white" opacity="0.5"/>
-  </svg>
+  <canvas id="heroCanvas"></canvas>
   <div class="hero-content">
     <img src="logo.png" alt="Darjeeling Web Studio" class="hero-logo" />
     <div class="hero-eyebrow">Digital Agency · Darjeeling, India</div>
@@ -416,7 +424,7 @@
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES with 3D Effects -->
 <section id="services">
   <div class="container">
     <p class="section-label fade-up">What we offer</p>
@@ -452,7 +460,7 @@
 
 <div class="divider"></div>
 
-<!-- PORTFOLIO -->
+<!-- PORTFOLIO with Floating 3D Effects -->
 <section id="portfolio">
   <div class="container">
     <p class="section-label fade-up">Our work</p>
@@ -740,8 +748,11 @@
 </footer>
 
 <script>
+  // ===== NAV SCROLL =====
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+  // ===== ACTIVE NAV LINK =====
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   const observer = new IntersectionObserver((entries) => {
@@ -754,11 +765,194 @@
     });
   }, { threshold: 0.4 });
   sections.forEach(s => observer.observe(s));
-  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
-  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
-  const fadeObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  // ===== MOBILE MENU =====
+  function toggleMenu() { 
+    document.getElementById('mobileMenu').classList.toggle('open'); 
+    document.getElementById('hamburger').classList.toggle('open'); 
+  }
+  function closeMenu() { 
+    document.getElementById('mobileMenu').classList.remove('open'); 
+    document.getElementById('hamburger').classList.remove('open'); 
+  }
+
+  // ===== FADE UP ON SCROLL =====
+  const fadeObserver = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+      if (entry.isIntersecting) entry.target.classList.add('visible'); 
+    }); 
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-  function toggleFaq(btn) { const item = btn.parentElement; const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
+
+  // ===== FAQ TOGGLE =====
+  function toggleFaq(btn) { 
+    const item = btn.parentElement; 
+    const isOpen = item.classList.contains('open'); 
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); 
+    if (!isOpen) item.classList.add('open'); 
+  }
+
+  // ===== THREE.JS HERO 3D SCENE =====
+  let scene, camera, renderer, mountains, particles;
+  function initHero3D() {
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+    
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    // Scene setup
+    scene = new THREE.Scene();
+    scene.background = null;
+    
+    camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
+    camera.position.z = 25;
+
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+
+    // Lighting
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambLight);
+
+    const pointLight1 = new THREE.PointLight(0xff6b6b, 0.8);
+    pointLight1.position.set(-10, 15, 10);
+    pointLight1.castShadow = true;
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xff3333, 0.5);
+    pointLight2.position.set(15, 10, 5);
+    scene.add(pointLight2);
+
+    // Create Mountains
+    createMountains();
+    
+    // Create Particles
+    createParticles();
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      const newW = window.innerWidth;
+      const newH = window.innerHeight;
+      camera.aspect = newW / newH;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newW, newH);
+    });
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Rotate mountains
+      if (mountains) {
+        mountains.rotation.y += 0.001;
+        mountains.rotation.x += 0.0003;
+      }
+
+      // Animate particles
+      if (particles) {
+        particles.rotation.x += 0.0002;
+        particles.rotation.y += 0.0003;
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  }
+
+  function createMountains() {
+    const group = new THREE.Group();
+
+    // Mountain 1 (center - tallest)
+    const geom1 = new THREE.ConeGeometry(8, 18, 32);
+    const mat1 = new THREE.MeshStandardMaterial({ 
+      color: 0xff6b6b, 
+      roughness: 0.5, 
+      metalness: 0.1,
+      emissive: 0x330000,
+      emissiveIntensity: 0.3
+    });
+    const mountain1 = new THREE.Mesh(geom1, mat1);
+    mountain1.position.set(0, 0, 0);
+    mountain1.castShadow = true;
+    mountain1.receiveShadow = true;
+    group.add(mountain1);
+
+    // Mountain 2 (left)
+    const geom2 = new THREE.ConeGeometry(6, 12, 32);
+    const mat2 = new THREE.MeshStandardMaterial({ 
+      color: 0xe74c3c, 
+      roughness: 0.6, 
+      metalness: 0.05
+    });
+    const mountain2 = new THREE.Mesh(geom2, mat2);
+    mountain2.position.set(-12, -2, -3);
+    mountain2.castShadow = true;
+    group.add(mountain2);
+
+    // Mountain 3 (right)
+    const geom3 = new THREE.ConeGeometry(7, 15, 32);
+    const mat3 = new THREE.MeshStandardMaterial({ 
+      color: 0xd63031, 
+      roughness: 0.55, 
+      metalness: 0.08
+    });
+    const mountain3 = new THREE.Mesh(geom3, mat3);
+    mountain3.position.set(12, -1, -2);
+    mountain3.castShadow = true;
+    group.add(mountain3);
+
+    // Mountain 4 (small left back)
+    const geom4 = new THREE.ConeGeometry(5, 10, 28);
+    const mat4 = new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.65 });
+    const mountain4 = new THREE.Mesh(geom4, mat4);
+    mountain4.position.set(-18, -3, -8);
+    group.add(mountain4);
+
+    // Mountain 5 (small right back)
+    const geom5 = new THREE.ConeGeometry(5, 11, 28);
+    const mat5 = new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.65 });
+    const mountain5 = new THREE.Mesh(geom5, mat5);
+    mountain5.position.set(16, -2, -7);
+    group.add(mountain5);
+
+    scene.add(group);
+    mountains = group;
+  }
+
+  function createParticles() {
+    const geometry = new THREE.BufferGeometry();
+    const particleCount = 200;
+    const positions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 80;
+      positions[i + 1] = (Math.random() - 0.5) * 60;
+      positions[i + 2] = (Math.random() - 0.5) * 60;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.3,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.3
+    });
+
+    particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHero3D);
+  } else {
+    initHero3D();
+  }
 </script>
 </body>
 </html>
