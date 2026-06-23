@@ -17,6 +17,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223539471824662"
+     crossorigin="anonymous"></script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -57,55 +62,16 @@
     .mobile-menu a { color: var(--white); text-decoration: none; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
     .mobile-menu a:hover { color: var(--red); }
 
-    /* ===== LIVING-PHOTO HERO ===== */
+    /* HERO */
     .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 7rem 2rem 5rem; background: var(--black); }
-
-    /* photo layer with slow ken-burns + parallax (driven by JS var --py) */
-    .hero-photo {
-      position: absolute;
-      top: -8%; left: -8%; right: -8%; bottom: -8%;
-      width: 116%; height: 116%;
-      background-image: url('assets/hero-darjeeling.jpg');
-      background-size: cover;
-      background-position: center 40%;
-      z-index: 0;
-      transform: translateY(var(--py, 0px)) scale(1.06);
-      animation: kenburns 26s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-    @keyframes kenburns {
-      0%   { background-position: 48% 38%; }
-      100% { background-position: 52% 46%; }
-    }
-
-    /* drifting mist layers */
-    .hero-mist {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background-repeat: repeat-x;
-      background-size: 50% auto;
-      opacity: 0.5;
-      mix-blend-mode: screen;
-    }
-    .hero-mist.m1 {
-      background-image: radial-gradient(ellipse 50% 40% at 30% 60%, rgba(255,255,255,0.5), transparent 70%),
-                        radial-gradient(ellipse 40% 30% at 70% 55%, rgba(255,255,255,0.4), transparent 70%);
-      animation: drift1 40s linear infinite;
-    }
-    .hero-mist.m2 {
-      background-image: radial-gradient(ellipse 60% 35% at 50% 70%, rgba(255,255,255,0.35), transparent 70%);
-      animation: drift2 60s linear infinite;
-      opacity: 0.35;
-    }
+    .hero-photo { position: absolute; top: -8%; left: -8%; right: -8%; bottom: -8%; width: 116%; height: 116%; background-image: url('assets/hero-darjeeling.jpg'); background-size: cover; background-position: center 40%; z-index: 0; transform: translateY(var(--py, 0px)) scale(1.06); animation: kenburns 26s ease-in-out infinite alternate; will-change: transform; }
+    @keyframes kenburns { 0% { background-position: 48% 38%; } 100% { background-position: 52% 46%; } }
+    .hero-mist { position: absolute; inset: 0; z-index: 1; pointer-events: none; background-repeat: repeat-x; background-size: 50% auto; opacity: 0.5; mix-blend-mode: screen; }
+    .hero-mist.m1 { background-image: radial-gradient(ellipse 50% 40% at 30% 60%, rgba(255,255,255,0.5), transparent 70%), radial-gradient(ellipse 40% 30% at 70% 55%, rgba(255,255,255,0.4), transparent 70%); animation: drift1 40s linear infinite; }
+    .hero-mist.m2 { background-image: radial-gradient(ellipse 60% 35% at 50% 70%, rgba(255,255,255,0.35), transparent 70%); animation: drift2 60s linear infinite; opacity: 0.35; }
     @keyframes drift1 { from { background-position: 0 0; } to { background-position: 1000px 0; } }
     @keyframes drift2 { from { background-position: 0 0; } to { background-position: -1200px 0; } }
-
-    /* readability gradients: darken top (nav) and bottom (text + handoff to page) */
-    .hero-scrim {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none;
-      background:
-        linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.05) 22%, rgba(10,10,10,0.1) 50%, rgba(10,10,10,0.75) 82%, var(--black) 100%);
-    }
-
+    .hero-scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.05) 22%, rgba(10,10,10,0.1) 50%, rgba(10,10,10,0.75) 82%, var(--black) 100%); }
     .hero-content { position: relative; z-index: 3; text-align: center; max-width: 880px; pointer-events: none; }
     .hero-content * { pointer-events: auto; }
     .hero-logo { width: 116px; height: auto; margin: 0 auto 1.8rem; display: block; filter: drop-shadow(0 6px 24px rgba(0,0,0,0.6)); }
@@ -134,6 +100,7 @@
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 0.8rem; }
     .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 500px; margin-bottom: 3.5rem; font-weight: 300; line-height: 1.8; }
 
+    /* SERVICES */
     #services { background: var(--offblack); }
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; perspective: 1200px; }
     .service-card { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; cursor: default; transform-style: preserve-3d; }
@@ -145,6 +112,7 @@
     .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--white); position: relative; z-index: 1; }
     .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; font-weight: 300; position: relative; z-index: 1; }
 
+    /* PROCESS */
     #process { background: var(--black); }
     .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
     .process-step { padding: 2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--glass); transition: all 0.3s; }
@@ -153,6 +121,7 @@
     .process-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
     .process-step p { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
 
+    /* PORTFOLIO */
     #portfolio { background: var(--offblack); }
     .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
     .portfolio-card { border-radius: 16px; overflow: hidden; position: relative; background: var(--charcoal); border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform-style: preserve-3d; animation: float 3s ease-in-out infinite; }
@@ -169,7 +138,6 @@
     .portfolio-mobile-wrap img { width: 100%; display: block; }
     .portfolio-info { padding: 1.2rem 1.4rem 1.4rem; }
     .portfolio-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.6rem; }
-    .portfolio-app-icon { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
     .portfolio-tag { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; font-weight: 600; }
     .portfolio-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
     .portfolio-info p { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; margin-bottom: 1rem; }
@@ -181,6 +149,7 @@
     .portfolio-btn-apk:hover { background: rgba(255,255,255,0.1); color: var(--white); border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
     .portfolio-live-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 100px; background: #16a34a; color: white; flex-shrink: 0; margin-top: 2px; }
 
+    /* TESTIMONIALS */
     #testimonials { background: var(--charcoal); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     .testimonial-card { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s; }
@@ -193,6 +162,7 @@
     .testimonial-role { font-size: 0.75rem; color: var(--muted); font-weight: 300; }
     .testimonial-stars { color: #f59e0b; font-size: 0.75rem; margin-top: 0.2rem; }
 
+    /* PRICING */
     #pricing { background: var(--offblack); }
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; align-items: start; }
     .pricing-card { border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2rem; background: var(--glass); position: relative; transition: all 0.3s; }
@@ -213,6 +183,7 @@
     .pricing-btn-solid { background: var(--red); color: var(--white); box-shadow: 0 4px 20px rgba(192,57,43,0.3); }
     .pricing-btn-solid:hover { background: var(--red-bright); box-shadow: 0 8px 30px rgba(192,57,43,0.4); }
 
+    /* FAQ */
     #faq { background: var(--black); }
     .faq-list { max-width: 700px; display: flex; flex-direction: column; gap: 0.8rem; }
     .faq-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--glass); transition: border-color 0.2s; }
@@ -224,6 +195,7 @@
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s; padding: 0 1.5rem; color: var(--muted); font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
     .faq-item.open .faq-answer { max-height: 200px; padding: 0 1.5rem 1.2rem; }
 
+    /* ABOUT */
     #about { background: var(--charcoal); position: relative; overflow: hidden; }
     #about::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(192,57,43,0.06) 0%, transparent 70%); pointer-events: none; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -239,6 +211,7 @@
     .about-founder-card p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 0.2rem; }
     .about-founder-card strong { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); }
 
+    /* CONTACT */
     #contact { background: var(--black); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .contact-methods { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
@@ -258,6 +231,7 @@
     .contact-quote-box cite { font-size: 0.78rem; color: var(--muted); font-style: normal; letter-spacing: 0.08em; }
     .contact-mountain { margin-top: 2rem; opacity: 0.15; width: 100%; }
 
+    /* FOOTER */
     footer { background: var(--navy); border-top: 1px solid var(--border); }
     .footer-top { padding: 4rem 2rem 2rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
     .footer-brand img { height: 60px; width: auto; margin-bottom: 1rem; opacity: 0.9; }
@@ -274,12 +248,14 @@
     .footer-copy { color: var(--muted); font-size: 0.78rem; font-style: italic; }
     .footer-copy strong { color: var(--red); font-style: normal; }
 
+    /* FLOAT WA */
     .float-wa { position: fixed; bottom: 2rem; right: 2rem; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 500; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: all 0.2s; animation: pulse 2s ease-in-out infinite; }
     .float-wa:hover { transform: scale(1.1); }
     @keyframes pulse { 0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.1); } }
 
     .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); max-width: 1100px; margin: 0 auto; }
 
+    /* FADE UP */
     .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .fade-up:nth-child(2) { transition-delay: 0.1s; }
@@ -288,6 +264,7 @@
     .fade-up:nth-child(5) { transition-delay: 0.4s; }
     .fade-up:nth-child(6) { transition-delay: 0.5s; }
 
+    /* REDUCED MOTION */
     @media (prefers-reduced-motion: reduce) {
       .fade-up { opacity: 1; transform: none; transition: none; }
       .float-wa, .scroll-hint { animation: none; }
@@ -298,17 +275,43 @@
       .portfolio-card:hover { transform: none; }
     }
 
-    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } .about-visual-wrap { order: -1; } .about-banner { max-width: 400px; margin: 0 auto; } .about-founder-card { display: none; } .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } .footer-top { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 4rem 1.25rem; } .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; } .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; } .portfolio-grid { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } .service-card:hover { transform: translateY(-6px); } .hero-photo { background-position: center 45%; } }
-    @media (max-width: 480px) { .hero-actions { flex-direction: column; align-items: center; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } .trust-badges { gap: 0.5rem; } .about-stats { grid-template-columns: 1fr 1fr; } }
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual-wrap { order: -1; }
+      .about-banner { max-width: 400px; margin: 0 auto; }
+      .about-founder-card { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 1.25rem; }
+      .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card:hover { transform: translateY(-6px); }
+      .hero-photo { background-position: center 45%; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .trust-badges { gap: 0.5rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
 
+<!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20a%20website%20for%20my%20business." target="_blank" rel="noopener" class="float-wa" aria-label="Chat on WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
+<!-- NAV -->
 <nav id="navbar">
   <a href="#home" class="nav-logo">
     <img src="logo.png" alt="Darjeeling Web Studio Logo" />
@@ -330,6 +333,7 @@
   </button>
 </nav>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#home" onclick="closeMenu()">Home</a>
   <a href="#services" onclick="closeMenu()">Services</a>
@@ -339,7 +343,7 @@
   <a href="#contact" onclick="closeMenu()">Contact</a>
 </div>
 
-<!-- LIVING-PHOTO HERO -->
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-photo" id="heroPhoto"></div>
   <div class="hero-mist m1"></div>
@@ -381,12 +385,36 @@
     <h2 class="section-title fade-up">Built for Himalayan<br/>businesses</h2>
     <p class="section-sub fade-up">Everything your local business needs to build a strong, credible digital presence — from first impression to final conversion.</p>
     <div class="services-grid">
-      <div class="service-card fade-up"><div class="service-icon-wrap">🎨</div><h3>Website Design</h3><p>Custom, modern designs tailored to your brand identity — clean, beautiful, and built to impress every visitor.</p></div>
-      <div class="service-card fade-up"><div class="service-icon-wrap">🏢</div><h3>Business Websites</h3><p>Professional multi-page websites for shops, offices, and service businesses in Darjeeling and the hills.</p></div>
-      <div class="service-card fade-up"><div class="service-icon-wrap">🏨</div><h3>Hotel & Homestay Websites</h3><p>Showcase your property with beautiful galleries, booking information, and WhatsApp integration for inquiries.</p></div>
-      <div class="service-card fade-up"><div class="service-icon-wrap">✦</div><h3>Branding & Social Media</h3><p>Logo design, visual identity, and consistent social media presence that sets your business apart from the rest.</p></div>
-      <div class="service-card fade-up"><div class="service-icon-wrap">🔍</div><h3>SEO Optimization</h3><p>Get discovered on Google. We optimize your site so customers searching in Darjeeling find you first.</p></div>
-      <div class="service-card fade-up"><div class="service-icon-wrap">👤</div><h3>Portfolio Websites</h3><p>Showcase your work, skills, and achievements with a stunning personal portfolio that opens doors.</p></div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🎨</div>
+        <h3>Website Design</h3>
+        <p>Custom, modern designs tailored to your brand identity — clean, beautiful, and built to impress every visitor.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🏢</div>
+        <h3>Business Websites</h3>
+        <p>Professional multi-page websites for shops, offices, and service businesses in Darjeeling and the hills.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🏨</div>
+        <h3>Hotel & Homestay Websites</h3>
+        <p>Showcase your property with beautiful galleries, booking information, and WhatsApp integration for inquiries.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">✦</div>
+        <h3>Branding & Social Media</h3>
+        <p>Logo design, visual identity, and consistent social media presence that sets your business apart from the rest.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">🔍</div>
+        <h3>SEO Optimization</h3>
+        <p>Get discovered on Google. We optimize your site so customers searching in Darjeeling find you first.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon-wrap">👤</div>
+        <h3>Portfolio Websites</h3>
+        <p>Showcase your work, skills, and achievements with a stunning personal portfolio that opens doors.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -400,10 +428,26 @@
     <h2 class="section-title fade-up">Simple process,<br/>great results</h2>
     <p class="section-sub fade-up">From first message to live website — here's exactly what working with us looks like.</p>
     <div class="process-steps">
-      <div class="process-step fade-up"><div class="process-num">01</div><h3>Discovery Call</h3><p>We chat on WhatsApp or call to understand your business, goals, and what you need from your website.</p></div>
-      <div class="process-step fade-up"><div class="process-num">02</div><h3>Design & Build</h3><p>We design and develop your site with modern tools — fast, mobile-friendly, and built to convert visitors.</p></div>
-      <div class="process-step fade-up"><div class="process-num">03</div><h3>Review & Refine</h3><p>You review the site, we make changes until it's exactly right. Your satisfaction is our priority.</p></div>
-      <div class="process-step fade-up"><div class="process-num">04</div><h3>Launch & Support</h3><p>We go live and hand everything over. Ongoing support is always available if you need us.</p></div>
+      <div class="process-step fade-up">
+        <div class="process-num">01</div>
+        <h3>Discovery Call</h3>
+        <p>We chat on WhatsApp or call to understand your business, goals, and what you need from your website.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-num">02</div>
+        <h3>Design & Build</h3>
+        <p>We design and develop your site with modern tools — fast, mobile-friendly, and built to convert visitors.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-num">03</div>
+        <h3>Review & Refine</h3>
+        <p>You review the site, we make changes until it's exactly right. Your satisfaction is our priority.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-num">04</div>
+        <h3>Launch & Support</h3>
+        <p>We go live and hand everything over. Ongoing support is always available if you need us.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -417,113 +461,85 @@
     <h2 class="section-title fade-up">Projects from the<br/>hills of Darjeeling</h2>
     <p class="section-sub fade-up">Real websites and digital products built for clients across the region.</p>
     <div class="portfolio-grid">
+
+      <!-- Card 1: GorkhaTV -->
       <div class="portfolio-card fade-up">
         <div class="portfolio-screenshot-wrap">
-          <img src="assets/gorkhatv-desktop.png.png" alt="GorkhaTV Desktop" class="portfolio-screenshot" />
+          <img src="assets/gorkhatv-desktop.png" alt="GorkhaTV Desktop" class="portfolio-screenshot" />
           <div class="portfolio-mobile-wrap">
-            <img src="assets/gorkhatv-mobile.png.jpeg" alt="GorkhaTV Mobile" />
+            <img src="assets/gorkhatv-mobile.jpeg" alt="GorkhaTV Mobile" />
           </div>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-top">
             <div>
-              <p class="portfolio-tag">Streaming Platform</p>
+              <div class="portfolio-tag">News & Media</div>
               <h3>GorkhaTV</h3>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;">
-              <img src="assets/khabar-icon.png.jpeg" alt="GorkhaTV App" class="portfolio-app-icon" />
-              <span class="portfolio-live-badge">Live</span>
-            </div>
-          </div>
-          <p>Netflix-style streaming platform for Gorkha & Darjeeling content — movies, web series, music, docs and more.</p>
-          <div class="portfolio-actions">
-            <a href="https://gorkhatv.site" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Visit Site
-            </a>
-            <a href="https://github.com/limbunowan1234-cell/gorkha-tv/releases/download/v1.0.0/GorkhaTV.apk" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-apk">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download APK
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="portfolio-card fade-up">
-        <div class="portfolio-screenshot-wrap">
-          <img src="assets/khabar-desktop.png.png" alt="Khabar Darjeeling Desktop" class="portfolio-screenshot" />
-          <div class="portfolio-mobile-wrap">
-            <img src="assets/khabar-mobile.png.jpeg" alt="Khabar Darjeeling Mobile" />
-          </div>
-        </div>
-        <div class="portfolio-info">
-          <div class="portfolio-top">
-            <div>
-              <p class="portfolio-tag">News Platform · PWA</p>
-              <h3>Khabar Darjeeling</h3>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;">
-              <img src="assets/khabar-icon.png.jpeg" onerror="this.style.display='none'" alt="Khabar App" class="portfolio-app-icon" />
-              <span class="portfolio-live-badge">Live</span>
-            </div>
-          </div>
-          <p>Regional news platform for the Darjeeling hills — breaking news, local stories, and community voices.</p>
-          <div class="portfolio-actions">
-            <a href="https://khabardarjeeling.space" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Visit Site
-            </a>
-            <a href="https://github.com/limbunowan1234-cell/Khabar-darjeeling/releases/download/v1.0.0/KhabarDarjeeling-v1.0.0.2.apk" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-apk">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download APK
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="portfolio-card fade-up">
-        <div class="portfolio-screenshot-wrap">
-          <img src="assets/portfolio-destop.png.png" alt="Adhar Limbu Portfolio Desktop" class="portfolio-screenshot" />
-          <div class="portfolio-mobile-wrap">
-            <img src="assets/portfolio-mobile.png.jpeg" alt="Adhar Limbu Portfolio Mobile" />
-          </div>
-        </div>
-        <div class="portfolio-info">
-          <div class="portfolio-top">
-            <div>
-              <p class="portfolio-tag">Personal Portfolio</p>
-              <h3>Adhar Limbu</h3>
             </div>
             <span class="portfolio-live-badge">Live</span>
           </div>
-          <p>Personal portfolio and digital agency website — showcasing projects, services, and the Darjeeling Web Studio brand.</p>
+          <p>A full-featured local news and video portal for the Darjeeling hills — with reels, breaking news, and community-driven content.</p>
           <div class="portfolio-actions">
-            <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <a href="https://gorkhatv.site" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               Visit Site
             </a>
           </div>
         </div>
       </div>
+
+      <!-- Card 2: Khabar Darjeeling -->
       <div class="portfolio-card fade-up">
         <div class="portfolio-screenshot-wrap">
-          <img src="assets/gorkha-reels-mobile.png" alt="GorkhaReels Mobile" class="portfolio-screenshot" />
+          <img src="assets/khabardarjeeling-desktop.png" alt="Khabar Darjeeling Desktop" class="portfolio-screenshot" />
+          <div class="portfolio-mobile-wrap">
+            <img src="assets/khabardarjeeling-mobile.png" alt="Khabar Darjeeling Mobile" />
+          </div>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-top">
             <div>
-              <p class="portfolio-tag">Short-form Video</p>
-              <h3>GorkhaReels</h3>
+              <div class="portfolio-tag">Local News</div>
+              <h3>Khabar Darjeeling</h3>
             </div>
-            <span style="font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 100px; background: rgba(192,57,43,0.25); color: #ff8a73; flex-shrink: 0; margin-top: 2px;">In Dev</span>
+            <span class="portfolio-live-badge">Live</span>
           </div>
-          <p>Short-form video platform for the Gorkha community — create, share, and discover Himalayan content. Live at gorkha-reels.pages.dev.</p>
+          <p>Darjeeling's community news platform where locals write and publish their own stories — powered by a real-time Appwrite backend.</p>
           <div class="portfolio-actions">
-            <a href="https://gorkha-reels.pages.dev" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <a href="https://khabardarjeeling.space" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               Visit Site
             </a>
           </div>
         </div>
       </div>
+
+      <!-- Card 3: Personal Portfolio -->
+      <div class="portfolio-card fade-up">
+        <div class="portfolio-screenshot-wrap">
+          <img src="assets/adharlimbu-desktop.png" alt="Adhar Limbu Portfolio Desktop" class="portfolio-screenshot" />
+          <div class="portfolio-mobile-wrap">
+            <img src="assets/adharlimbu-mobile.png" alt="Adhar Limbu Portfolio Mobile" />
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-top">
+            <div>
+              <div class="portfolio-tag">Portfolio</div>
+              <h3>Personal Portfolio</h3>
+            </div>
+            <span class="portfolio-live-badge">Live</span>
+          </div>
+          <p>A sleek personal portfolio for a Darjeeling-based developer and journalist — built to showcase work and attract clients globally.</p>
+          <div class="portfolio-actions">
+            <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="portfolio-btn portfolio-btn-live">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Visit Site
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -533,21 +549,42 @@
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="container">
-    <p class="section-label fade-up">What clients say</p>
-    <h2 class="section-title fade-up">Trusted by businesses<br/>across the hills</h2>
-    <p class="section-sub fade-up">Real feedback from real clients we've worked with in Darjeeling and beyond.</p>
+    <p class="section-label fade-up">Client love</p>
+    <h2 class="section-title fade-up">What our clients say</h2>
+    <p class="section-sub fade-up">Real feedback from real businesses in the hills.</p>
     <div class="testimonials-grid">
       <div class="testimonial-card fade-up">
-        <p class="testimonial-quote">Adhar built our website exactly the way we imagined. Fast delivery, clean design, and always responsive to changes. Highly recommend!</p>
-        <div class="testimonial-author"><div class="testimonial-avatar">🏨</div><div><div class="testimonial-name">Local Hotel Owner</div><div class="testimonial-role">Darjeeling, West Bengal</div><div class="testimonial-stars">★★★★★</div></div></div>
+        <p class="testimonial-quote">Our hotel bookings increased after the new website. Guests say they found us on Google — something that never happened before.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🏨</div>
+          <div>
+            <p class="testimonial-name">Tshering Bhutia</p>
+            <p class="testimonial-role">Homestay Owner, Kalimpong</p>
+            <p class="testimonial-stars">★★★★★</p>
+          </div>
+        </div>
       </div>
       <div class="testimonial-card fade-up">
-        <p class="testimonial-quote">GorkhaTV is exactly what our community needed. The platform looks professional and works smoothly on all devices. Great work!</p>
-        <div class="testimonial-author"><div class="testimonial-avatar">📺</div><div><div class="testimonial-name">GorkhaTV Community</div><div class="testimonial-role">Gorkha & Darjeeling Region</div><div class="testimonial-stars">★★★★★</div></div></div>
+        <p class="testimonial-quote">Professional, fast, and understood exactly what I needed. My portfolio now gets me freelance clients every month.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🎨</div>
+          <div>
+            <p class="testimonial-name">Priya Rai</p>
+            <p class="testimonial-role">Graphic Designer, Darjeeling</p>
+            <p class="testimonial-stars">★★★★★</p>
+          </div>
+        </div>
       </div>
       <div class="testimonial-card fade-up">
-        <p class="testimonial-quote">Very professional service at an affordable price. My business now has a proper online presence and we've already received inquiries through the website.</p>
-        <div class="testimonial-author"><div class="testimonial-avatar">☕</div><div><div class="testimonial-name">Local Business Owner</div><div class="testimonial-role">Darjeeling Hills</div><div class="testimonial-stars">★★★★★</div></div></div>
+        <p class="testimonial-quote">They delivered within the deadline and the website looks better than anything I imagined. Highly recommended for Darjeeling businesses.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🛍️</div>
+          <div>
+            <p class="testimonial-name">Roshan Gurung</p>
+            <p class="testimonial-role">Shop Owner, Kurseong</p>
+            <p class="testimonial-stars">★★★★★</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -558,32 +595,61 @@
 <!-- PRICING -->
 <section id="pricing">
   <div class="container">
-    <p class="section-label fade-up">Transparent pricing</p>
-    <h2 class="section-title fade-up">Simple packages for<br/>every business</h2>
-    <p class="section-sub fade-up">No hidden fees. No surprises. Just honest pricing for quality websites built right here in Darjeeling.</p>
+    <p class="section-label fade-up">Investment</p>
+    <h2 class="section-title fade-up">Simple, honest<br/>pricing</h2>
+    <p class="section-sub fade-up">No hidden fees. No confusing packages. Just great websites at fair prices for Darjeeling businesses.</p>
     <div class="pricing-grid">
+
       <div class="pricing-card fade-up">
-        <div class="pricing-name">Starter</div>
-        <div class="pricing-price"><sup>₹</sup>4,999<sub>+</sub></div>
-        <p class="pricing-desc">Perfect for small businesses getting online for the first time.</p>
-        <ul class="pricing-features"><li>1-page website</li><li>Mobile responsive design</li><li>WhatsApp integration</li><li>Contact form</li><li>Basic SEO setup</li></ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Starter%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        <p class="pricing-name">Starter</p>
+        <p class="pricing-price"><sup>₹</sup>4,999<sub>/one-time</sub></p>
+        <p class="pricing-desc">Perfect for freelancers, portfolio sites, and small local businesses just getting online.</p>
+        <ul class="pricing-features">
+          <li>Single page website</li>
+          <li>Mobile responsive design</li>
+          <li>WhatsApp contact button</li>
+          <li>Basic SEO setup</li>
+          <li>1 round of revisions</li>
+          <li>Delivered in 5 days</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Starter%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
       </div>
+
       <div class="pricing-card featured fade-up">
-        <div class="pricing-featured-label">Most Popular</div>
-        <div class="pricing-name">Business</div>
-        <div class="pricing-price"><sup>₹</sup>9,999<sub>+</sub></div>
-        <p class="pricing-desc">The complete package for growing businesses in Darjeeling.</p>
-        <ul class="pricing-features"><li>Multi-page website</li><li>Modern premium UI</li><li>Full SEO optimization</li><li>Social media links</li><li>Fast performance</li><li>WhatsApp & contact integration</li></ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Business%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-solid">Get Started</a>
+        <span class="pricing-featured-label">Most Popular</span>
+        <p class="pricing-name">Business</p>
+        <p class="pricing-price"><sup>₹</sup>9,999<sub>/one-time</sub></p>
+        <p class="pricing-desc">For shops, restaurants, hotels, and service businesses that want a serious online presence.</p>
+        <ul class="pricing-features">
+          <li>Multi-page website (up to 5 pages)</li>
+          <li>Custom design & branding</li>
+          <li>WhatsApp & contact form</li>
+          <li>Full SEO optimization</li>
+          <li>Google Maps integration</li>
+          <li>Image gallery</li>
+          <li>3 rounds of revisions</li>
+          <li>Delivered in 10 days</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Business%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-solid">Get Started</a>
       </div>
+
       <div class="pricing-card fade-up">
-        <div class="pricing-name">Premium</div>
-        <div class="pricing-price"><sup>₹</sup>19,999<sub>+</sub></div>
-        <p class="pricing-desc">For businesses that want the best — fully custom and feature-rich.</p>
-        <ul class="pricing-features"><li>Custom design from scratch</li><li>Advanced features & animations</li><li>Booking / contact systems</li><li>Full branding support</li><li>Priority support</li><li>Ongoing maintenance option</li></ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Premium%20website%20package." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        <p class="pricing-name">Premium</p>
+        <p class="pricing-price"><sup>₹</sup>19,999<sub>/one-time</sub></p>
+        <p class="pricing-desc">For hotels, established businesses, and anyone who wants a fully custom, high-performance web experience.</p>
+        <ul class="pricing-features">
+          <li>Everything in Business</li>
+          <li>Unlimited pages</li>
+          <li>Online booking / enquiry system</li>
+          <li>Blog or news section</li>
+          <li>Advanced SEO + speed optimization</li>
+          <li>Social media kit (logo + banners)</li>
+          <li>Unlimited revisions</li>
+          <li>1 month free support</li>
+        </ul>
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Premium%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
       </div>
+
     </div>
   </div>
 </section>
@@ -593,15 +659,52 @@
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <p class="section-label fade-up">FAQ</p>
-    <h2 class="section-title fade-up">Common questions</h2>
+    <p class="section-label fade-up">Questions</p>
+    <h2 class="section-title fade-up">Frequently asked</h2>
     <p class="section-sub fade-up">Everything you need to know before getting started.</p>
     <div class="faq-list">
-      <div class="faq-item fade-up"><button class="faq-question" onclick="toggleFaq(this)">How long does it take to build a website?<span class="faq-icon">+</span></button><div class="faq-answer">Most websites are delivered within 3–7 days depending on the package and complexity. Starter sites are usually done in 2–3 days. We always give you a clear timeline upfront.</div></div>
-      <div class="faq-item fade-up"><button class="faq-question" onclick="toggleFaq(this)">Do I need to provide content and images?<span class="faq-icon">+</span></button><div class="faq-answer">You provide basic info about your business (name, services, contact details). We handle the layout and design. Professional photos help, but we can also use high-quality stock images if needed.</div></div>
-      <div class="faq-item fade-up"><button class="faq-question" onclick="toggleFaq(this)">Will my website work on mobile phones?<span class="faq-icon">+</span></button><div class="faq-answer">Absolutely. Every website we build is fully mobile responsive and tested across different screen sizes. Most of your customers will visit from phones — we prioritize that experience.</div></div>
-      <div class="faq-item fade-up"><button class="faq-question" onclick="toggleFaq(this)">Can I update the website myself after it's done?<span class="faq-icon">+</span></button><div class="faq-answer">Yes. We hand over full ownership of your website. For small changes, we're also available to help. Premium clients get ongoing maintenance support included.</div></div>
-      <div class="faq-item fade-up"><button class="faq-question" onclick="toggleFaq(this)">What payment methods do you accept?<span class="faq-icon">+</span></button><div class="faq-answer">We accept UPI, bank transfer, and other local payment methods. A 50% advance is required to begin, and the remaining 50% is paid on delivery.</div></div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does it take to build a website?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Most websites are delivered within 5–10 business days depending on the package and how quickly you provide content. Premium projects with custom features may take 2–3 weeks.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need to provide content and images?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Ideally yes — your own photos and text make the site feel authentic. But we can help with placeholder content, stock images, and basic copywriting to get you started.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will my website work on mobile phones?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Absolutely. Every website we build is fully responsive — it looks and works great on mobiles, tablets, and desktops. Most of your visitors will be on mobile, so we prioritize it.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What about hosting and domain?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">We can guide you through getting a domain and hosting (typically ₹1,500–₹3,000/year), or handle it on your behalf. The cost is separate from our design fee and is paid to the hosting provider directly.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I update the website myself after it's built?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Yes. We build simple sites in a way that's easy to update. For more complex sites, we offer a simple admin panel or can train you to make basic updates yourself.</div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you work with clients outside Darjeeling?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Yes! We work with businesses across Kalimpong, Kurseong, Siliguri, and beyond. Everything is handled remotely over WhatsApp and email, so location is never a barrier.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -613,19 +716,37 @@
   <div class="container">
     <div class="about-grid">
       <div>
-        <p class="section-label fade-up">About us</p>
-        <h2 class="section-title fade-up">Built in Darjeeling,<br/>for Darjeeling</h2>
-        <p class="about-body fade-up">We help <strong>local businesses and brands</strong> create modern digital identities through beautiful websites and professional online presence. From tea estates and hotels to cafés and travel agencies — if you're in the hills, we're here for you.<br/><br/>Founded by <strong>Adhar Limbu</strong>, Darjeeling Web Studio is rooted in a simple belief: every local business deserves a website that truly represents them. We bring premium design quality to the Himalayan region.</p>
+        <p class="section-label fade-up">Who we are</p>
+        <h2 class="section-title fade-up">Built in the hills,<br/>built for the hills</h2>
+        <p class="about-body fade-up">
+          Darjeeling Web Studio is a <strong>local digital agency</strong> founded by Adhar Limbu — a developer, journalist, and digital creator from the Darjeeling hills. We understand the unique needs of Himalayan businesses because we live here too.<br/><br/>
+          From tea estates to homestays, local shops to news portals — we've helped brands across the region <strong>establish a credible, modern online presence</strong> that works for them around the clock.
+        </p>
         <div class="about-stats fade-up">
-          <div class="stat"><div class="stat-number">20+</div><div class="stat-label">Projects delivered</div></div>
-          <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Client satisfaction</div></div>
-          <div class="stat"><div class="stat-number">3+</div><div class="stat-label">Years experience</div></div>
-          <div class="stat"><div class="stat-number">5★</div><div class="stat-label">Average rating</div></div>
+          <div class="stat">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Projects Delivered</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">24hr</div>
+            <div class="stat-label">Response Time</div>
+          </div>
         </div>
       </div>
       <div class="about-visual-wrap fade-up">
-        <img src="banner.png" alt="Darjeeling Web Studio Banner" class="about-banner" />
-        <div class="about-founder-card"><p>Founded by</p><strong>Adhar Limbu</strong></div>
+        <img src="assets/about-banner.jpg" alt="Darjeeling hills" class="about-banner" />
+        <div class="about-founder-card">
+          <p>Founded by</p>
+          <strong>Adhar Limbu</strong>
+        </div>
       </div>
     </div>
   </div>
@@ -636,34 +757,46 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <p class="section-label fade-up">Get in touch</p>
-    <h2 class="section-title fade-up">Let's build something<br/>great together</h2>
-    <p class="section-sub fade-up">Ready to take your business online? Reach out — we respond the same day.</p>
     <div class="contact-grid">
       <div>
-        <div class="contact-methods">
-          <a href="tel:+917557061046" class="contact-item"><div class="contact-icon">📞</div><div class="contact-text"><p>Phone / WhatsApp</p><strong>+91 7557 061 046</strong></div></a>
-          <a href="mailto:hello@adharlimbu.online" class="contact-item"><div class="contact-icon">✉️</div><div class="contact-text"><p>Email</p><strong>hello@adharlimbu.online</strong></div></a>
-          <a href="https://adharlimbu.online" target="_blank" rel="noopener" class="contact-item"><div class="contact-icon">🌐</div><div class="contact-text"><p>Website</p><strong>adharlimbu.online</strong></div></a>
+        <p class="section-label fade-up">Get in touch</p>
+        <h2 class="section-title fade-up">Let's build something<br/>great together</h2>
+        <p class="section-sub fade-up" style="margin-bottom:2rem;">Ready to get your business online? Reach out — we respond within 24 hours.</p>
+        <div class="contact-methods fade-up">
+          <a href="https://wa.me/917557061046" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div class="contact-text"><p>WhatsApp</p><strong>+91 75570 61046</strong></div>
+          </a>
+          <a href="mailto:hello@adharlimbu.online" class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text"><p>Email</p><strong>hello@adharlimbu.online</strong></div>
+          </a>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text"><p>Location</p><strong>Darjeeling, West Bengal, India</strong></div>
+          </div>
         </div>
-        <a href="https://wa.me/917557061046?text=Hi!%20I%20found%20your%20studio%20and%20I'm%20interested%20in%20a%20website." target="_blank" rel="noopener" class="whatsapp-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          Chat on WhatsApp
+        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20a%20website%20for%20my%20business." target="_blank" rel="noopener" class="whatsapp-btn fade-up">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Start on WhatsApp
         </a>
-        <div class="social-row">
-          <a href="https://instagram.com/darjeelingwebstudio" target="_blank" rel="noopener" class="social-link" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-          <a href="https://facebook.com/share/1E5nsjLGAy/?mibextid=wwXIfr" target="_blank" rel="noopener" class="social-link" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-          <a href="https://wa.me/917557061046" target="_blank" rel="noopener" class="social-link" title="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
-          <a href="mailto:hello@adharlimbu.online" class="social-link" title="Email">✉</a>
+        <div class="social-row fade-up">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
         </div>
       </div>
       <div class="contact-quote-box fade-up">
-        <blockquote>"The mountains are calling — and your customers are searching. Let's make sure they find you."</blockquote>
+        <blockquote>Your business deserves to be seen. Let's put Darjeeling on the digital map — one website at a time.</blockquote>
         <cite>— Adhar Limbu, Founder · Darjeeling Web Studio</cite>
-        <svg class="contact-mountain" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 100 L60 50 L110 75 L170 25 L230 60 L290 15 L350 45 L400 30 L400 100 Z" fill="white"/>
-          <path d="M170 25 L157 52 L183 52 Z" fill="white" opacity="0.5"/>
-          <path d="M290 15 L277 44 L303 44 Z" fill="white" opacity="0.4"/>
+        <svg class="contact-mountain" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="0,120 60,60 100,80 160,20 200,50 250,10 300,55 340,35 400,70 400,120" fill="rgba(192,57,43,0.15)" stroke="rgba(192,57,43,0.4)" stroke-width="1.5"/>
         </svg>
       </div>
     </div>
@@ -675,94 +808,92 @@
   <div class="footer-top">
     <div class="footer-brand">
       <img src="logo.png" alt="Darjeeling Web Studio" />
-      <p>Built in the Hills, for the World. We create modern websites and digital solutions for businesses in Darjeeling and the Himalayan region.</p>
+      <p>Modern websites and digital solutions for businesses in Darjeeling and the Himalayan region. Local roots. Global quality.</p>
       <div class="footer-social">
-        <a href="https://instagram.com/darjeelingwebstudio" target="_blank" rel="noopener" title="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-        <a href="https://facebook.com/share/1E5nsjLGAy/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        <a href="https://wa.me/917557061046" target="_blank" rel="noopener" title="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
-        <a href="mailto:hello@adharlimbu.online" title="Email">✉</a>
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://wa.me/917557061046" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-col">
-      <h4>Quick Links</h4>
+      <h4>Services</h4>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services">Website Design</a></li>
+        <li><a href="#services">Business Websites</a></li>
+        <li><a href="#services">Hotel & Homestay</a></li>
+        <li><a href="#services">SEO Optimization</a></li>
+        <li><a href="#services">Branding</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#process">Our Process</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="tel:+917557061046">+91 7557 061 046</a></li>
-        <li><a href="mailto:hello@adharlimbu.online">hello@adharlimbu.online</a></li>
-        <li><a href="https://adharlimbu.online" target="_blank" rel="noopener">adharlimbu.online</a></li>
-        <li><a href="https://gorkhatv.site" target="_blank" rel="noopener">GorkhaTV</a></li>
-        <li><a href="https://khabardarjeeling.space" target="_blank" rel="noopener">Khabar Darjeeling</a></li>
-      </ul>
-    </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 <strong>Darjeeling Web Studio</strong>. Built in the Hills, for the World.</p>
-    <p class="footer-copy" style="font-style:normal;">Darjeeling, West Bengal, India</p>
+    <p class="footer-copy">© 2026 <strong>Darjeeling Web Studio</strong>. Crafted with ♥ in the hills of Darjeeling.</p>
+    <p class="footer-copy" style="font-style:normal;">Made by <strong>Adhar Limbu</strong></p>
   </div>
 </footer>
 
 <script>
+  // NAV SCROLL + ACTIVE LINK
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(a => a.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    const sections = document.querySelectorAll('section[id]');
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
-  }, { threshold: 0.4 });
-  sections.forEach(s => navObserver.observe(s));
+  });
 
-  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
-  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
+  // HERO PARALLAX
+  const heroPhoto = document.getElementById('heroPhoto');
+  window.addEventListener('scroll', () => {
+    if (heroPhoto) heroPhoto.style.setProperty('--py', `${window.scrollY * 0.22}px`);
+  }, { passive: true });
 
-  const fadeObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+  // MOBILE MENU
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
-  function toggleFaq(btn) { const item = btn.parentElement; const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
+  // FAQ ACCORDION
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 
-  // ===== HERO PARALLAX (scroll + device tilt) =====
-  (function () {
-    const photo = document.getElementById('heroPhoto');
-    if (!photo) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-
-    let scrollY = 0, tiltY = 0, current = 0;
-
-    function onScroll() { scrollY = window.scrollY; }
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // subtle gyroscope parallax on mobile (optional, no permission prompt on Android)
-    window.addEventListener('deviceorientation', function (e) {
-      if (e.beta == null) return;
-      tiltY = Math.max(-12, Math.min(12, (e.beta - 45) * 0.3));
-    }, true);
-
-    function loop() {
-      // photo drifts up slower than scroll = parallax depth
-      const target = (scrollY * 0.18) - tiltY;
-      current += (target - current) * 0.08;
-      photo.style.setProperty('--py', current.toFixed(2) + 'px');
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-  })();
+  // SCROLL FADE-IN
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
