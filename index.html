@@ -277,32 +277,57 @@
     }
 
     /* PORTFOLIO */
-    #portfolio { background: var(--offblack); }
-    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    #portfolio { background: var(--offblack); position: relative; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.4rem; }
     .portfolio-card {
-      border-radius: 16px; overflow: hidden; position: relative; background: var(--charcoal);
-      border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 18px; overflow: hidden; position: relative; background: var(--charcoal);
+      border: 1px solid var(--border); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.5s ease, border-color 0.4s ease;
+      transform-style: preserve-3d; will-change: transform;
     }
     .portfolio-card:hover {
-      transform: translateY(-16px) scale(1.02) rotateX(3deg);
-      box-shadow: 0 28px 60px rgba(0,0,0,0.4), 0 0 40px rgba(192,57,43,0.15);
-      border-color: rgba(192,57,43,0.3);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 50px rgba(192,57,43,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+      border-color: rgba(192,57,43,0.35);
     }
     .portfolio-screenshot {
       width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top;
-      display: block; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: block; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .portfolio-card:hover .portfolio-screenshot { transform: scale(1.06); }
-    .portfolio-screenshot-wrap { position: relative; overflow: hidden; }
+    .portfolio-card:hover .portfolio-screenshot { transform: scale(1.07); }
+    .portfolio-screenshot-wrap { position: relative; overflow: hidden; background: #050505; }
+    .browser-chrome {
+      display: flex; align-items: center; gap: 0.55rem; padding: 0.6rem 0.85rem;
+      background: linear-gradient(180deg, #242424, #171717); border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative; z-index: 4;
+    }
+    .chrome-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .chrome-dot-red { background: #ff5f57; }
+    .chrome-dot-yellow { background: #febc2e; }
+    .chrome-dot-green { background: #28c840; }
+    .chrome-url {
+      margin-left: 0.5rem; flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 0.25rem 0.9rem; font-size: 0.68rem; color: var(--muted-light);
+      text-align: center; letter-spacing: 0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .portfolio-glow {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0;
+      background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(255,138,115,0.35), transparent 70%);
+      mix-blend-mode: overlay; transition: opacity 0.5s ease;
+    }
+    .portfolio-card:hover .portfolio-glow { opacity: 1; }
     .portfolio-mobile-wrap {
-      position: absolute; bottom: -10px; right: 16px; width: 80px; background: #1a1a1a;
-      border-radius: 12px; border: 2px solid rgba(255,255,255,0.15); overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4); opacity: 0; transform: translateY(20px) scale(0.8);
-      transition: opacity 0.4s, transform 0.4s;
+      position: absolute; bottom: -10px; right: 16px; z-index: 3; width: 84px; background: #0d0d0d;
+      border-radius: 16px; border: 2px solid rgba(255,255,255,0.18); overflow: hidden; padding-top: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5); opacity: 0; transform: translateY(22px) scale(0.8);
+      transition: opacity 0.45s, transform 0.45s;
+    }
+    .portfolio-mobile-wrap::before {
+      content: ''; position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+      width: 28px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25);
     }
     .portfolio-card:hover .portfolio-mobile-wrap { opacity: 1; transform: translateY(0) scale(1); }
     .portfolio-mobile-wrap img { width: 100%; display: block; }
-    .portfolio-info { padding: 1.2rem 1.4rem 1.4rem; }
+    .portfolio-info { padding: 1.2rem 1.4rem 1.4rem; position: relative; z-index: 3; }
     .portfolio-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.6rem; }
     .portfolio-tag {
       font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -336,18 +361,29 @@
     .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     .testimonial-card {
       background: var(--glass); border: 1px solid var(--border); border-radius: 14px;
-      padding: 2rem; transition: all 0.3s;
+      padding: 2rem; transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      position: relative; overflow: hidden;
     }
-    .testimonial-card:hover { border-color: rgba(192,57,43,0.2); transform: translateY(-4px); }
+    .testimonial-card:hover {
+      border-color: rgba(192,57,43,0.3); transform: translateY(-6px);
+      box-shadow: 0 22px 46px rgba(0,0,0,0.35), 0 0 30px rgba(192,57,43,0.12);
+    }
+    .testimonial-glow {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+      background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,138,115,0.3), transparent 70%);
+      mix-blend-mode: overlay; transition: opacity 0.5s ease;
+    }
+    .testimonial-card:hover .testimonial-glow { opacity: 1; }
     .testimonial-quote {
       font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic;
       color: var(--muted-light); line-height: 1.7; margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
     }
     .testimonial-quote::before {
       content: '"'; color: var(--red); font-size: 2rem; line-height: 0;
       vertical-align: -0.5rem; margin-right: 0.2rem;
     }
-    .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.8rem; position: relative; z-index: 1; }
     .testimonial-avatar {
       width: 40px; height: 40px; border-radius: 50%; background: var(--red-glass);
       border: 1px solid rgba(192,57,43,0.3); display: flex; align-items: center;
@@ -362,14 +398,25 @@
     .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; align-items: start; }
     .pricing-card {
       border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2rem;
-      background: var(--glass); position: relative; transition: all 0.3s;
+      background: var(--glass); position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     }
-    .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .pricing-card:hover {
+      transform: translateY(-8px); border-color: rgba(192,57,43,0.3);
+      box-shadow: 0 26px 55px rgba(0,0,0,0.35), 0 0 34px rgba(192,57,43,0.15);
+    }
     .pricing-card.featured {
       border-color: var(--red); background: linear-gradient(135deg, rgba(192,57,43,0.08), var(--glass));
     }
+    .pricing-glow {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; border-radius: 16px;
+      background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,138,115,0.28), transparent 70%);
+      mix-blend-mode: overlay; transition: opacity 0.5s ease;
+    }
+    .pricing-card:hover .pricing-glow { opacity: 1; }
+    .pricing-content { position: relative; z-index: 1; }
     .pricing-featured-label {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%); z-index: 2;
       background: var(--red); color: white; font-size: 0.65rem; font-weight: 700;
       letter-spacing: 0.15em; padding: 0.35rem 1rem; border-radius: 100px;
       text-transform: uppercase;
@@ -624,6 +671,7 @@
       .footer-top { grid-template-columns: 1fr; padding: 3rem 1.25rem 1.5rem; }
       .footer-bottom { flex-direction: column; text-align: center; padding: 1.2rem 1.25rem; }
       .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-mobile-wrap { opacity: 1; transform: translateY(0) scale(1); }
       .services-grid { grid-template-columns: 1fr; }
       .service-card:hover { transform: translateY(-6px); }
       .hero-photo { background-position: center 45%; }
@@ -822,6 +870,13 @@
       <!-- Card 1: GorkhaTV -->
       <div class="portfolio-card fade-up">
         <div class="portfolio-screenshot-wrap">
+          <div class="browser-chrome">
+            <span class="chrome-dot chrome-dot-red"></span>
+            <span class="chrome-dot chrome-dot-yellow"></span>
+            <span class="chrome-dot chrome-dot-green"></span>
+            <span class="chrome-url">gorkhatv.site</span>
+          </div>
+          <div class="portfolio-glow"></div>
           <img src="assets/gorkhatv-desktop.png" alt="GorkhaTV Desktop" class="portfolio-screenshot" />
           <div class="portfolio-mobile-wrap">
             <img src="assets/gorkhatv-mobile.png" alt="GorkhaTV Mobile" />
@@ -848,6 +903,13 @@
       <!-- Card 2: Khabar Darjeeling -->
       <div class="portfolio-card fade-up">
         <div class="portfolio-screenshot-wrap">
+          <div class="browser-chrome">
+            <span class="chrome-dot chrome-dot-red"></span>
+            <span class="chrome-dot chrome-dot-yellow"></span>
+            <span class="chrome-dot chrome-dot-green"></span>
+            <span class="chrome-url">khabardarjeeling.space</span>
+          </div>
+          <div class="portfolio-glow"></div>
           <img src="assets/khabar-desktop.png" alt="Khabar Darjeeling Desktop" class="portfolio-screenshot" />
           <div class="portfolio-mobile-wrap">
             <img src="assets/khabar-mobile.png" alt="Khabar Darjeeling Mobile" />
@@ -874,6 +936,13 @@
       <!-- Card 3: GorkhaReels -->
       <div class="portfolio-card fade-up">
         <div class="portfolio-screenshot-wrap">
+          <div class="browser-chrome">
+            <span class="chrome-dot chrome-dot-red"></span>
+            <span class="chrome-dot chrome-dot-yellow"></span>
+            <span class="chrome-dot chrome-dot-green"></span>
+            <span class="chrome-url">gorkha-reels · in development</span>
+          </div>
+          <div class="portfolio-glow"></div>
           <img src="assets/gorkha-reels-mobile.png" alt="GorkhaReels" class="portfolio-screenshot" />
           <div class="portfolio-mobile-wrap">
             <img src="assets/gorkha-reels-mobile.png" alt="GorkhaReels Mobile" />
@@ -911,6 +980,7 @@
     <p class="section-sub fade-up">Real feedback from real businesses in the hills.</p>
     <div class="testimonials-grid">
       <div class="testimonial-card fade-up">
+        <div class="testimonial-glow"></div>
         <p class="testimonial-quote">Our hotel bookings increased after the new website. Guests say they found us on Google — something that never happened before.</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar">🏨</div>
@@ -922,6 +992,7 @@
         </div>
       </div>
       <div class="testimonial-card fade-up">
+        <div class="testimonial-glow"></div>
         <p class="testimonial-quote">Professional, fast, and understood exactly what I needed. My portfolio now gets me freelance clients every month.</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar">🎨</div>
@@ -933,6 +1004,7 @@
         </div>
       </div>
       <div class="testimonial-card fade-up">
+        <div class="testimonial-glow"></div>
         <p class="testimonial-quote">They delivered within the deadline and the website looks better than anything I imagined. Highly recommended for Darjeeling businesses.</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar">🛍️</div>
@@ -958,53 +1030,62 @@
     <div class="pricing-grid">
 
       <div class="pricing-card fade-up">
-        <p class="pricing-name">Starter</p>
-        <p class="pricing-price"><sup>₹</sup>4,999<sub>/one-time</sub></p>
-        <p class="pricing-desc">Perfect for freelancers, portfolio sites, and small local businesses just getting online.</p>
-        <ul class="pricing-features">
-          <li>Single page website</li>
-          <li>Mobile responsive design</li>
-          <li>WhatsApp contact button</li>
-          <li>Basic SEO setup</li>
-          <li>1 round of revisions</li>
-          <li>Delivered in 5 days</li>
-        </ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Starter%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        <div class="pricing-glow"></div>
+        <div class="pricing-content">
+          <p class="pricing-name">Starter</p>
+          <p class="pricing-price"><sup>₹</sup>4,999<sub>/one-time</sub></p>
+          <p class="pricing-desc">Perfect for freelancers, portfolio sites, and small local businesses just getting online.</p>
+          <ul class="pricing-features">
+            <li>Single page website</li>
+            <li>Mobile responsive design</li>
+            <li>WhatsApp contact button</li>
+            <li>Basic SEO setup</li>
+            <li>1 round of revisions</li>
+            <li>Delivered in 5 days</li>
+          </ul>
+          <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Starter%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        </div>
       </div>
 
       <div class="pricing-card featured fade-up">
         <span class="pricing-featured-label">Most Popular</span>
-        <p class="pricing-name">Business</p>
-        <p class="pricing-price"><sup>₹</sup>9,999<sub>/one-time</sub></p>
-        <p class="pricing-desc">For shops, restaurants, hotels, and service businesses that want a serious online presence.</p>
-        <ul class="pricing-features">
-          <li>Multi-page website (up to 5 pages)</li>
-          <li>Custom design & branding</li>
-          <li>WhatsApp & contact form</li>
-          <li>Full SEO optimization</li>
-          <li>Google Maps integration</li>
-          <li>Image gallery</li>
-          <li>3 rounds of revisions</li>
-          <li>Delivered in 10 days</li>
-        </ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Business%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-solid">Get Started</a>
+        <div class="pricing-glow"></div>
+        <div class="pricing-content">
+          <p class="pricing-name">Business</p>
+          <p class="pricing-price"><sup>₹</sup>9,999<sub>/one-time</sub></p>
+          <p class="pricing-desc">For shops, restaurants, hotels, and service businesses that want a serious online presence.</p>
+          <ul class="pricing-features">
+            <li>Multi-page website (up to 5 pages)</li>
+            <li>Custom design & branding</li>
+            <li>WhatsApp & contact form</li>
+            <li>Full SEO optimization</li>
+            <li>Google Maps integration</li>
+            <li>Image gallery</li>
+            <li>3 rounds of revisions</li>
+            <li>Delivered in 10 days</li>
+          </ul>
+          <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Business%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-solid">Get Started</a>
+        </div>
       </div>
 
       <div class="pricing-card fade-up">
-        <p class="pricing-name">Premium</p>
-        <p class="pricing-price"><sup>₹</sup>19,999<sub>/one-time</sub></p>
-        <p class="pricing-desc">For hotels, established businesses, and anyone who wants a fully custom, high-performance web experience.</p>
-        <ul class="pricing-features">
-          <li>Everything in Business</li>
-          <li>Unlimited pages</li>
-          <li>Online booking / enquiry system</li>
-          <li>Blog or news section</li>
-          <li>Advanced SEO + speed optimization</li>
-          <li>Social media kit (logo + banners)</li>
-          <li>Unlimited revisions</li>
-          <li>1 month free support</li>
-        </ul>
-        <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Premium%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        <div class="pricing-glow"></div>
+        <div class="pricing-content">
+          <p class="pricing-name">Premium</p>
+          <p class="pricing-price"><sup>₹</sup>19,999<sub>/one-time</sub></p>
+          <p class="pricing-desc">For hotels, established businesses, and anyone who wants a fully custom, high-performance web experience.</p>
+          <ul class="pricing-features">
+            <li>Everything in Business</li>
+            <li>Unlimited pages</li>
+            <li>Online booking / enquiry system</li>
+            <li>Blog or news section</li>
+            <li>Advanced SEO + speed optimization</li>
+            <li>Social media kit (logo + banners)</li>
+            <li>Unlimited revisions</li>
+            <li>1 month free support</li>
+          </ul>
+          <a href="https://wa.me/917557061046?text=Hi!%20I'm%20interested%20in%20the%20Premium%20plan." target="_blank" rel="noopener" class="pricing-btn pricing-btn-outline">Get Started</a>
+        </div>
       </div>
 
     </div>
@@ -1261,6 +1342,39 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // PORTFOLIO 3D TILT
+  const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (canTilt) {
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const rx = (0.5 - py) * 12;
+        const ry = (px - 0.5) * 14;
+        card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-12px) scale3d(1.015,1.015,1.015)`;
+        card.style.setProperty('--mx', `${px * 100}%`);
+        card.style.setProperty('--my', `${py * 100}%`);
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // GLOW-ONLY SPOTLIGHT (testimonials, pricing)
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover) {
+    document.querySelectorAll('.testimonial-card, .pricing-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+        card.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+      });
+    });
+  }
 </script>
 </body>
 </html>
